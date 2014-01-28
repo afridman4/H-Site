@@ -62,7 +62,7 @@
             </tr>
 
             <tr>
-                <td><label class="required" for="inpPlanShortDescription">ShortDescription</label></td>
+                <td><label class="required" for="inpPlanShortDescription">Short Description</label></td>
                 <td><textarea
                         class="k-textbox"
                         name="inpPlanShortDescription"
@@ -82,22 +82,6 @@
                         class="k-textbox"
                         data-bind="value: plan.website"
                         placeholder="Enter website"
-                        /></td>
-            </tr>
-
-            <tr>
-                <td><label class="required" for="inpPlanRating">Rating</label></td>
-                <td><input
-                        type="text"
-                        name="inpPlanRating"
-                        id="inpPlanRating"
-                        data-role="numerictextbox"
-                        data-format="n0"
-                        data-bind="value: plan.generalrating"
-                        placeholder="Enter plan rating"
-                        max="100"
-                        step="5"
-                        min="0"
                         /></td>
             </tr>
 
@@ -1140,7 +1124,8 @@ $(document).ready(function(){
             short_description: "",
             website: "",
             generalrating: 0,
-            advprice: 0
+            advprice: 0,
+            numberofreviews: 0
         },
 
         // Обработчкики событий
@@ -1164,7 +1149,9 @@ $(document).ready(function(){
                         planname: this.get('plan.planname'),
                         description: this.get('plan.description'),
                         short_description: this.get('plan.short_description'),
-                        advprice: this.get('plan.advprice')
+                        advprice: this.get('plan.advprice'),
+                        numberofreviews: this.get('plan.numberofreviews'),
+                        generalrating: this.get('plan.generalrating')
                     }),
                     beforeSend: function(){
                         // показываем индикатор запроса
@@ -1221,6 +1208,7 @@ $(document).ready(function(){
                 short_description: "",
                 website: "",
                 generalrating: 0,
+                numberofreviews: 0,
                 advprice: 0
             });
 
@@ -1252,6 +1240,7 @@ $(document).ready(function(){
             short_description: row.short_description,
             website: row.website,
             generalrating: row.generalrating,
+            numberofreviews: row.numberofreviews,
             advprice: row.advprice
         });
 

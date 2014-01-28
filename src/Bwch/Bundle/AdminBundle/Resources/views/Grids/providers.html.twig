@@ -148,7 +148,12 @@
 
             <tr>
                 <td><label>Rating</label></td>
-                <td><span data-bind="text: provider.rating"></span></td>
+                <td><span data-bind="text: provider.generalrating"></span></td>
+            </tr>
+
+            <tr>
+                <td><label>Reviews</label></td>
+                <td><span data-bind="text: provider.numberofreviews"></span></td>
             </tr>
 
             <tr>
@@ -330,7 +335,8 @@
             country: "",
             website: "",
             phonenumbers: "",
-            rating: 0,
+            generalrating: 0,
+            numberofreviews: 0,
             description: ""
         },
 
@@ -360,7 +366,9 @@
                         country: this.get('provider.country'),
                         website: this.get('provider.website'),
                         phonenumbers: this.get('provider.phonenumbers'),
-                        description: this.get('provider.description')
+                        description: this.get('provider.description'),
+                        generalrating: this.get('provider.generalrating'),
+                        numberofreviews: this.get('provider.numberofreviews')
                     }),
                     beforeSend: function(){
                         // показываем индикатор запроса
@@ -416,7 +424,8 @@
             country: "",
             website: "",
             phonenumbers: "",
-            rating: 0,
+            generalrating: 0,
+            numberofreviews: 0,
             description: ""
         });
 
@@ -449,7 +458,8 @@
             country: row.country,
             website: row.website,
             phonenumbers: row.phonenumbers,
-            rating: row.rating,
+            numberofreviews: row.numberofreviews,
+            generalrating: row.generalrating,
             description: row.description
         });
 

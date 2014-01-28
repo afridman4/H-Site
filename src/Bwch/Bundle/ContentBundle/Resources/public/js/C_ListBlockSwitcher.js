@@ -116,7 +116,7 @@
 
                 // TODO продумать как лучше вызывать этот пересчет. Первичная инициализация у нас в E_Main
                 /*HERMiT*/
-                jQuery(".class_div___InputFieldWithSlider").each(function(integer___index,object_dom___element)
+                jQuery(".class_div___component-InputFieldWithSlider").each(function(integer___index,object_dom___element)
                 {
                     var object___configuration=array_object___configuration[integer___index]||array_object___configuration[0];
                     object___configuration.object_dom___component=object_dom___element;

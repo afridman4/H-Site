@@ -1,0 +1,147 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Search Result
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main" id="id_div___element-Main">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class___float__right
+								class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__right">
+                    {# ======== Banner section START ======== #}
+                    <div>
+                        {{ render(controller('BwchContentBundle:Banner:fiveBanners')) }}
+                    </div>
+                    {# ======== Banner section END ======== #}
+                </div>
+                <div class="class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__center">
+
+                    <div style="padding:0 10px 16px 0;">
+
+                        <h1 style="margin:0 0 12px 0;">Search for {{ htype.display_name }}</h1>
+
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="width:225px;background:url(/images/shared/separator/3x1/grey_gradient.png) right top repeat-y;">
+                                    <div class="class_div___element-SearchCriteria">
+                                        <h2>You search criteria</h2>
+
+                                        <div class="class_div___component-ScrollableContainer
+                                                    class_div___component-ScrollableContainer-vertical_scrollbar_style__w6_grey
+                                                    class_div___component-ScrollableContainer__HostingPlanFeatures"
+                                             id="id_div___component-ScrollableContainer__search_criteria">
+
+                                            {# ======== Search Form section START ======== #}
+                                            <div class="class_div___element-ScrollableContainer">
+                                                <div>
+                                                    {{ render(controller('BwchContentBundle:Feature:searchForm', {
+                                                    'currentRoute': currentRoute,
+                                                    'parameters': parameters,
+                                                    'htype': htype.name
+                                                    })) }}
+                                                </div>
+                                            </div>
+                                            {# ======== Search Form section END ======== #}
+                                            {{ include('BwchContentBundle:Common:scrollbar.html.twig') }}
+                                        </div>
+                                        <div style="margin:10px 10px 0 0;">
+                                            <table class="class___component-Button
+                                                        class_table___component-Button
+                                                        class___width__100
+                                                        class___component-Button__h40_green1
+                                                        class___component-Button-dimensions__h40
+                                                        class___component-Button-style__green1"
+                                                   id="searchButton">
+                                                <tr>
+                                                    <td>
+                                                        <i><b><s><u>New Search</u></s></b></i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td>
+                                    <div style="padding:0 0 0 10px">
+                                        <div class="class___element-Frame-style__1">
+                                            <h2>Popular Offers: {{ htype.display_name }}</h2>
+                                        </div>
+
+                                        {# ======== Plans search results section START ======== #}
+                                        {% if plans is empty %}
+                                            Sorry, there is no plans to meet your criteria. Change the conditions and try again, please.
+                                        {% endif %}
+                                        {% for plan in plans %}
+                                        <div style="padding:10px 8px;border:1px solid #e5e5e5;border-top:none;">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td style="font-family:HelveticaNeue;">
+                                                        <div style="padding:0px 0 0;">
+                                                            <b style="font-family:HelveticaNeue-Bold;font-size:14px;">{{ plan.planname }}</b> {{ plan.description }}
+                                                            {% if plan.generalrating is not defined %}
+                                                                {%  set generalRating = 0 %}
+                                                            {% else %}
+                                                                {% set generalRating = plan.generalrating %}
+                                                            {% endif %}
+                                                            {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:70px;font-family:HelveticaNeue-Bold;font-size:14px;line-height:38px;text-align:center;">{% if plan.advprice is defined and plan.advprice > 0 %}${{ plan.advprice }}{% endif %}</td>
+                                                    <td style="width:110px;">
+                                                        <table class="class___component-Button
+                                                                    class_table___component-Button
+                                                                    class___width__100
+                                                                    class___component-Button__h40_green1
+                                                                    class___component-Button-dimensions__h40
+                                                                    class___component-Button-style__green1"
+                                                                onclick="location.href='{{ path('bwch_plan_details', {'provider': plan.provider, 'planname': plan.planname}) }}'">
+                                                            <tr>
+                                                                <td style="vertical-align:middle;">
+                                                                    <i><b><s><u>Select</u></s></b></i>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        {% endfor %}
+                                        {# ======== Plans search results section END ======== #}
+
+                                        <div style="margin:25px 0 0;padding:10px 0 0;border-top:1px solid #cdcece;font-family:HelveticaNeue-Bold;font-size:13px;">
+                                            <p style="padding:0 0 10px;">&nbsp;</p>
+                                        </div>
+
+                                        {# ======== Reviews section START ======== #}
+                                        {{ render(controller('BwchContentBundle:Review:recentReviews', {
+                                        'max': 3, 'currentRoute': currentRoute
+                                        })) }}
+                                        {# ======== Reviews section END ======== #}
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="class_div___element-Separator-type__clear_both"></div>
+                </div>
+            </div>
+        </div>
+
+    {% include 'footer.html.twig' %}
+</div>
+
+{% endblock %}

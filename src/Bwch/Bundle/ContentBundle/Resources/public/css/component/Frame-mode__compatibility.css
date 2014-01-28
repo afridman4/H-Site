@@ -1,0 +1,38 @@
+	
+	.class___component-Frame 
+		.class___element-position__top 
+			tt,
+	.class___component-Frame 
+		.class___element-position__bottom 
+			tt
+	{
+		display:block;
+	}	
+	
+	
+	.class___component-Frame 
+		.class___element-position__top 
+			sup,
+	.class___component-Frame 
+		.class___element-position__bottom 
+			sup
+	{
+		float:left;
+	}
+	.class___component-Frame 
+		.class___element-position__top 
+			sub,
+	.class___component-Frame 
+		.class___element-position__bottom 
+			sub
+	{
+		float:right;
+	}
+	
+	
+	
+	
+	
+	
+	
+	

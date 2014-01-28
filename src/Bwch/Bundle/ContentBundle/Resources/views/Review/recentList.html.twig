@@ -1,0 +1,89 @@
+<div class="class_div___element-Reviews{% if currentRoute == 'bwch_submit_review' %} class_div___element-ReviewsWithoutPaginator{% endif %}">
+    <table class="class___width__100"{% if currentRoute == 'bwch_search' %}{% endif %}>
+        <tr>
+            <td style="width:50%;">
+                <h2>Reviews</h2>
+            </td>
+            <td>
+                {% if currentRoute != 'bwch_submit_review' %}
+                <table class="class___component-Button
+                            class_table___component-Button
+                            class___component-Button__h40_green1
+                            class___component-Button-dimensions__h40
+                            class___component-Button-style__green1
+                            class___margin__0_0_0_auto"
+                       onclick="location.href='{{ path('bwch_submit_review', {'provider': provider, 'planname': planname}) }}'"
+                        >
+                    <tr>
+                        <td>
+                            <i><b><s><u>Write a review</u></s></b></i>
+                        </td>
+                    </tr>
+                </table>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    {% if reviews|length > 0 %}
+
+    <div class="class___element-Frame-style__1">
+
+        <div id="id_div___component-PageViewer__LatestReviews">
+            {% for review in reviews %}
+            <div class="class_div___element-Reviews--item
+            {% if not loop.first and currentRoute != 'bwch_submit_review' %} class___display__none{% endif %}
+            {% if loop.index == loop.length and currentRoute == 'bwch_submit_review' %} class___element-ordinal_position__last{% endif %}
+            ">
+                <h3>{{ review.author }}</h3>
+                <h4>{{ review.provider }}</h4>
+                <table class="class_table___element-Rating-position__inline_block-stye__12x12">
+                    <tr>
+                        <th>
+                        {% if review.plan is defined and review.plan|length > 0 %}
+                            <a href="{{ path('bwch_plan_details', {'provider': review.provider, 'planname': review.plan}) }}">{{ review.plan }}</a>
+                        {% else %}
+                            Review on provider
+                        {% endif %}
+                        </th>
+                        <td>
+                            {% if review.generalratings is not defined %}
+                                {%  set generalRating = 0 %}
+                            {% else %}
+                                {% set generalRating = review.generalratings %}
+                            {% endif %}
+                            {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                        </td>
+                    </tr>
+                </table>
+                <p><a href="{{ path('bwch_view_review', {'id': review._id}) }}">{{ review.text }}</a></p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if currentRoute != 'bwch_submit_review' %}
+        {% set size = reviews | length %}
+        <table class="class_table___component-Paginator
+                        class_table___component-Paginator-type__unordered
+                        class___margin__10px_auto_0
+                        class_table___component-Paginator-type__unordered-position__horizontal"
+               id="id_table___component-Paginator__LatestReviews">
+            <tr>
+                <td>
+                    <div class="class_div___element-Paginator--control class_div___element-Paginator--control__show_previous_page"><sup><sub></sub></sup></div>
+                    <div class="class_div___element-Paginator--navigation_items">
+                        {% for idx in 0 .. size - 1 %}
+                        <div class="class_div___element-Paginator--navigation_items--item">
+                            <div{% if not idx %} class="class___element-status__selected"{% endif %}></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="class_div___element-Paginator--control class_div___element-Paginator--control__show_next_page"><sup><sub></sub></sup></div>
+                </td>
+            </tr>
+        </table>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+

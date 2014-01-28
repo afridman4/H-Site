@@ -1,0 +1,30 @@
+
+	.class_div___element-AccountDetails 
+		.class_div___element-Form
+	{
+		width:400px;
+		margin:0;
+	}
+	
+	.class_div___element-AccountDetails--item
+	{
+		padding:0 0 30px 0;
+	}
+	
+	.class_div___element-AccountDetails 
+		.class_div___element
+	{
+		
+	}
+	
+	.class_div___element-AccountDetails 
+		.class_table___element
+	{
+		margin:0 0 10px 0;
+	}
+	.class_div___element-AccountDetails 
+		.class_table___element 
+			th
+	{
+		width:20px;
+	}

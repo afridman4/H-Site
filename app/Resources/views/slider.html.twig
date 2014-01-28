@@ -1,0 +1,33 @@
+<div class="class_div___element-HomePageMainNavigation">
+    <div class="class_div___element-HomePageMainNavigation--main">
+        <div class="class_div___element-HomePageMainNavigation--title">
+            Compare hundreds of hosting offers at once and find best plan that fits your needs. We are here around the clock to help you.
+        </div>
+        <div class="class_div___component
+                    class_div___component-FramesScroller"
+             id="id_div___component-FramesScroller">
+
+            <div class="class_div___element-FramesScroller--control
+				class_div___element-FramesScroller--control__scroll_to_left"><div></div></div>
+
+            <div class="class_div___element-FramesScroller--items">
+                <table class="class_table___element-FramesScroller--items">
+                    <tr>
+                        {% for htype in htypes %}
+                            <td>
+                                <a href="{{ path('bwch_search_web', {'htype': htype.name}) }}" title="{% if htype.short_name is defined %}{{  htype.short_name }}{% else %}{{  htype.display_name }}{% endif %}">
+                                    <img alt="" src="/images/htypes/{% if file_exists('images/htypes/' ~ htype.name ~ '.png') %}{{ htype.name }}{% else %}default{% endif %}.png"/>
+                                    <span>{% if htype.short_name is defined %}{{  htype.short_name }}{% else %}{{  htype.display_name }}{% endif %}</span>
+                                </a>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+
+            <div class="class_div___element-FramesScroller--control
+				class_div___element-FramesScroller--control__scroll_to_right"><div></div></div>
+            <div class="class_div___element-Separator-type__clear_both"></div>
+        </div>
+    </div>
+</div>

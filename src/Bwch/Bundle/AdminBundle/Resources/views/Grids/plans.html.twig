@@ -1,0 +1,1318 @@
+{#Plan Toolbar#}
+<script type="text/x-kendo-template" id="tplPlansToolbar">
+    <div class="toolbar">
+        <label class="category-label" for="htype">HType:</label>
+        <input type="search" id="htype" style="width: 150px"/>
+        <label class="category-label" for="provider">Provider:</label>
+        <input type="search" id="provider" style="width: 150px"/>
+        <a id="btnAddPlan" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add plan
+        </a>
+        <a id="btnEditPlan" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit plan
+        </a>
+        <a id="btnRemovePlan" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove plan
+        </a>
+        <a id="btnRefreshPlan" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+{#Окно с деталями Plan#}
+<div id="wndPlan" style="padding: 20px; display:none;">
+
+    <div id="planForm" class="plan-popup-form">
+        <table>
+            <tr>
+                <td><label>HType</label></td>
+                <td><span data-bind="text: plan.htype"></span></td>
+            </tr>
+            <tr>
+                <td><label>Provider</label></td>
+                <td><span data-bind="text: plan.provider"></span></td>
+            </tr>
+            <tr>
+                <td><label class="required" for="inpPlanName">Name</label></td>
+                <td><input
+                        type="text"
+                        name="inpPlanName"
+                        id="inpPlanName"
+                        class="k-textbox"
+                        data-bind="value: plan.planname"
+                        maxlength="255"
+                        required=""
+                        placeholder="Enter plan name"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpPlanDescription">Description</label></td>
+                <td><textarea
+                            class="k-textbox"
+                            name="inpPlanDescription"
+                            id="inpPlanDescription"
+                            data-bind="value: plan.description"
+                            style="width:100%;height:200px"
+                            ></textarea></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpPlanShortDescription">ShortDescription</label></td>
+                <td><textarea
+                        class="k-textbox"
+                        name="inpPlanShortDescription"
+                        id="inpPlanShortDescription"
+                        data-bind="value: plan.short_description"
+                        style="width:100%;height:200px"
+                        ></textarea></td>
+            </tr>
+
+
+            <tr>
+                <td><label class="required" for="inpPlanWebsite">WEB Site</label></td>
+                <td><input
+                        type="text"
+                        name="inpPlanWebSite"
+                        id="inpPlanWebSite"
+                        class="k-textbox"
+                        data-bind="value: plan.website"
+                        placeholder="Enter website"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpPlanRating">Rating</label></td>
+                <td><input
+                        type="text"
+                        name="inpPlanRating"
+                        id="inpPlanRating"
+                        data-role="numerictextbox"
+                        data-format="n0"
+                        data-bind="value: plan.generalrating"
+                        placeholder="Enter plan rating"
+                        max="100"
+                        step="5"
+                        min="0"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpPlanAdvPrice">Adv price</label></td>
+                <td><input
+                        name="inpPlanAdvPrice"
+                        id="inpPlanAdvPrice"
+                        data-role="numerictextbox"
+                        data-format="n2"
+                        data-bind="value: plan.advprice"
+                        max="99999"
+                        step="10"
+                        min="0"
+                        /></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="k-button" data-bind="click: savePlan">Save</button>
+        <button type="submit" class="k-button" data-bind="click: cancelPlan">Cancel</button>
+    </div>
+
+</div>
+
+{#Шаблон для внутреннего грида#}
+<script type="text/x-kendo-template" id="tplPlanDetail">
+    <div class="tabstrip">
+    <ul>
+        <li class="k-state-active">Prices</li>
+        <li>Features</li>
+    </ul>
+    <div class="priceTab">
+        {#Окно с деталями Price#}
+        <div id="wndPrice#= _id #" class="priceWindow" style="padding: 20px; display:none;">
+            <div id="priceForm" class="price-popup-form">
+                <table>
+                    <tr>
+                        <td><label class="required" for="inpPriceCurrency">Currency</label></td>
+                        <td><input
+                                    type="text"
+                                    name="inpPriceCurrency"
+                                    id="inpPriceCurrency"
+                                    class="k-textbox"
+                                    data-bind="value: price.currency"
+                                    maxlength="255"
+                                    required=""
+                                    placeholder="Enter price code"
+                                    /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="required" for="inpPriceTimeUnit">Time Unit</label></td>
+                        <td>
+                            <select
+                                    data-bind="source: price.timeunits, value: price.timeunit"
+                                    name="inpPriceTimeUnit"
+                                    id="inpPriceTimeUnit"
+                            ></select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="required" for="inpPriceUnit">Unit</label></td>
+                        <td><input
+                                    type="text"
+                                    name="inpPriceUnit"
+                                    id="inpPriceUnit"
+                                    class="k-textbox"
+                                    data-bind="value: price.unit"
+                                    maxlength="255"
+                                    /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="required" for="inpPriceNumberTimeUnit">Number Timeunit</label></td>
+                        <td><input
+                                    type="text"
+                                    name="inpPriceNumberTimeUnit"
+                                    id="inpPriceNumberTimeUnit"
+                                    data-role="numerictextbox"
+                                    data-format="n0"
+                                    data-bind="value: price.number_timeunit"
+                                    max="100"
+                                    step="5"
+                                    min="0"
+                                    /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="required" for="inpPricePrice">Price</label></td>
+                        <td><input
+                                    name="inpPricePrice"
+                                    id="inpPricePrice"
+                                    data-role="numerictextbox"
+                                    data-format="n2"
+                                    data-bind="value: price.price"
+                                    max="99999"
+                                    step="10"
+                                    min="0"
+                                    /></td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="k-button" data-bind="click: savePrice">Save</button>
+                <button type="submit" class="k-button" data-bind="click: cancelPrice">Cancel</button>
+            </div>
+        </div>
+
+        <div class="k-toolbar k-grid-toolbar">
+            <a id="btnAddPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-add" data-bind="click: addPrice">
+                <span class="k-icon k-add"></span>
+                Add price
+            </a>
+{#            <a id="btnEditPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-edit-row" data-bind="click: editPrice">
+                <span class="k-icon k-edit"></span>
+                Edit price
+            </a>#}
+            <a id="btnRemovePrice#= _id #" href="##" class="k-button k-button-icontext k-grid-delete" data-bind="click: removePrice">
+                <span class="k-icon k-delete"></span>
+                Remove price
+            </a>
+            <a id="btnSavePrice#= _id #" href="##" class="k-button k-button-icontext k-grid-save" data-bind="click: savePrices">
+                <span class="k-icon k-update"></span>
+                Save prices to plan
+            </a>
+            <a id="btnRefreshPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-update" data-bind="click: refreshPrice">
+                <span class="k-icon k-i-refresh"></span>
+                Refresh grid
+            </a>
+        </div>
+        <div class="classPrices"></div>
+    </div>
+    <div class="featureTab">
+        {#Окно с деталями Feature#}
+        <div id="wndFeature#= _id #" class="featureWindow" style="padding: 20px; display:none;">
+            <div id="featureForm" class="feature-popup-form">
+                <label class="required" for="inpFeatureName">Feature</label>
+                <select name="inpFeatureName"
+                            id="inpFeatureName"
+                            data-role="dropdownlist"
+                            data-text-field="name"
+                            data-value-field="name"
+                            data-option-label="Select Feature"
+                            data-bind="source: feature.features, value: feature.name, events:{change: featureListChange}">
+                </select>
+
+                <div id="divQuantifiable" class="class_features class_type_int" style="width: 250px;">
+                    <div>
+                    <label class="required" for="inpFeatureQuantifiableValue">Quantifiable:</label>
+                    <input
+                            name="inpFeatureQuantifiableValue"
+                            id="inpFeatureQuantifiableValue"
+                            data-role="numerictextbox"
+                            />
+                </div>
+                    <div class="class_features class_type_int_unlimited" >
+                        <label class="required" for="inpFeatureUnlimited">Unlimited:</label>
+                        <input
+                                name="inpFeatureUnlimited"
+                                id="inpFeatureUnlimited"
+                                type="checkbox"
+                                />
+                    </div>
+                </div>
+
+                <div id="divSingleChoice" class="class_features class_type_single" style="width: 250px;">
+                    <label class="required" for="inpFeatureSingleChoice">Single choice:</label>
+                    <select
+                            name="inpFeatureSingleChoice"
+                            id="inpFeatureSingleChoice"
+                            data-role="dropdownlist"
+                            data-text-field="text"
+                            data-value-field="value"
+                            data-bind="source: feature.multiplevalues"
+                           >
+                    </select>
+                </div>
+
+                <div id="divMultipleChoice" class="class_features class_type_multiple" style="width: 250px;">
+                    <label class="required" for="inpFeatureMultiplieChoice">Multiple choice:</label>
+                    <select
+                            name="inpFeatureMultiplieChoice"
+                            id="inpFeatureMultiplieChoice"
+                            multiple="multiple"
+                            >
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="k-button" data-bind="click: saveFeature">Save</button>
+                <button type="submit" class="k-button" data-bind="click: cancelFeature">Cancel</button>
+            </div>
+        </div>
+
+        <div class="k-toolbar k-grid-toolbar">
+            <a id="btnAddFeature#= _id #" href="##" class="k-button k-button-icontext k-grid-add" data-bind="click: addFeature">
+                <span class="k-icon k-add"></span>
+                Add feature
+            </a>
+{#            <a id="btnEditFeature#= _id #" href="##" class="k-button k-button-icontext k-grid-edit-row" data-bind="click: editFeature">
+                <span class="k-icon k-edit"></span>
+                Edit feature
+            </a>#}
+            <a id="btnRemoveFeature#= _id #" href="##" class="k-button k-button-icontext k-grid-delete" data-bind="click: removeFeature">
+                <span class="k-icon k-delete"></span>
+                Remove feature
+            </a>
+            <a id="btnSaveFeature#= _id #" href="##" class="k-button k-button-icontext k-grid-save" data-bind="click: saveFeatures">
+                <span class="k-icon k-update"></span>
+                Save features to plan
+            </a>
+            <a id="btnRefreshFeature#= _id #" href="##" class="k-button k-button-icontext k-grid-update" data-bind="click: refreshFeature">
+                <span class="k-icon k-i-refresh"></span>
+                Refresh grid
+            </a>
+        </div>
+        <div class="classFeatures"></div>
+    </div>
+</script>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    var featuresListDataSource = new kendo.data.DataSource({
+        transport: {
+            read: {
+                type: "POST",
+                dataType: "json",
+                data: {
+                    htype: ''
+                },
+                url: "/ajax/getFeatures"
+            }
+        },
+        schema: {
+            type: "json",
+            data: function(response) {
+                return response.data.data;
+            }
+        }
+    });
+
+    var gridPrices, gridFeatures;
+
+    var gridPlans = $("#gridPlans").kendoGrid({
+        autoBind: false,
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        provider: '',
+                        htype: ''
+                    },
+                    url: "/ajax/getPlans"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    id: 'plans',
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        htype: { type: "string" },
+                        provider: { type: "string" },
+                        planname: { type: "string" },
+                        description: { type: "string" },
+                        short_description: { type: "string" },
+                        website: { type: "string" },
+                        generalrating: { type: "number" },
+                        numberofreviews: { type: "number" },
+                        advprice: { type: "nunber" }
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplPlansToolbar").html()),
+        detailTemplate: kendo.template($("#tplPlanDetail").html()),
+        detailInit: detailExpand,
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "htype",
+                title: "<center>HType</center>",
+                template: '<span style="float:left">#= htype #</span>'
+            },
+            {
+                field: "provider",
+                title: "<center>Provider</center>",
+                template: '<span style="float:left">#= provider #</span>'
+            },
+            {
+                field: "planname",
+                title: "<center>Name</center>",
+                template: '<span style="float:left">#= planname #</span>'
+            },
+            {
+                field: "description",
+                title: "<center>Description</center>",
+                template: '<span style="float:left">#= description #</span>',
+                width: 400
+            },
+            {
+                field: "short_description",
+                title: "<center>Short Description</center>",
+                template: '<span style="float:left">#= short_description #</span>',
+                width: 200
+            },
+            {
+                field: "website",
+                title: "<center>WEB Site</center>",
+                template: '<span style="float:left">#= website #</span>'
+            },
+            {
+                field: "generalrating",
+                title: "<center>Rating</center>",
+                template: '<span style="float:left">#= generalrating #</span>'
+            },
+            {
+                field: "numberofreviews",
+                title: "<center>Reviews</center>",
+                template: '<span style="float:left">#= numberofreviews #</span>'
+            },
+            {
+                field: "advprice",
+                title: "<center>Adv. price</center>",
+                template: '<span style="float:left">#= advprice #</span>'
+            }
+
+        ]
+    }).data("kendoGrid");
+
+    // Детальный грид Персональные данные, Счета, История входов
+    function detailExpand(e) {
+        detailRow = e.detailRow;
+        detailRowData = e.data;
+        $.masterRow = e.masterRow;
+
+        featuresListDataSource.transport.options.read.data['htype'] = detailRowData.htype;
+        featuresListDataSource.read();
+
+        // Инициализация Табулятора
+        //*******************************************
+        detailRow.find(".tabstrip").kendoTabStrip({
+            animation: {
+                open: { effects: "fadeIn" }
+            }
+        });
+
+        // ==============================================
+        // Блок для обработки Price
+        // ==============================================
+        var priceTab = detailRow.find(".priceTab"),
+            priceWindow = detailRow.find(".priceWindow"),
+            featureTab = detailRow.find(".featureTab"),
+            featureWindow = detailRow.find(".featureWindow"),
+            windowFeature = null,
+            windowPrice = null,
+            multiChoice = null,
+            singleChoice = null,
+            intChoice = null,
+            isUnlimited = null;
+
+        var priceViewModel = kendo.observable({
+            // хранилище для полей формы
+            price: {
+                currency: "",
+                timeunit: "",
+                timeunits: ["month", "year"],
+                unit: "",
+                number_timeunit: 0,
+                price: 0,
+                idx: 0
+            },
+
+            addPrice: function (e) {
+
+                e.preventDefault();
+
+                // присваеваем форме значения по умолчанию
+                this.set("price", {
+                    currency: 'USD',
+                    timeunit: 'month',
+                    timeunits: ["month", "year"],
+                    unit: 'ALL',
+                    number_timeunit: 1,
+                    price: 0,
+                    idx: ''
+                });
+
+                windowPrice = priceWindow.kendoWindow({
+                    title: "Price details",
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    height: 450
+                }).data("kendoWindow").center().open();
+
+            },
+
+            editPrice: function (e) {
+
+                e.preventDefault();
+
+                var row =  gridPrices.dataItem(gridPrices.select());
+
+                if (typeof(row) == 'undefined') {
+                    alert('Please select Price from grid first.');
+                    return ;
+                }
+
+                // присваеваем форме значения из записи
+                this.set("price", {
+                    currency: row.currency,
+                    timeunit: row.timeunit,
+                    unit: row.unit,
+                    number_timeunit: row.number_timeunit,
+                    price: row.price,
+                    idx: row.uid
+                });
+
+                windowPrice = priceWindow.kendoWindow({
+                    title: "Price details",
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    height: 450
+                }).data("kendoWindow").center().open();
+
+            },
+
+            removePrice: function (e) {
+
+                e.preventDefault();
+
+                var row =  gridPrices.dataItem(gridPrices.select());
+
+                if (typeof(row) == 'undefined') {
+                    alert('Please select Price from grid first.');
+                    return ;
+                }
+
+                gridPrices.dataSource.remove(gridPrices.dataSource.getByUid(row.uid));
+            },
+
+            refreshPrice: function (e) {
+
+                e.preventDefault();
+
+                gridPrices.dataSource.read();
+
+            },
+
+            savePrice: function (e) {
+
+                e.preventDefault();
+
+                var idx = this.get('price.idx');
+
+                // Если idx не пустой - значит было редактирование.
+                if (idx != '') {
+                    gridPrices.dataSource.remove(gridPrices.dataSource.getByUid(idx));
+                }
+
+                gridPrices.dataSource.add({
+                    currency: this.get('price.currency'),
+                    timeunit: this.get('price.timeunit'),
+                    unit: this.get('price.unit'),
+                    number_timeunit: this.get('price.number_timeunit'),
+                    price: this.get('price.price')
+
+                });
+
+                windowPrice.close();
+            },
+
+            cancelPrice: function (e) {
+
+                e.preventDefault();
+                windowPrice.close();
+            },
+
+            savePrices: function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/ajax/savePlanPrices",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        provider: detailRowData.provider,
+                        planname: detailRowData.planname,
+                        prices: gridPrices.dataSource.data().toJSON()
+                    }),
+                    beforeSend: function(){
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+                    },
+                    complete: function () {
+                    }
+
+                });
+
+            }
+
+
+        });
+        kendo.bind(priceTab, priceViewModel);
+
+        var featureViewModel = kendo.observable({
+
+            // хранилище для полей формы
+            feature: {
+                features: featuresListDataSource,
+                multiplevalues: new kendo.data.ObservableArray([{ "text": "text",  "value": 9}]),
+                name: '',
+                value: [],
+                idx: 0,
+                selectedFeature: null
+            },
+
+            featureListChange: function () {
+                var features = featuresListDataSource.view(),
+                    selectedFeature;
+                for(var i=0; i<features.length; i++) {
+                    if (features[i]['name'] == this.feature.name) {
+                        selectedFeature = features[i];
+                        break;
+                    }
+                }
+
+                $(".class_features").hide();
+                if (selectedFeature.type == "int") {
+                    $(".class_type_int").show();
+                    if (selectedFeature.hasunlimited == true)
+                        $(".class_type_int_unlimited").show();
+
+                    // Setting default values
+                    intChoice.min(selectedFeature.minvalue);
+                    intChoice.max(selectedFeature.maxvalue);
+                    intChoice.value(selectedFeature.defaultvalue);
+                } else if (selectedFeature.type == 'multiple') {
+
+                    var array = new kendo.data.ObservableArray([]);
+                    $.each(selectedFeature.values, function(key, value) {
+                        array.push({ text: value, value: value });
+                    })
+                    this.feature.multiplevalues = array;
+
+                    if (selectedFeature.ismultiple) {
+                        multiChoice.setDataSource(this.feature.multiplevalues);
+                        $(".class_type_multiple").show();
+                    } else {
+                        singleChoice.setDataSource(this.feature.multiplevalues);
+                        $(".class_type_single").show();
+                    }
+                }
+
+                this.feature.selectedFeature = selectedFeature;
+
+            },
+
+
+            addFeature: function (e) {
+
+                e.preventDefault();
+
+                if (!multiChoice) {
+                    multiChoice = $("#inpFeatureMultiplieChoice").kendoMultiSelect({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: this.feature.multiplevalues,
+                        index: 0,
+                        height: 450
+                    }).data("kendoMultiSelect");
+                }
+
+                if (!singleChoice) {
+                    singleChoice = $("#inpFeatureSingleChoice").kendoDropDownList({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: this.feature.multiplevalues,
+                        index: 0,
+                        height: 450
+                    }).data("kendoDropDownList");
+                }
+
+                // TODO Обогатить валидацией
+                if (!intChoice) {
+                    intChoice = $("#inpFeatureQuantifiableValue").kendoNumericTextBox().data("kendoNumericTextBox");
+                    isUnlimited = $("#inpFeatureUnlimited");
+                }
+
+                isUnlimited.attr('checked', false);
+
+                // присваеваем форме значения по умолчанию
+                this.set("feature", {
+                    name: '',
+                    value: '',
+                    values: [],
+                    idx: 0
+                });
+
+                windowFeature = featureWindow.kendoWindow({
+                    title: "Feature details",
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    height: 450
+                }).data("kendoWindow").center().open();
+
+                $(".class_features").hide();
+
+            },
+
+            editFeature: function (e) {
+
+                e.preventDefault();
+
+                var row =  gridFeatures.dataItem(gridFeatures.select());
+
+                if (typeof(row) == 'undefined') {
+                    alert('Please select Feature from grid first.');
+                    return ;
+                }
+
+                // присваеваем форме значения по умолчанию
+                this.set("feature", {
+                    name: row.name,
+                    value: row.value,
+                    idx: row.uid
+                });
+
+                windowFeature = featureWindow.kendoWindow({
+                    title: "Feature details",
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    height: 450
+                }).data("kendoWindow").center().open();
+
+            },
+
+            removeFeature: function (e) {
+
+                e.preventDefault();
+
+                var row =  gridFeatures.dataItem(gridFeatures.select());
+
+                if (typeof(row) == 'undefined') {
+                    alert('Please select Feature from grid first.');
+                    return ;
+                }
+
+                gridFeatures.dataSource.remove(gridFeatures.dataSource.getByUid(row.uid));
+
+            },
+
+            refreshFeature: function (e) {
+
+                e.preventDefault();
+
+                gridFeatures.dataSource.read();
+
+            },
+
+            // Обработчкики событий
+            saveFeature: function (e) {
+
+                e.preventDefault();
+
+                var idx = this.get('feature.idx');
+
+                // Если idx не пустой - значит было редактирование.
+                if (idx != '') {
+                    gridFeatures.dataSource.remove(gridFeatures.dataSource.getByUid(idx));
+                }
+
+                var value,
+                    selectedFeature = this.get('feature.selectedFeature');
+
+                if (selectedFeature.type == "int") {
+                    value = isUnlimited.is(':checked') ? 'UNLIMITED' : intChoice.value();
+                } else if (selectedFeature.type == 'multiple') {
+                    if (selectedFeature.ismultiple) {
+                        value = multiChoice.value();
+                    } else {
+                        value = singleChoice.value();
+                    }
+                } else {
+                    value = selectedFeature.name;
+                }
+
+                gridFeatures.dataSource.add({
+                    name: selectedFeature.name,
+                    value: value
+                });
+
+                windowFeature.close();
+            },
+
+            cancelFeature: function (e) {
+
+                e.preventDefault();
+                windowFeature.close();
+            },
+
+            saveFeatures: function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/ajax/savePlanFeatures",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        provider: detailRowData.provider,
+                        planname: detailRowData.planname,
+                        features: gridFeatures.dataSource.data().toJSON()
+                    }),
+                    beforeSend: function(){
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+                    },
+                    complete: function () {
+                    }
+
+                });
+
+            }
+
+        });
+        kendo.bind(featureTab, featureViewModel);
+
+        gridPrices = detailRow.find(".classPrices").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            provider: detailRowData.provider,
+                            planname: detailRowData.planname
+                        },
+                        url: "/ajax/getPlanPrices"
+                    }
+                },
+                schema: {
+                    type: "json", // тип схемы
+                    errors: function(response) {
+                        if (response.status) {
+                            return false;
+                        } else {
+                            return response.errors;
+                        }
+                    },
+                    data: function(response) {
+                        return response.data.data;
+                    },
+                    total: function(response) {
+                        return response.data.total;
+                    },
+                    model: {
+                        id: 'prices',
+                        fields: {
+                            currency: { type: "string" },
+                            timeunit: { type: "string" },
+                            unit: { type: "string" },
+                            number_timeunit: { type: "number" },
+                            price: { type: "number" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            scrollable: true,
+            sortable: true,
+            pageable: true,
+            filterable: true,
+            pageSize: 20,
+            selectable: "row",
+            editable: "popup",
+            columns: [
+                {
+                    field: "currency",
+                    title: "<center>Currency</center>",
+                    template: '<span style="float:left;">#= currency #</span>'
+                },{
+                    field: "timeunit",
+                    title: "<center>Time Unit</center>",
+                    template: '<span style="float:left;">#= timeunit #</span>'
+                },{
+                    field: "unit",
+                    title: "<center>Unit</center>",
+                    template: '<span style="float:left;">#= unit #</span>'
+                },{
+                    field: "number_timeunit",
+                    title: "<center>Number Time Unit</center>",
+                    template: '<span style="float:left;">#= number_timeunit #</span>'
+                },{
+                    field: "price",
+                    title: "<center>Price</center>",
+                    template: '<span style="float:left;">#= price #</span>'
+                }
+
+            ]
+        }).data("kendoGrid");
+
+        // TODO. Пересмотреть логику
+        // Двойной клик на строке обрабатываем как редактирование
+        detailRow.find(".classPrices").delegate("tbody>tr", "dblclick", function() {
+            $('#btnEditPrice').click();
+        });
+
+        gridFeatures = detailRow.find(".classFeatures").kendoGrid({
+            dataSource: {
+                    transport: {
+                        read: {
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                provider: detailRowData.provider,
+                                planname: detailRowData.planname
+                            },
+                            url: "/ajax/getPlanFeatures"
+                        }
+                    },
+                    schema: {
+                        type: "json",
+                        errors: function(response) {
+                            if (response.status) {
+                                return false;
+                            } else {
+                                return response.errors;
+                            }
+                        },
+                        data: function(response) {
+                            return response.data.data;
+                        },
+                        total: function(response) {
+                            return response.data.total;
+                        },
+                        model: {
+                            id: 'features',
+                            fields: {
+                                name: { type: "string" },
+                                value: { type: "string" }
+                            }
+                        }
+                    },
+                    serverFiltering: false,
+                    serverSorting: false,
+                    pageSize: 20
+                },
+            scrollable: true,
+            sortable: true,
+            pageable: true,
+            filterable: true,
+            pageSize: 20,
+            selectable: "row",
+            editable: "popup",
+            columns: [
+                {
+                    field: "name",
+                    title: "<center>Feature name</center>",
+                    template: '<span style="float:left;">#= name #</span>'
+                },{
+                    field: "value",
+                    title: "<center>Feature value</center>",
+                    template: '<span style="float:left;">#= value #</span>'
+                }
+
+            ]
+        }).data("kendoGrid");
+
+        // TODO. Пересмотреть логику
+        detailRow.find(".classFeatures").delegate("tbody>tr", "dblclick", function() {
+            $('#btnEditFeature').click();
+        });
+
+    };
+
+    var listProviders = $("#gridPlans").find("#provider").kendoDropDownList({
+        dataTextField: "provider",
+        dataValueField: "provider",
+        autoBind: false,
+        optionLabel: "Select Provider",
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getProviders"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    id: "providers",
+                    fields: {
+                        provider: { type: "string" }
+                    }
+                }
+            }
+        },
+        change: function() {
+            var value = this.value();
+            gridPlans.dataSource.transport.options.read.data['provider'] = value;
+            gridPlans.dataSource.read();
+        }
+    });
+
+    var listHTypes = $("#gridPlans").find("#htype").kendoDropDownList({
+        dataTextField: "name",
+        dataValueField: "name",
+        autoBind: false,
+        optionLabel: "Select HType",
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getHTypes"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    id: "htypes",
+                    fields: {
+                        name: { type: "string" }
+                    }
+                }
+            }
+        },
+        change: function() {
+            var value = this.value();
+            gridPlans.dataSource.transport.options.read.data['htype'] = value;
+            gridPlans.dataSource.read();
+        }
+    });
+
+    // ==============================================
+    // Блок для обработки Plan
+    // ==============================================
+    var planWindow = $("#wndPlan").kendoWindow({
+        title: "Plan details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        height: 450
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var planValidator = $("#wndPlan").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var planViewModel = kendo.observable({
+        // хранилище для полей формы
+        plan: {
+            htype: "",
+            provider: "",
+            planname: "",
+            description: "",
+            short_description: "",
+            website: "",
+            generalrating: 0,
+            advprice: 0
+        },
+
+        // Обработчкики событий
+        savePlan: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер
+            if (planValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/savePlan",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        htype: this.get('plan.htype'),
+                        provider: this.get('plan.provider'),
+                        planname: this.get('plan.planname'),
+                        description: this.get('plan.description'),
+                        short_description: this.get('plan.short_description'),
+                        advprice: this.get('plan.advprice')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(planWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridPlans.dataSource.read();
+                        } else {
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(planWindow.element, false);
+                        planWindow.close();
+                    }
+
+                });
+            }
+        },
+
+        cancelPlan: function (e) {
+
+            e.preventDefault();
+            planWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndPlan"), planViewModel);
+
+    // Добавление нового Plan
+    $('#btnAddPlan').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var provider = gridPlans.dataSource.transport.options.read.data['provider'],
+            htype = gridPlans.dataSource.transport.options.read.data['htype'];
+
+        if (provider == '' || htype == '') {
+            alert('You must select HType and Provider first.')
+        } else {
+            // присваеваем форме значения по умолчанию
+            planViewModel.set("plan", {
+                htype: htype,
+                provider: provider,
+                planname: "",
+                description: "",
+                short_description: "",
+                website: "",
+                generalrating: 0,
+                advprice: 0
+            });
+
+            planWindow.center().open();
+
+        }
+
+    });
+
+    // Редактирование Plan
+    $('#btnEditPlan').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridPlans.dataItem(gridPlans.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Plan from grid first.');
+            return ;
+        }
+
+        // присваеваем форме значения по умолчанию
+        planViewModel.set("plan", {
+            name: row.name,
+            provider: row.provider,
+            htype: row.htype,
+            planname: row.planname,
+            description: row.description,
+            short_description: row.short_description,
+            website: row.website,
+            generalrating: row.generalrating,
+            advprice: row.advprice
+        });
+
+        planWindow.center().open();
+
+    });
+
+    // Удаление Plan
+    $('#btnRemovePlan').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridPlans.dataItem(gridPlans.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Plan from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove Plan '" + row.planname + "'?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removePlan",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                provider: row.provider,
+                planname: row.planname
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridPlans.dataSource.read();
+                } else {
+                    alert(response.errors);
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshPlan').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridPlans.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridPlans").delegate("tbody>tr.k-master-row", "dblclick", function() {
+        $('#btnEditPlan').click();
+    });
+
+});
+
+</script>

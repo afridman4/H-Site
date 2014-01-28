@@ -1,0 +1,25 @@
+
+	.class_div___element-RatingDetails 
+		.class___padding
+	{
+		margin:0 -10px;
+		padding:0 0 10px 0;
+		border-bottom:1px solid #e5e5e5;
+	}
+	.class_div___element-RatingDetails 
+		.class___float__left
+	{
+		margin:10px 15px 0 0;
+	}
+	.class_div___element-RatingDetails 
+		.class___float__left 
+			.class_table___element-Rating-position__inline_block-stye__12x12 
+				th
+	{
+		width:82px;
+		
+		font-family:HelveticaNeue;
+		
+		text-align:right;
+	}
+	

@@ -1,0 +1,7 @@
+parameters:
+#    bwch_ajax.example.class: Bwch\Bundle\AjaxBundle\Example
+
+services:
+#    bwch_ajax.example:
+#        class: %bwch_ajax.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

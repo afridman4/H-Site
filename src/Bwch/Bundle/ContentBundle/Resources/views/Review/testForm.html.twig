@@ -1,0 +1,34 @@
+<pre>
+    {{ dump(reviewRatings) }}
+</pre>
+
+{% form_theme form 'BwchContentBundle:Form:fields.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+{#{% form_theme form 'EWZRecaptchaBundle:Form:ewz_recaptcha_widget.html.twig' %}#}
+
+<div id="recaptcha_widget" class="class___element-Frame-style__1" style="width:318px;padding:0;display:none">
+    <div style="padding:10px;">
+        <h2>Security check</h2>
+        <p class="recaptcha_only_if_no_incorrect_sol" style="color:red">{{ form_errors(form.recaptcha) }}</p>
+        <p style="padding:10px 0 0;">Enter <b>both</b> words below, separeted by <b>space</b>.</p>
+        <p>Can't read this? Try <a href="javascript:Recaptcha.reload()">another</a>.</p>
+        <p class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Try an audio captcha</a></p>
+        <p class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></p>
+        <p style="padding:10px 0;" id="recaptcha_image"></p>
+        Text in the box: <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" style="border:1px solid #e5e5e5;padding:2px;" />
+    </div>
+</div>
+
+
+{{ form_widget(form.recaptcha, { 'attr': {
+'options' : {
+'theme' : 'custom', 'custom_theme_widget' : 'recaptcha_widget'
+},
+} }) }}
+
+{{ form_end(form) }}
+
+

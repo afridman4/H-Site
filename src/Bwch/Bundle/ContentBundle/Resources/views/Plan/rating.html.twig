@@ -1,0 +1,31 @@
+<div class="class___element-Frame-style__1 class_div___element-RatingDetails">
+    <div class="class___padding">
+        <table class="class___margin__0_auto">
+            <tr>
+                <td style="font-family:HelveticaNeue-Bold;font-size:14px;color:#333333">Overall rating:</td>
+                <td style="padding:0 0 0 5px;vertical-align:middle;">
+                    {#TODO переписать после того, как будет решен вопрос с Review#}
+                    {%  set generalRating = 7 %}
+                    {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {% for ratingTitle in review_ratings %}
+        <div class="class___float__left">
+            <table class="class_table___element-Rating-position__inline_block-stye__12x12">
+                <tr>
+                    <th>{{ ratingTitle }}:</th>
+                    <td>
+                        {#TODO переписать после того, как будет решен вопрос с Review#}
+                        {%  set generalRating = 4 %}
+                        {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+
+    <div class="class_div___element-Separator-type__clear_left"></div>
+</div>

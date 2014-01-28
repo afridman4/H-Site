@@ -1,0 +1,28 @@
+	
+	
+	.class_table___component-RatingSelector
+	{
+		cursor:pointer;
+	}
+	.class_table___component-RatingSelector 
+		sup,
+	.class_table___component-RatingSelector 
+		sub
+	{
+		display:block;
+	}
+	.class_table___component-RatingSelector 
+		sub
+	{
+		background-position:right 0;
+	}
+	
+	.class_div___element-RatingSelector--item,
+	.class_table___component-RatingSelector 
+		sup,
+	.class_table___component-RatingSelector 
+		sub
+	{
+		float:left;
+	}
+	

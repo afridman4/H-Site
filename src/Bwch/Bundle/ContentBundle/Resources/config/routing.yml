@@ -1,0 +1,122 @@
+bwch_index:
+    pattern:  /
+    defaults: { _controller: BwchContentBundle:Default:index }
+
+bwch_letushelp:
+    pattern:  /let-us-help
+    defaults: { _controller: BwchContentBundle:Help:help }
+
+bwch_contact_us:
+    pattern:  /contact
+    defaults: { _controller: BwchContentBundle:Help:contact }
+
+bwch_search_site:
+    pattern:  /search-web
+    defaults: { _controller: BwchContentBundle:Plan:searchWeb }
+
+bwch_search_plans:
+    pattern:  /search-plans
+    defaults: { _controller: BwchContentBundle:Plan:searchPlans }
+
+bwch_search_web:
+    pattern:  /popular-plans/{htype}
+    defaults: { _controller: BwchContentBundle:Plan:searchPopularPlans }
+
+bwch_best_plans:
+    pattern:  /best-plans
+    defaults: { _controller: BwchContentBundle:Plan:searchBestPlans }
+
+bwch_plan_details:
+    pattern:  /plan/{provider}/{planname}
+    defaults: { _controller: BwchContentBundle:Plan:details }
+
+bwch_plan_calculation:
+    pattern:  /calculation/{provider}/{planname}
+    defaults: { _controller: BwchContentBundle:Plan:calculation, provider:'' , planname:'' }
+
+bwch_compare_plans:
+    pattern:  /compare-plans
+    defaults: { _controller: BwchContentBundle:Plan:comparePlans }
+
+bwch_submit_review:
+    pattern:  /submit-review/{provider}/{planname}
+    defaults: { _controller: BwchContentBundle:Review:submitForm, provider:'' , planname:'' }
+
+bwch_view_review:
+    pattern:  /review/{id}
+    defaults: { _controller: BwchContentBundle:Review:viewReview, id:'' }
+
+bwch_subscribe_on_provider:
+    pattern:  /subscribe-on-provider/{provider}
+    defaults: { _controller: BwchContentBundle:Plan:subscribe, provider:'' }
+
+bwch_user_sign_in:
+    pattern:  /sign-in
+    defaults: { _controller: BwchContentBundle:User:signIn }
+    options:
+        expose: true
+
+bwch_user_sign_up:
+    pattern:  /sign-up
+    defaults: { _controller: BwchContentBundle:User:signUp }
+    options:
+        expose: true
+
+bwch_user_forgot_password:
+    pattern:  /forgot-password
+    defaults: { _controller: BwchContentBundle:User:forgotPassword }
+
+bwch_user_sign_up_success:
+    pattern:  /sign-up-success
+    defaults: { _controller: BwchContentBundle:User:signUpSuccess }
+
+bwch_user_logout:
+    pattern:  /logout
+    defaults: { _controller: BwchContentBundle:User:logout }
+
+bwch_user_login_check:
+    pattern:  /login_check
+    options:
+        expose: true
+
+bwch_user_my_account:
+    pattern:  /my-account
+    defaults: { _controller: BwchContentBundle:User:myAccount }
+
+bwch_terms_of_service:
+  pattern: /terms-of-service
+  defaults:
+        _controller: FrameworkBundle:Template:template
+        template: BwchContentBundle:Static:termsOfService.html.twig
+        maxAge: 86400 //Caching variables
+        sharedMaxAge: 86400
+
+bwch_privacy_note:
+  pattern: /privacy-note
+  defaults:
+        _controller: FrameworkBundle:Template:template
+        template: BwchContentBundle:Static:privacyNote.html.twig
+        maxAge: 86400 //Caching variables
+        sharedMaxAge: 86400
+
+bwch_about_us:
+  pattern: /about-us
+  defaults:
+        _controller: FrameworkBundle:Template:template
+        template: BwchContentBundle:Static:aboutUs.html.twig
+        maxAge: 86400 //Caching variables
+        sharedMaxAge: 86400
+
+bwch_our_mission:
+  pattern: /our-mission
+  defaults:
+        _controller: FrameworkBundle:Template:template
+        template: BwchContentBundle:Static:ourMission.html.twig
+        maxAge: 86400 //Caching variables
+        sharedMaxAge: 86400
+
+
+bwch_test:
+    pattern:  /test
+    defaults: { _controller: BwchContentBundle:User:test }
+

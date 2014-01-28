@@ -1,0 +1,91 @@
+	
+	.class_div___component-InputField 
+		div
+	{
+		padding:7px 6px;
+		border:1px solid #cdcece;
+		border-radius:3px;
+	}
+	.class_div___component-InputField 
+		sup 
+			sub
+	{
+		padding:0 0 0 6px;
+		
+		font-size:13px;
+		line-height:32px;
+		color:#999999;
+	}
+	
+/*
+	Validation highlighting
+*/
+	.class_div___component-InputField 
+		.class___element-validation_status__success
+	{
+		border:1px solid #090;
+	}
+	.class_div___component-InputField 
+		.class___element-validation_status__error
+	{
+		border:1px solid #eb4d2e;
+	}
+	.class_div___component-InputField 
+		.class___element-validation_error_type__empty_field
+	{
+		
+	}
+	
+	.class_div___component-InputField 
+		.class___element-validation_error_type__incorrect_symbol
+	{
+		
+	}
+	
+	
+	.class_div___component-InputField 
+		span
+	{
+		height:24px;
+		padding:2px 0 0;
+		
+		font-size:13px;
+		color:#eb4d2e;
+	}
+	
+	
+	
+	.class_div___component-InputField-input_type__multiline_text 
+		div
+	{
+		height:50px;
+	}	
+	
+	.class_div___component-InputField-input_type__uniline_text 
+		div
+	{
+		height:16px;
+	}
+	.class_div___component-InputField-input_type__uniline_text 
+		input
+	{
+		line-height:16px;
+		
+/*	mouse selection fix  IE6-7 */
+		_background:url(/images/shared/background/1x1/opacity__0.png);
+		*background:url(/images/shared/background/1x1/opacity__0.png);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

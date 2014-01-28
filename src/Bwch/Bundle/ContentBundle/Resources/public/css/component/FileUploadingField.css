@@ -1,0 +1,13 @@
+
+	.class_div___component-FileUploadingField label input
+	{
+		position:absolute;
+		
+		width:0;
+		height:0;
+	}
+	.class_div___component-FileUploadingField--description
+	{
+		font-size:10px;
+		color:#999999;
+	}

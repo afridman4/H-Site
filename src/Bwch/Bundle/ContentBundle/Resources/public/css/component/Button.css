@@ -1,0 +1,104 @@
+	
+	.class___component-Button
+	{
+		cursor:pointer;
+	}
+	
+	
+/*	CONTROLS - BUTTON-DIV (single line) -> */
+	.class___component-Button-float__left,
+	.class___component-Button-float__left 
+		i,
+	.class___component-Button-float__left 
+		a,
+	.class___component-Button-float__left 
+		b
+	{
+		float:left;
+	}
+	
+	.class___component-Button-float__right,
+	.class___component-Button-float__right 
+		i,
+	.class___component-Button-float__right 
+		a,
+	.class___component-Button-float__right 
+		b
+	{
+		float:right;
+	}
+/*	IE6 ->*/
+	.class___component-Button-float__right 
+		i,
+	.class___component-Button-float__right 
+		a,
+	.class___component-Button-float__right 
+		b
+	{
+		_display:inline;
+		*display:inline;
+		
+		_float:none;
+		*float:none;
+	}
+/*	Remove in IE Quirks mode -> */
+	.class___component-Button-float__right 
+		b
+	{
+		_padding:7px 4px 6px 4px;
+		*padding:7px 4px 6px 4px;
+	}
+/*	Remove in IE Quirks mode <- */
+/*	IE6 <-*/
+	
+	
+
+
+/*	CONTROLS - BUTTON-TABLE (single line, wo/link) -> */
+	.class___component-Button 
+		td,
+	.class___component-Button 
+		i,
+	.class___component-Button 
+		label,
+	.class___component-Button 
+		a,
+	.class___component-Button 
+		b
+	{
+		background-repeat:no-repeat;
+		
+		text-align:center;
+		white-space:nowrap;
+		
+		cursor:pointer;
+	}
+	
+	.class___component-Button 
+		a,
+	.class___component-Button 
+		i,
+	.class___component-Button 
+		label,
+	.class___component-Button 
+		b
+	{
+		display:block;
+		
+		font-style:normal;
+	}
+	
+	.class___component-Button 
+		a,
+	.class___component-Button 
+		i,
+	.class___component-Button 
+		s,
+	.class___component-Button 
+		u
+	{
+		text-decoration:none;
+	}
+	
+	
+	

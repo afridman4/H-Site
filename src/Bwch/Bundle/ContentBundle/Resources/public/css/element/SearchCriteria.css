@@ -1,0 +1,21 @@
+
+	.class_div___element-SearchCriteria 
+		h2
+	{
+		margin:0 3px 0 0;
+		padding:0 0 0 10px;
+		
+		font-family:HelveticaNeue-Bold;
+		font-size:15px;
+		line-height:42px;
+		color:#ffffff;
+		
+		background-color:#7cc576;
+	}
+	
+	.class_div___element-SearchCriteria 
+		.class_div___element-ScrollableContainer 
+			table
+	{
+		margin:5px 0 0;
+	}

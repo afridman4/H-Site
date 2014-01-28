@@ -1,0 +1,9 @@
+bwch_admin_homepage:
+    pattern:  /admin
+    defaults: { _controller: BwchAdminBundle:Default:index }
+#    schemes:  [https]
+
+bwch_admin_ajax_load_grid:
+    pattern:  /admin/ajax/load/grid/{grid}
+    defaults: { _controller: BwchAdminBundle:Default:loadGrid }
+#    schemes:  [https]

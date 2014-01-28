@@ -1,0 +1,34 @@
+	
+	.class_table___component-RatingSelector__20x19_orange 
+		sup,
+	.class_table___component-RatingSelector__20x19_orange 
+		sub
+	{
+		overflow:hidden; /* ie6 fix */
+		
+		width:10px;
+		height:19px;
+		
+		background-image:url(/images/component/RatingSelector/dimensions__20x19-style__orange.png);
+	}
+	
+	.class_table___component-RatingSelector__20x19_orange 
+		sup.class___element-status__mouseover,
+	.class_table___component-RatingSelector__20x19_orange 
+		sup.class___element-status__selected
+	{
+		background-position:0 -19px;
+	}
+	.class_table___component-RatingSelector__20x19_orange 
+		sub.class___element-status__mouseover,
+	.class_table___component-RatingSelector__20x19_orange 
+		sub.class___element-status__selected
+	{
+		background-position:right -38px;
+	}
+	
+	.class_table___component-RatingSelector__20x19_orange 
+		sub
+	{
+		margin-right:10px;
+	}

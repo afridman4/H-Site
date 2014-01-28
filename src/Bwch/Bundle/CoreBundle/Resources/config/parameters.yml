@@ -1,0 +1,10 @@
+parameters:
+  bwch.server_ip: 127.0.0.1
+  bwch.server_port: 3000
+  bwch.api_version: 0.1
+  bwch.response_format: json
+  bwch.server_url: "http://%bwch.server_ip%:%bwch.server_port%/api/%bwch.api_version%/"
+  bwch.planfields: ['_id', 'created', 'htype', 'planname', 'provider', 'prices', 'generalrating', 'numberofreviews', 'description', 'advprice', 'website', 'ratings', 'short_description']
+  bwch.review_ratings: ["Service", "Reliability", "Performance", "Ease of use", "Feature set"]
+
+  bwch.paginator_page_size: 10

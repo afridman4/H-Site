@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+
+    {% block stylesheets %}
+        {% stylesheets
+        '@BwchAdminBundle/Resources/public/css/admin.css'
+        '@BwchAdminBundle/Resources/public/css/kendo/kendo.common.css'
+        '@BwchAdminBundle/Resources/public/css/kendo/kendo.uniform.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
+        {% endstylesheets %}
+    {% endblock %}
+
+{#    <link href="{{ asset('css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/kendo/kendo.common.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/kendo/kendo.uniform.css') }}" rel="stylesheet" type="text/css" />#}
+
+    {% block javascripts %}
+
+        <script src="{{ asset('js/jquery/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery/jquery-ui-1.10.2.custom.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery/jquery-ui-timepicker-addon-1.4.3.js') }}" type="text/javascript"></script>
+
+        {% javascripts
+            '@BwchAdminBundle/Resources/public/js/admin.common.js'
+            '@BwchAdminBundle/Resources/public/js/kendo/kendo.web.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+
+</head>
+<body>
+
+<header>
+    <h1>BWCH Admin</h1>
+</header>
+
+<section>
+    <div id="divTabStrip">
+        <ul>
+            <li id="htypes" class="k-state-active">
+                {% trans %}HTypes{% endtrans %}
+            </li>
+            <li id="providers">
+                {% trans %}Providers{% endtrans %}
+            </li>
+            <li id="features">
+                {% trans %}Features{% endtrans %}
+            </li>
+            <li id="plans">
+                {% trans %}Plans{% endtrans %}
+            </li>
+            <li id="reviews">
+                {% trans %}Reviews{% endtrans %}
+            </li>
+            <li id="banners">
+                {% trans %}Banners{% endtrans %}
+            </li>
+            <li id="users">
+                {% trans %}Users{% endtrans %}
+            </li>
+            <li id="reports">
+                {% trans %}Reports{% endtrans %}
+            </li>
+        </ul>
+
+        {#HTypes#}
+        <div>
+            <div id="gridHTypes"></div>
+            {% include 'BwchAdminBundle:Grids:htypes.html.twig' %}
+        </div>
+        {#Providers#}
+        <div>
+            <div id="gridProviders"></div>
+            {% include 'BwchAdminBundle:Grids:providers.html.twig' %}
+        </div>
+        {#Features#}
+        <div>
+            <div id="gridFeatures"></div>
+            {% include 'BwchAdminBundle:Grids:features.html.twig' %}
+        </div>
+        {#Plans#}
+        <div>
+            <div id="gridPlans"></div>
+            {% include 'BwchAdminBundle:Grids:plans.html.twig' %}
+        </div>
+        {#Reviews#}
+        <div>
+            <div id="gridReviews"></div>
+            {% include 'BwchAdminBundle:Grids:reviews.html.twig' %}
+        </div>
+        {#Banners#}
+        <div>
+            <div id="gridBanners"></div>
+            {% include 'BwchAdminBundle:Grids:banners.html.twig' %}
+        </div>
+        {#Users#}
+        <div>
+            <div id="gridUsers"></div>
+            {% include 'BwchAdminBundle:Grids:users.html.twig' %}
+        </div>
+        {#Reports#}
+        <div>
+            <div id="gridReports"></div>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

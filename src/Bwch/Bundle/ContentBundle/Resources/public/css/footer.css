@@ -1,0 +1,46 @@
+
+	.class_div___element-Footer--main
+	{		
+		background:url(/images/shared/footer_top_border.png) center top no-repeat;
+	}
+	.class_div___element-Footer--main 
+		h2
+	{
+		padding:20px 0 0;
+		
+		font-family:PFDinDisplayPro-Medium;
+		font-size:18px;
+		color:#afafaf;
+		
+		text-align:center;
+	}
+	.class_div___element-Footer--main 
+		div
+	{
+		padding:25px 0;
+		
+		font-size:13px;
+		
+		text-align:center;
+	}
+	.class_div___element-Footer--main 
+		b
+	{
+		padding:0 22px;
+	}
+	.class_div___element-Footer--main 
+		a
+			img
+	{
+		vertical-align:middle;
+	}
+	
+	.class_div___element-Footer--main 
+		p
+	{
+		padding:0 0 10px;
+		
+		color:#999999;
+		
+		text-align:center;
+	}

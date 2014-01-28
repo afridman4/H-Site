@@ -1,0 +1,244 @@
+
+	*
+	{
+		margin:0;
+		padding:0;
+		
+		-webkit-border-horizontal-spacing:0;
+		-webkit-border-vertical-spacing:0;
+		
+		-webkit-align-content:center;
+		-webkit-align-self:center;
+		-webkit-align-items:center;
+		
+		-webkit-box-pack:center;
+		-webkit-box-align:center;
+		
+		alignment-baseline:middle;
+	}
+	html,
+	body
+	{
+		width:100%;
+		height:100%;
+		
+		font-family:Arial;
+		font-size:12px;
+	}
+	a,
+	img,
+	input,
+	textarea,
+	select
+	{
+		outline:none;
+		border:none;
+	}
+	textarea
+	{
+		overflow:auto;
+		resize:none;
+	}
+	table
+	{
+		border-collapse:collapse;
+	}
+	td,
+	th
+	{
+		font-weight:normal;
+
+		text-align:left;
+		vertical-align:top;
+	}
+
+/*	-------------------------------------------------- */
+	
+	.class___display__block
+	{
+		display:block;
+	}
+	.class___display__table
+	{
+		display:table;
+	}
+	.class___display__none
+	{
+		display:none;
+	}
+	
+	.class___position__absolute
+	{
+		position:absolute;
+	}
+	.class___position__relative
+	{
+		position:relative;
+	}
+	.class___position__fixed
+	{
+		position:fixed;
+	}
+	
+	.class___float__left
+	{
+		float:left;
+	}
+	.class___float__right
+	{
+		float:right;
+	}
+	
+	.class___width__100
+	{
+		width:100%;
+	}
+	.class___width__50
+	{
+		width:50%;
+	}
+	
+	.class___background__none
+	{
+		background:none;
+	}
+	
+	.class_div___element-Separator-type__clear_left,
+	.class_div___element-Separator-type__clear_right,
+	.class_div___element-Separator-type__clear_both,
+	
+	.class_div___element-Floating_element_separator__left,
+	.class_div___element-Floating_element_separator__right,
+	.class_div___element-Floating_element_separator__both
+	{
+		overflow:hidden;
+		
+		height:0;
+	}
+	.class___clear__left,
+	.class_div___element-Separator-type__clear_left,
+	.class_div___element-Floating_element_separator__left
+	{
+		clear:left;
+	}
+	.class___clear__right,
+	.class_div___element-Separator-type__clear_right,
+	.class_div___element-Floating_element_separator__right
+	{
+		clear:right;
+	}
+	.class___clear__both,
+	.class_div___element-Separator-type__clear_both,
+	.class_div___element-Floating_element_separator__both
+	{
+		clear:both;
+	}
+	
+	
+	.class___element-HiddenField
+	{
+		display:block;
+		overflow:hidden;
+		
+/*
+	ANALYZE: difference between 'relative' and 'absolute' ('relative' have problems in IE6-7, affect layout)
+*/
+		position:absolute;
+		left:-99999px;
+		
+		width:1px;
+		height:1px;
+	}
+	.class_div___element-HiddenField
+	{
+		overflow:hidden;
+		
+		position:relative;
+		left:-99999px;
+		
+		width:1px;
+		height:1px;
+	}
+	
+	
+/*	-------------------------------------------------- */
+	
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6
+	{
+		font-weight:normal;
+	}
+
+	li
+	{
+		list-style:none;
+	}
+
+	sup,
+	sub
+	{
+		vertical-align:inherit;
+		font-size:inherit;
+		line-height:inherit;
+	}
+	
+	
+	.class_input___element-DOM_type__checkbox,
+	.class_input___element-DOM_type__radiobox
+	{
+		overflow:hidden;
+		
+	    width:13px;
+	    height:13px;
+		margin:0 5px 0 0;
+		padding:0;
+		border:0 none;
+		
+		vertical-align:middle;
+	}
+	
+	a:link,
+	a:visited
+	{
+		color:#4b6b8b;;
+		
+		text-decoration:none;
+	}
+	a:hover
+	{
+		text-decoration:underline;
+	}
+
+/*	-------------------------------------------------- */
+	
+	
+	
+/*	TEMP: */
+	.class___margin__10px_auto_0
+	{
+		margin:10px auto 0;
+	}
+	.class___margin__0_auto
+	{
+		margin:0 auto;
+	}
+	.class___margin__0_0_0_auto
+	{
+		margin:0 0 0 auto;
+	}
+	
+	.class___padding__0_0_0_auto
+	{
+		padding:0 0 10px 0;
+	}
+	
+	
+	
+
+
+	
+	

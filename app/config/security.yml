@@ -1,0 +1,42 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        Bwch\Bundle\ContentBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        mongo:
+            id: mongo_user_provider
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: /.*
+            form_login:
+                check_path: bwch_user_login_check
+                login_path: bwch_user_sign_in
+                default_target_path: bwch_index
+                username_parameter: userSignIn[login]
+                password_parameter: userSignIn[password]
+            logout:
+                path:   bwch_user_logout
+                target: bwch_index
+            security: true
+            anonymous: true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/my-account, roles: ROLE_USER }
+        #- { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

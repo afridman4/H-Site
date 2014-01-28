@@ -1,0 +1,140 @@
+bwch_ajax_gethtypes:
+    pattern:  /ajax/getHTypes
+    defaults: { _controller: BwchAjaxBundle:Default:getHTypes }
+    methods:  [POST]
+
+bwch_ajax_savehtype:
+    pattern:  /ajax/saveHType
+    defaults: { _controller: BwchAjaxBundle:Default:saveHType }
+    methods:  [POST]
+
+bwch_ajax_removehtype:
+    pattern:  /ajax/removeHType
+    defaults: { _controller: BwchAjaxBundle:Default:removeHType }
+    methods:  [POST]
+
+bwch_ajax_getfeatures:
+    pattern:  /ajax/getFeatures
+    defaults: { _controller: BwchAjaxBundle:Default:getFeatures }
+    methods:  [POST]
+
+bwch_ajax_savefeature:
+    pattern:  /ajax/saveFeature
+    defaults: { _controller: BwchAjaxBundle:Default:saveFeature }
+    methods:  [POST]
+
+bwch_ajax_removefeature:
+    pattern:  /ajax/removeFeature
+    defaults: { _controller: BwchAjaxBundle:Default:removeFeature }
+    methods:  [POST]
+
+bwch_ajax_getproviders:
+    pattern:  /ajax/getProviders
+    defaults: { _controller: BwchAjaxBundle:Default:getProviders }
+    methods:  [POST]
+
+bwch_ajax_saveprovider:
+    pattern:  /ajax/saveProvider
+    defaults: { _controller: BwchAjaxBundle:Default:saveProvider }
+    methods:  [POST]
+
+bwch_ajax_removeprovider:
+    pattern:  /ajax/removeProvider
+    defaults: { _controller: BwchAjaxBundle:Default:removeProvider }
+    methods:  [POST]
+
+bwch_ajax_getbanners:
+    pattern:  /ajax/getBanners
+    defaults: { _controller: BwchAjaxBundle:Default:getBanners }
+    methods:  [POST]
+
+bwch_ajax_savebanner:
+    pattern:  /ajax/saveBanner
+    defaults: { _controller: BwchAjaxBundle:Default:saveBanner }
+    methods:  [POST]
+
+bwch_ajax_removebanner:
+    pattern:  /ajax/removeBanner
+    defaults: { _controller: BwchAjaxBundle:Default:removeBanner }
+    methods:  [POST]
+
+bwch_ajax_getplans:
+    pattern:  /ajax/getPlans
+    defaults: { _controller: BwchAjaxBundle:Default:getPlans }
+    methods:  [POST]
+
+bwch_ajax_saveplan:
+    pattern:  /ajax/savePlan
+    defaults: { _controller: BwchAjaxBundle:Default:savePlan }
+    methods:  [POST]
+
+bwch_ajax_removeplan:
+    pattern:  /ajax/removePlan
+    defaults: { _controller: BwchAjaxBundle:Default:removePlan }
+    methods:  [POST]
+
+bwch_ajax_getplans_by_htype:
+    pattern:  /ajax/getPlansByHType
+    defaults: { _controller: BwchAjaxBundle:Default:getPlansByHType }
+    methods:  [POST]
+
+bwch_ajax_getplanfeatures:
+    pattern:  /ajax/getPlanFeatures
+    defaults: { _controller: BwchAjaxBundle:Default:getPlanFeatures }
+    methods:  [POST]
+
+bwch_ajax_getplandetailfeatures:
+    pattern:  /ajax/getPlanDetailFeatures
+    defaults: { _controller: BwchAjaxBundle:Default:getPlanDetailFeatures }
+    methods:  [POST]
+
+bwch_ajax_saveplanfeatures:
+    pattern:  /ajax/savePlanFeatures
+    defaults: { _controller: BwchAjaxBundle:Default:savePlanFeatures }
+    methods:  [POST]
+
+bwch_ajax_getplanprices:
+    pattern:  /ajax/getPlanPrices
+    defaults: { _controller: BwchAjaxBundle:Default:getPlanPrices }
+    methods:  [POST]
+
+bwch_ajax_saveplanprices:
+    pattern:  /ajax/savePlanPrices
+    defaults: { _controller: BwchAjaxBundle:Default:savePlanPrices }
+    methods:  [POST]
+
+bwch_ajax_getreviews:
+    pattern:  /ajax/getReviews
+    defaults: { _controller: BwchAjaxBundle:Default:getReviews }
+    methods:  [POST]
+
+bwch_ajax_savereview:
+    pattern:  /ajax/saveReview
+    defaults: { _controller: BwchAjaxBundle:Default:saveReview }
+    methods:  [POST]
+
+bwch_ajax_removereview:
+    pattern:  /ajax/removeReview
+    defaults: { _controller: BwchAjaxBundle:Default:removeReview }
+    methods:  [POST]
+
+bwch_ajax_getusers:
+    pattern:  /ajax/getUsers
+    defaults: { _controller: BwchAjaxBundle:Default:getUsers }
+    methods:  [POST]
+
+bwch_ajax_saveuser:
+    pattern:  /ajax/saveUser
+    defaults: { _controller: BwchAjaxBundle:Default:saveUser }
+    methods:  [POST]
+
+bwch_ajax_removeuser:
+    pattern:  /ajax/removeUser
+    defaults: { _controller: BwchAjaxBundle:Default:removeUser }
+    methods:  [POST]
+
+bwch_ajax_updateuser:
+    pattern:  /ajax/updateUser
+    defaults: { _controller: BwchAjaxBundle:Default:updateUser }
+    methods:  [POST]
+

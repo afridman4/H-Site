@@ -1,0 +1,104 @@
+	
+/* set direction */
+	.class_table___component-Paginator-type__ordered-position__horizontal 
+		.class_div___element-Paginator--control,
+	.class_table___component-Paginator-type__ordered-position__horizontal 
+		.class_div___element-Paginator--navigation_items,
+	.class_table___component-Paginator-type__ordered-position__horizontal 
+		.class_div___element-Paginator--navigation_items--item
+	{
+		float:left;
+	}
+	
+	.class_table___component-Paginator-type__ordered  
+		sup 
+			sub
+	{
+		display:block;
+		
+		position:absolute;
+		top:50%;
+		left:50%;
+		
+		width:7px;
+		height:11px;
+		margin:-6px 0 0 -4px;
+	}
+	
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--control__show_previous_page 
+			sup 
+				sub
+	{
+		background:url(/images/component/Paginator/control/previous/7x11/default.png);
+	}
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--control__show_next_page 
+			sup 
+				sub
+	{
+		background:url(/images/component/Paginator/control/next/7x11/default.png);
+	}
+	
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--control 
+			sup,
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--navigation_items--item 
+			a,
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--navigation_items--item 
+			div
+	{
+		display:block;
+		
+		position:relative;
+		
+		width:30px;
+		height:30px;
+		margin:0 4px;
+		border:1px solid #e5e5e5;
+		border-radius:5px;
+		
+		line-height:30px;
+		
+		text-align:center;
+		
+		background-color:#eff2f4;
+		
+		cursor:pointer;
+	}
+	
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--control 
+			.class___element-status__mouseover
+	{
+		border-color:#7cc576;
+		
+		color:#ffffff;
+		
+		background-color:#7cc576;
+	}
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--control 
+			.class___element-status__mouseover 
+				sub
+	{
+		background-position:0 -11px;
+	}
+	.class_table___component-Paginator-type__ordered 
+		.class_div___element-Paginator--navigation_items--item 
+			.class___element-status__selected
+	{
+		border-color:#7cc576;
+		
+		color:#ffffff;
+		
+		background-color:#7cc576;
+		background-position:0 -11px;
+	}
+	
+	
+	
+	
+	

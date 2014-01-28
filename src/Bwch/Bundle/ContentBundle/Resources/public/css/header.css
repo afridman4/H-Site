@@ -1,0 +1,91 @@
+	
+	.class_div___element-Header
+	{
+		padding:0 0 4px;
+		
+		background:url(/images/shared/separator/1x4/grey_gradient.png) 0 bottom repeat-x;
+	}	
+	.class_div___element-Header--main
+	{
+		height:64px;
+	}
+	
+	.class_div___element-Header 
+		table
+	{
+		width:100%;
+	}
+	.class_div___element-Header 
+		th
+	{
+		width:260px;
+	}
+	.class_div___element-Header 
+		th 
+			a
+	{
+		font-family:PFDinDisplayPro-Medium;
+		font-size:26px;
+		line-height:62px;
+		color:#363f48;
+		
+		text-decoration:none;
+	}
+	
+	.class_div___element-Header 
+		.class_div___component-InputField
+	{
+		width:210px;
+		margin-top:16px;
+	}
+	.class_div___element-Header 
+		.class_div___component-InputField-input_type__uniline_text 
+			div
+	{
+		padding-right:28px;
+	}
+	.class_div___element-Header 
+		.class_div___component-InputField-input_type__uniline_text 
+			div 
+				em
+	{
+		position:absolute;
+		top:8px;
+		right:6px;
+		
+		width:16px;
+		height:16px;
+		
+		background:url(/images/shared/search_field_icon.png);
+	}
+	
+	
+	.class_div___element-Header--main--login_link
+	{
+		margin-top:25px;
+		padding-left:20px;
+		
+		font-size:15px;
+		
+		background:url(/images/shared/login_link_icon.png) left center no-repeat;
+	}
+	.class_div___element-Header--main--login_link 
+		a:link,
+	.class_div___element-Header--main--login_link 
+		a:visited
+	{
+		color:#222222;
+	}
+	
+	
+	
+	.class_body___element-Page__default 
+		.class_div___element-Header
+	{
+		padding:0;
+		
+		background:none;
+	}
+	
+	
+	

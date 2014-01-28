@@ -1,0 +1,54 @@
+
+	.class_div___component-InputField 
+		sup 
+			sub
+	{
+		line-height:35px;
+	}
+	
+	
+	.class_div___component-SelectionField 
+		.class_div___component-InputField-input_type__uniline_text 
+			sup 
+				sub
+	{
+		line-height:35px;
+	}
+	
+	.class_div___component-SelectionField 
+		ul 
+			li
+	{
+		height:16px;
+		
+		line-height:19px;
+	}
+	
+	
+	.class___component-Button__h40_green1 
+		b
+	{
+		line-height:42px;
+	}
+	
+	.class___component-Button__h38_green_right_arrow 
+		s
+	{
+		height:39px;
+	}
+	
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_div___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element,
+	
+	.class___component-Frame-foreground__e5e5e5_d9e3e9-border__1_solid_e5e5e5_d0d0d0-corner__r5 
+		.class_div___element,
+	.class___component-Frame-foreground__e5e5e5_d9e3e9-border__1_solid_e5e5e5_d0d0d0-corner__r5 
+		.class_a___element
+	{
+		line-height:42px;
+	}
+	
+	

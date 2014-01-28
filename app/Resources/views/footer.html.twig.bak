@@ -1,0 +1,24 @@
+<div class="class_div___element-Footer"
+     id="id_div___element-Footer">
+    <div class="class_div___element-Footer--main">
+        <h2>BestWebHosting</h2>
+        <div>
+            <a href="/about-us">About Us</a>
+            <b></b>
+            <a href="#">Support</a>
+            <b></b>
+            <a href="#">Contact</a>
+            <b></b>
+            <a href="/privacy-note">Privacy Note</a>
+            <b></b>
+            <a href="/terms-of-service">Terms of Service</a>
+            <b></b>
+            <a href="#"><img alt="Twitter" src="/images/shared/social/24x24/twitter.png"/></a>
+            &nbsp;
+            <a href="#"><img alt="Facebook" src="/images/shared/social/24x24/facebook.png"/></a>
+            &nbsp;
+            <a href="#"><img alt="Google+" src="/images/shared/social/24x24/google_plus.png"/></a>
+        </div>
+        <p>&copy; BestWebHosting.com 2014</p>
+    </div>
+</div>

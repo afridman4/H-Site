@@ -1,0 +1,364 @@
+{#Toolbar#}
+<script type="text/x-kendo-template" id="tplBannersToolbar">
+    <div class="toolbar">
+        <a id="btnAddBanner" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add banner
+        </a>
+        <a id="btnEditBanner" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit banner
+        </a>
+        <a id="btnRemoveBanner" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove banner
+        </a>
+        <a id="btnRefreshBanner" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+
+{#Окно с деталями Banner#}
+<div id="wndBanner" style="padding: 20px; display:none;">
+
+    <div id="bannerForm" class="banner-popup-form">
+        <table>
+            <tr>
+                <td><label for="inpBannerId">Object ID</label></td>
+                <td><span data-bind="text: banner._id"></span></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpBannerHtml">Banner HTML code</label></td>
+                <td><textarea
+                            class="k-textbox"
+                            name="inpBannerHtml"
+                            id="inpBannerHtml"
+                            data-bind="value: banner.htmlcode"
+                            style="width:100%;height:400px"
+                    ></textarea></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpBannerAlt">Banner Alt.</label></td>
+                <td><input
+                            type="text"
+                            name="inpBannerAlt"
+                            id="inpBannerAlt"
+                            class="k-textbox"
+                            data-bind="value: banner.alttext"
+                            maxlength="255"
+                            placeholder="Enter banner alt.text"
+                            /></td>
+            </tr>
+            <tr>
+                <td><label for="inpBannerHeight">Height</label></td>
+                <td><input
+                            type="text"
+                            name="inpBannerHeight"
+                            id="inpBannerHeight"
+                            data-role="numerictextbox"
+                            data-format="n0"
+                            data-bind="value: banner.height"
+                            required=""
+                            placeholder="Height"
+                            /></td>
+            </tr>
+            <tr>
+                <td><label for="inpBannerPriority">Priority</label></td>
+                <td><input
+                            type="text"
+                            name="inpBannerPriority"
+                            id="inpBannerPriority"
+                            data-role="numerictextbox"
+                            data-format="n0"
+                            data-bind="value: banner.priority"
+                            required=""
+                            placeholder="Priority"
+                            /></td>
+            </tr>
+
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <table>
+            <tr>
+                <td><button type="submit" class="k-button" data-bind="click: saveBanner">Save</button></td>
+                <td><button type="submit" class="k-button" data-bind="click: cancelBanner">Cancel</button></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var gridBanners = $("#gridBanners").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getBanners"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    fields: {
+                        _id: { type: "string" },
+                        htmlcode: { type: "string" },
+                        alttext: { type: "string" },
+                        height: {type: "number" },
+                        priority: {type: "number"}
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplBannersToolbar").html()),
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },{
+                field: "htmlcode",
+                title: "<center>Banner html code</center>",
+                template: '<span style="float:left">#= htmlcode #</span>'
+            },
+            {
+                field: "alttext",
+                title: "<center>Banner alternate text</center>",
+                template: '<span style="float:left">#= alttext #</span>'
+            },
+            {
+                field: "height",
+                title: "<center>Height dimension</center>",
+                template: '<span style="float:left">#= height #</span>'
+            },
+            {
+                field: "priority",
+                title: "<center>Priority</center>",
+                template: '<span style="float:left">#= priority #</span>'
+            }
+        ]
+    }).data("kendoGrid");
+
+    var bannerWindow = $("#wndBanner").kendoWindow({
+        title: "Banner details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        width: 800
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var bannerValidator = $("#wndBanner").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var bannerViewModel = kendo.observable({
+        // хранилище для полей формы
+        banner: {
+            _id: "",
+            htmlcode: "",
+            alttext: "",
+            height: 0,
+            priority: 0
+        },
+
+    // Обработчкики событий
+        saveBanner: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер/
+            if (bannerValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/saveBanner",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        _id: this.get('banner._id'),
+                        htmlcode: this.get('banner.htmlcode'),
+                        alttext: this.get('banner.alttext'),
+                        height: this.get('banner.height'),
+                        priority: this.get('banner.priority')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(bannerWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridBanners.dataSource.read();
+                        } else {
+                            alert(response.errors);
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(bannerWindow.element, false);
+                        bannerWindow.close();
+                    }
+
+                });
+            }
+
+        },
+
+        cancelBanner: function (e) {
+
+            e.preventDefault();
+            bannerWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndBanner"), bannerViewModel);
+
+    var inpBannerHtml = $("#inpBannerHtml").kendoEditor({
+        tools: [
+            "bold", "italic", "underline", "strikethrough", "subscript", "superscript",
+            "fontName", "fontSize", "foreColor", "backColor",
+            "justifyLeft", "justifyCenter", "justifyRight", "justifyFull",
+            "insertUnorderedList", "insertOrderedList", "indent", "outdent",
+            "createLink", "unlink", "insertImage",
+            "createTable", "addColumnLeft", "addColumnRight", "addRowAbove", "addRowBelow", "deleteRow", "deleteColumn",
+            "formatting",
+            "viewHtml"
+        ]
+    }).data("kendoEditor");
+
+    // Добавление нового Banner
+    $('#btnAddBanner').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        //inpBannerHtml.viewHtml();
+
+        // присваеваем форме значения по умолчанию
+        bannerViewModel.set("banner", {
+            _id: "",
+            htmlcode: "",
+            alttext: "",
+            height: 60,
+            priority: 0
+        });
+
+        bannerWindow.center().open();
+
+    });
+
+    // Редактирование Banner
+    $('#btnEditBanner').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridBanners.dataItem(gridBanners.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Banner from grid first.');
+            return ;
+        }
+
+        // присваеваем форме значения по умолчанию
+        bannerViewModel.set("banner", {
+            _id: row._id,
+            htmlcode: row.htmlcode,
+            alttext: row.alttext,
+            height: row.height,
+            priority: row.priority
+        });
+
+        bannerWindow.center().open();
+
+    });
+
+    // Удаление Banner
+    $('#btnRemoveBanner').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridBanners.dataItem(gridBanners.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Banner from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove Banner with Object ID: " + row._id + "?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeBanner",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                _id: row._id
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridBanners.dataSource.read();
+                } else {
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshBanner').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridBanners.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridBanners").delegate("tbody>tr", "dblclick", function() {
+        $('#btnEditBanner').click();
+    });
+
+</script>

@@ -1,0 +1,34 @@
+
+	.class_div___component-CheckboxField
+	{
+		
+	}
+	
+	.class_div___component-CheckboxField 
+		label 
+			input
+	{
+
+		
+
+	}
+	
+/*	.class_div___component-CheckboxField 
+		.class___element-validation_status__error 
+			input
+	{
+		border:1px solid red;
+	}
+*/
+	
+	
+	.class_div___element-CheckboxField--validation_error_decription
+	{
+		height:24px;
+		padding:2px 0 0;
+		
+		font-size:13px;
+		color:#eb4d2e;
+	}
+
+	

@@ -1,0 +1,407 @@
+{#Review Toolbar#}
+<script type="text/x-kendo-template" id="tplReviewsToolbar">
+    <div class="toolbar">
+        <a id="btnAddReview" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add review
+        </a>
+        <a id="btnRemoveReview" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove review
+        </a>
+        <a id="btnRefreshReview" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+{#Окно с деталями Review#}
+<div id="wndReview" style="padding: 20px; display:none;">
+
+    <div id="reviewForm" class="review-popup-form">
+        <table>
+            <tr>
+                <td><label class="required" for="inpReviewAuthor">Name</label></td>
+                <td><input
+                        type="text"
+                        name="inpReviewAuthor"
+                        id="inpReviewAuthor"
+                        class="k-textbox"
+                        data-bind="value: review.author"
+                        maxlength="255"
+                        placeholder="Enter review author"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpReviewTime">Time</label></td>
+                <td><input
+                        name="inpReviewTime"
+                        id="inpReviewTime"
+                        data-role="datepicker"
+                        data-bind="value: review.time"
+                        /></td>
+            </tr>
+
+{#
+            <tr>
+                <td><label class="required" for="inpReviewProvider">Provider</label></td>
+                <td><select
+                            name="inpReviewProvider"
+                            id="inpReviewProvider"
+                            data-role="dropdownlist"
+                            data-text-field="text"
+                            data-value-field="value"
+                            data-bind="source: reviewProviderDS, value: review.provider"
+                            ></select></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpReviewPlan">Plan</label></td>
+                <td><select
+                            name="inpReviewPlan"
+                            id="inpReviewPlan"
+                            data-role="dropdownlist"
+                            data-text-field="text"
+                            data-value-field="value"
+                            data-bind="source: reviewPlanDS, value: review.plan"
+                            ></select></td>
+            </tr>
+#}
+
+            <tr>
+                <td><label class="required" for="inpReviewProvider">Provider</label></td>
+                <td><input
+                            type="text"
+                            name="inpReviewProvider"
+                            id="inpReviewProvider"
+                            class="k-textbox"
+                            data-bind="value: review.provider"
+                            maxlength="255"
+                            placeholder="Enter review provider"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpReviewPlan">Plan</label></td>
+                <td><input
+                            type="text"
+                            name="inpReviewPlan"
+                            id="inpReviewPlan"
+                            class="k-textbox"
+                            data-bind="value: review.plan"
+                            maxlength="255"
+                            placeholder="Enter review plan"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpReviewRating">Rating</label></td>
+                <td><input
+                            name="inpReviewRating"
+                            id="inpReviewRating"
+                            data-role="numerictextbox"
+                            data-format="n0"
+                            data-bind="value: review.rating"
+                            max="100"
+                            step="5"
+                            min="0"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpReviewText">Text</label></td>
+                <td><textarea
+                            class="k-textbox"
+                            name="inpReviewText"
+                            id="inpReviewText"
+                            data-bind="value: review.text"
+                            ></textarea></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="k-button" data-bind="click: saveReview">Save</button>
+        <button type="submit" class="k-button" data-bind="click: cancelReview">Cancel</button>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var gridReviews = $("#gridReviews").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getReviews"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        author: { type: "string" },
+                        time: { type: "date" },
+                        provider: { type: "string" },
+                        plan: { type: "string" },
+                        generalratings: { type: "number" },
+                        text: { type: "string" }
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplReviewsToolbar").html()),
+        detailInit: detailExpand,
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "author",
+                title: "<center>Author</center>",
+                template: '<span style="float:left">#= author #</span>'
+            },
+            {
+                field: "time",
+                title: "<center>Time</center>",
+                template: '<span style="float:left">#= kendo.toString(time, "dd.MM.yyyy HH:mm:ss") #</span>'
+            },
+            {
+                field: "provider",
+                title: "<center>Provider</center>",
+                template: '<span style="float:left">#= provider #</span>'
+            },
+            {
+                field: "plan",
+                title: "<center>Plan</center>",
+                template: '<span style="float:left">#= plan #</span>'
+            },
+            {
+                field: "generalratings",
+                title: "<center>General Ratings</center>",
+                template: '<span style="float:left">#= generalratings #</span>'
+            },
+            {
+                field: "text",
+                title: "<center>Text</center>",
+                template: '<span style="float:left">#= text #</span>'
+            }
+
+        ]
+    }).data("kendoGrid");
+
+    // Детальный грид Персональные данные, Счета, История входов
+    function detailExpand(e) {
+        detailRow = e.detailRow;
+        detailRowData = e.data;
+
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                data: detailRowData.ratings,
+                schema: {
+                    type: "json", // тип схемы
+                    model: {
+                        fields: {
+                            name: { type: "string" },
+                            rate: { type: "number" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            scrollable: true,
+            sortable: true,
+            pageable: true,
+            filterable: true,
+            pageSize: 20,
+            columns: [
+                {
+                    field: "name",
+                    title: "<center>Name</center>",
+                    template: '<span style="float:left;">#= name #</span>'
+                },{
+                    field: "rate",
+                    title: "<center>Rate</center>",
+                    template: '<span style="float:left;">#= rate #</span>'
+                }
+            ]
+        }).data("kendoGrid");
+
+    };
+
+    var reviewWindow = $("#wndReview").kendoWindow({
+        title: "Review details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        height: 450
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var reviewValidator = $("#wndReview").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var reviewViewModel = kendo.observable({
+        // хранилище для полей формы
+        review: {
+            author: "",
+            time: 0,
+            provider: "",
+            plan: "",
+            rating: 0,
+            text: ""
+        },
+
+        // Обработчкики событий
+        saveReview: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер
+            if (reviewValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/saveReview",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        author: this.get('review.author'),
+                        provider: this.get('review.provider'),
+                        time: this.get('review.time'),
+                        plan: this.get('review.plan'),
+                        generalratings: this.get('review.rating'),
+                        text: this.get('review.text')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(reviewWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridReviews.dataSource.read();
+                        } else {
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(reviewWindow.element, false);
+                        reviewWindow.close();
+                    }
+
+                });
+            }
+        },
+
+        cancelReview: function (e) {
+
+            e.preventDefault();
+            reviewWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndReview"), reviewViewModel);
+
+    // Добавление нового Review
+    $('#btnAddReview').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        reviewViewModel.set("review", {
+            author: "",
+            time: 0,
+            provider: "",
+            plan: "",
+            rating: 0,
+            text: ""
+        });
+
+        reviewWindow.center().open();
+
+    });
+
+    // Удаление Review
+    $('#btnRemoveReview').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridReviews.dataItem(gridReviews.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Review from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove review with Object ID: " + row._id + "?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeReview",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                _id: row._id
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridReviews.dataSource.read();
+                } else {
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshReview').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridReviews.dataSource.read();
+    });
+
+</script>

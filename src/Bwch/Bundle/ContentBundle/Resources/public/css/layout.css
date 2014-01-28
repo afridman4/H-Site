@@ -1,0 +1,82 @@
+	
+	.class_div___layer-Main
+	{
+		z-index:0;
+	}
+	.class_div___layer-Main
+	{
+		height:100%;
+	}
+	
+	.class_div___element-Header--main,
+	.class_div___element-Main--main,
+	.class_div___element-Footer--main
+	{
+		width:1000px;
+		margin:0 auto;
+	}
+	
+	.class_div___element-Main--main--columns
+	{
+		padding:30px 0 16px;
+	}
+	.class_div___element-Main--main--columns--column__center
+	{
+		margin:0 300px 0 0;
+		_margin:0 297px 0 0;
+	}
+	.class_div___element-Main--main--columns--column__right
+	{
+		width:300px;
+		_margin:0 0 0 -3px;
+	}
+	
+	
+	.class_body___element-Page__plan_details 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__search_results 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__web_search 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__compare_plans 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__my_account 
+		.class_div___element-Main--main--columns--column__center
+	{
+		margin:0 170px 0 0;
+		_margin:0 167px 0 0;
+	}
+	.class_body___element-Page__plan_details 
+		.class_div___element-Main--main--columns--column__right,
+	.class_body___element-Page__search_results 
+		.class_div___element-Main--main--columns--column__right,
+	.class_body___element-Page__web_search 
+		.class_div___element-Main--main--columns--column__right,
+	.class_body___element-Page__compare_plans 
+		.class_div___element-Main--main--columns--column__right,
+	.class_body___element-Page__my_account 
+		.class_div___element-Main--main--columns--column__right
+	{
+		width:170px;
+		_margin:0 0 0 -3px;
+	}
+	
+	
+	
+	.class_body___element-Page__sign_in 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__sign_up 
+		.class_div___element-Main--main--columns--column__center
+	{
+		min-height:500px;
+		margin:0;
+	}
+	
+	
+	.class_body___element-Page__compare_plans 
+		.class_div___element-Main--main--columns--column__center,
+	.class_body___element-Page__my_account 
+		.class_div___element-Main--main--columns--column__center
+	{
+		padding:0 10px 15px 0;
+	}

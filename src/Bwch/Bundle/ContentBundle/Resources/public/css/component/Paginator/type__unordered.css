@@ -1,0 +1,74 @@
+
+/* set direction */
+	.class_table___component-Paginator-type__unordered-position__horizontal 
+		.class_div___element-Paginator--control,
+	.class_table___component-Paginator-type__unordered-position__horizontal 
+		.class_div___element-Paginator--navigation_items,
+	.class_table___component-Paginator-type__unordered-position__horizontal 
+		.class_div___element-Paginator--navigation_items--item
+	{
+		float:left;
+	}
+
+
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--control
+	{
+		width:25px;
+		height:17px;
+	}
+	.class_table___component-Paginator-type__unordered 
+		sup
+	{
+		display:block;
+		
+		width:10px;
+		height:17px;
+		
+		cursor:pointer;
+	}
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--control__show_previous_page 
+			sup
+	{
+		background:url(/images/component/Paginator/control/previous.png) no-repeat;
+	}
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--control__show_next_page 
+			sup
+	{
+		margin:0 0 0 auto;
+		
+		background:url(/images/component/Paginator/control/next.png) no-repeat;
+	}	
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--control 
+			.class___element-status__mouseover
+	{
+		background-position:0 -17px;
+	}
+		
+	
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--navigation_items--item 
+			a,
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--navigation_items--item 
+			div
+	{
+		display:block;
+		
+		width:9px;
+		height:9px;
+		margin:4px 2px;
+		
+		background:url(/images/component/Paginator/control/item.png) no-repeat;
+		
+		cursor:pointer;
+	}
+	.class_table___component-Paginator-type__unordered 
+		.class_div___element-Paginator--navigation_items--item 
+			.class___element-status__selected
+	{
+		background-position:0 -9px;
+	}

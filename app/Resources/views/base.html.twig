@@ -1,0 +1,155 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+{% set homePage = currentRoute == 'bwch_index' %}
+{% set searchPlansPage = currentRoute == 'bwch_search_plans' %}
+{% set searchWebPage = currentRoute == 'bwch_search_web' %}
+{% set comparePlansPage = currentRoute == 'bwch_compare_plans' %}
+{% set calculationPage = currentRoute == 'bwch_calculation_plan' %}
+{% set detailsPage = currentRoute == 'bwch_plan_details' %}
+{% set signInPage = currentRoute == 'bwch_user_sign_in' %}
+{% set signUpPage = currentRoute == 'bwch_user_sign_up' %}
+{% set myAccountPage = currentRoute == 'bwch_user_my_account' %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{% block title %}BestWebHosting{% endblock %}</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <!--<meta http-equiv="X-UA-Compatible" content="IE=8"/>-->
+        <!--<base href="http://bestwebhosting--frontend-debug/"/>-->
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+            {% block stylesheets %}
+                {# TODO /Frame/foreground, Button/dimensions обвернуть в isIE #}
+                {% stylesheets filter='cssrewrite'
+                '@BwchContentBundle/Resources/public/css/jquery-ui.css'
+                '@BwchContentBundle/Resources/public/css/fonts.css'
+                '@BwchContentBundle/Resources/public/css/global.css'
+                '@BwchContentBundle/Resources/public/css/header.css'
+                '@BwchContentBundle/Resources/public/css/footer.css'
+                '@BwchContentBundle/Resources/public/css/layout.css'
+                '@BwchContentBundle/Resources/public/css/component/FramesScroller.css'
+                '@BwchContentBundle/Resources/public/css/component/Form.css'
+                '@BwchContentBundle/Resources/public/css/component/InputField.css'
+                '@BwchContentBundle/Resources/public/css/component/InputField/style__default.css'
+                '@BwchContentBundle/Resources/public/css/component/InputFieldWithSlider.css'
+                '@BwchContentBundle/Resources/public/css/component/SelectionField.css'
+                '@BwchContentBundle/Resources/public/css/component/SelectionField/style__default.css'
+                '@BwchContentBundle/Resources/public/css/component/CheckboxField.css'
+                '@BwchContentBundle/Resources/public/css/component/RadioboxField.css'
+                '@BwchContentBundle/Resources/public/css/component/FileUploadingField.css'
+                '@BwchContentBundle/Resources/public/css/component/Frame.css'
+                '@BwchContentBundle/Resources/public/css/component/Frame/foreground__e5e5e5_d9e3e9-border__1_solid_e5e5e5_d0d0d0-corner__r5/mode__CSS3.css'
+                '@BwchContentBundle/Resources/public/css/component/Frame/foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5/mode__CSS3.css'
+                '@BwchContentBundle/Resources/public/css/component/Button.css'
+                '@BwchContentBundle/Resources/public/css/component/Button/dimensions__h40-style__green1.css'
+                '@BwchContentBundle/Resources/public/css/component/Button/icon__calculator-icon_dimensions__18x20-icon_color__ffffff-opacity__0.css'
+                '@BwchContentBundle/Resources/public/css/component/Button/dimensions__h32-style__green1.css'
+                '@BwchContentBundle/Resources/public/css/component/Button/dimensions__h38-style__green_right_arrow.css'
+                '@BwchContentBundle/Resources/public/css/component/RatingSelector.css'
+                '@BwchContentBundle/Resources/public/css/component/RatingSelector/dimensions__12x12-style__orange.css'
+                '@BwchContentBundle/Resources/public/css/component/RatingSelector/dimensions__20x19-style__orange.css'
+                '@BwchContentBundle/Resources/public/css/component/Paginator.css'
+                '@BwchContentBundle/Resources/public/css/component/Paginator/type__unordered.css'
+                '@BwchContentBundle/Resources/public/css/component/Paginator/type__ordered.css'
+                '@BwchContentBundle/Resources/public/css/component/ScrollableContainer.css'
+                '@BwchContentBundle/Resources/public/css/component/Scrollbar.css'
+                '@BwchContentBundle/Resources/public/css/component/Scrollbar/w6-h6/grey/horizontal.css'
+                '@BwchContentBundle/Resources/public/css/component/Scrollbar/w6-h6/grey/vertical.css'
+                '@BwchContentBundle/Resources/public/css/element/Rating-position__inline_block-stye__12x12.css'
+                '@BwchContentBundle/Resources/public/css/element/Reviews.css'
+                '@BwchContentBundle/Resources/public/css/element/RatingDetails.css'
+                '@BwchContentBundle/Resources/public/css/element/HostingPlanFeatures.css'
+                '@BwchContentBundle/Resources/public/css/element/SearchCriteria.css'
+                '@BwchContentBundle/Resources/public/css/page/default/main.css'
+                '@BwchContentBundle/Resources/public/css/page/default/element/HomePageMainNavigation.css'
+                '@BwchContentBundle/Resources/public/css/page/default/element/PlanSelection.css'
+                %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+                {% endstylesheets %}
+
+                {% if signInPage %}
+                    {% stylesheets filter='cssrewrite'
+                    '@BwchContentBundle/Resources/public/css/page/sign_in/layout.css'
+                    %}
+                    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+                    {% endstylesheets %}
+                {% endif %}
+                {% if comparePlansPage %}
+                    {% stylesheets filter='cssrewrite'
+                    '@BwchContentBundle/Resources/public/css/page/compare_plans/main.css'
+                    '@BwchContentBundle/Resources/public/css/page/compare_plans/layer/PlanDetailsItemDescription.css'
+                    %}
+                    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+                    {% endstylesheets %}
+                {% endif %}
+                {% if myAccountPage %}
+                    {% stylesheets filter='cssrewrite'
+                    '@BwchContentBundle/Resources/public/css/page/my_account/element/MyRecentReviews.css'
+                    '@BwchContentBundle/Resources/public/css/page/my_account/element/AccountDetails.css'
+                    %}
+                    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+                    {% endstylesheets %}
+                {% endif %}
+
+                {% stylesheets filter='cssrewrite'
+                '@BwchContentBundle/Resources/public/css/main.css'
+                '@BwchContentBundle/Resources/public/css/temp.css'
+                %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+                {% endstylesheets %}
+
+            {% endblock %}
+
+            {% block javascripts %}
+                {#JS Routing#}
+                <script src="{{ asset('js/router.js') }}"></script>
+                <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+                <script src="{{ asset('js/jquery/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('js/jquery/jquery-ui-1.10.2.custom.min.js') }}" type="text/javascript"></script>
+
+                {% javascripts
+                '@BwchContentBundle/Resources/public/js/_global.js'
+                '@BwchContentBundle/Resources/public/js/E_Debugger.js'
+                '@BwchContentBundle/Resources/public/js/E_Scroller.js'
+                '@BwchContentBundle/Resources/public/js/C_Button.js'
+                '@BwchContentBundle/Resources/public/js/C_RatingSelector.js'
+                '@BwchContentBundle/Resources/public/js/C_Paginator.js'
+                '@BwchContentBundle/Resources/public/js/C_ListBlockSwitcher.js'
+                '@BwchContentBundle/Resources/public/js/C_FramesScroller.js'
+                '@BwchContentBundle/Resources/public/js/C_Form.js'
+                '@BwchContentBundle/Resources/public/js/C_InputField.js'
+                '@BwchContentBundle/Resources/public/js/C_InputFieldWithSlider.js'
+                '@BwchContentBundle/Resources/public/js/C_SelectionField.js'
+                '@BwchContentBundle/Resources/public/js/C_CheckboxField.js'
+                '@BwchContentBundle/Resources/public/js/C_RadioboxField.js'
+                '@BwchContentBundle/Resources/public/js/C_ScrollableContainer.js'
+                '@BwchContentBundle/Resources/public/js/O_Scrollbar.js'
+                '@BwchContentBundle/Resources/public/js/E_Main.js'
+                '@BwchContentBundle/Resources/public/js/paginator.js'
+                '@BwchContentBundle/Resources/public/js/common.js'
+                %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+
+            {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+
+    <body class="class_body___element-Page__
+        {%- if homePage -%}default
+        {%- elseif searchPlansPage -%}search_results
+        {%- elseif searchWebPage -%}web_search
+        {%- elseif detailsPage -%}plan_details
+        {%- elseif signInPage -%}sign_in
+        {%- elseif signUpPage -%}sign_up
+        {%- elseif myAccountPage -%}my_account
+        {%- elseif comparePlansPage -%}compare_plans
+        {%- elseif calculationPage -%}calculation
+        {%- endif -%}">
+        {% block body %}{% endblock %}
+    </body>
+</html>

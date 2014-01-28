@@ -1,0 +1,31 @@
+
+	.class_div___component-ScrollableContainer
+	{
+		position:relative;
+	}
+	.class_div___element-ScrollableContainer
+	{
+		overflow:hidden;
+		
+		*position:relative;/*ie7*/
+		_position:relative;/*ie6*/
+	}
+	
+	
+	#id_div___component-ScrollableContainer__HostingPlanFeatures 
+		.class_div___element-ScrollableContainer
+	{
+		height:380px;
+	}
+	
+	#id_div___component-ScrollableContainer__search_criteria 
+		.class_div___element-ScrollableContainer
+	{
+		height:580px;
+	}
+	
+	#id_div___component-ScrollableContainer__search_results 
+		.class_div___element-ScrollableContainer
+	{
+		height:560px;
+	}

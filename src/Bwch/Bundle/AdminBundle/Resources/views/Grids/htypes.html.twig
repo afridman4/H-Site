@@ -1,0 +1,398 @@
+{#Toolbar#}
+<script type="text/x-kendo-template" id="tplHTypesToolbar">
+    <div class="toolbar">
+        <a id="btnAddHType" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add HType
+        </a>
+        <a id="btnEditHType" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit HType
+        </a>
+        <a id="btnRemoveHType" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove HType
+        </a>
+        <a id="btnRefreshHType" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+
+{#Окно с деталями HType #}
+<div id="wndHType" style="padding: 20px; display:none;">
+
+    <div id="htypeForm" class="htype-popup-form">
+        <table>
+            <tr>
+                <td><label class="required" for="inpHTypeName">Name</label></td>
+                <td><input
+                            type="text"
+                            name="inpHTypeName"
+                            id="inpHTypeName"
+                            class="k-textbox"
+                            data-bind="value: htype.name"
+                            maxlength="255"
+                            required=""
+                            placeholder="Enter HType name"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpHTypeDisplayName">Display Name</label></td>
+                <td><input
+                            type="text"
+                            name="inpHTypeDisplayName"
+                            id="inpHTypeDisplayName"
+                            class="k-textbox"
+                            data-bind="value: htype.display_name"
+                            maxlength="255"
+                            required=""
+                            placeholder="Enter display name"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpHTypeShortName">Short Name</label></td>
+                <td><input
+                            type="text"
+                            name="inpHTypeShortName"
+                            id="inpHTypeShortName"
+                            class="k-textbox"
+                            data-bind="value: htype.short_name"
+                            maxlength="255"
+                            placeholder="Enter short name (for home page slider)"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpHTypeDescription">Description</label></td>
+                <td><textarea
+                        class="k-textbox"
+                        name="inpHTypeDescription"
+                        id="inpHTypeDescription"
+                        data-bind="value: htype.description"
+                ></textarea></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpHTypeKeywords">Keywords</label></td>
+                <td><input
+                            type="text"
+                            name="inpHTypeKeywords"
+                            id="inpHTypeKeywords"
+                            class="k-textbox"
+                            data-bind="value: htype.keywords"
+                            maxlength="255"
+                            required=""
+                            placeholder="Enter keywords"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpHTypeSortOrder">Sort order</label></td>
+                <td><input
+                            type="text"
+                            name="inpHTypeSortOrder"
+                            id="inpHTypeSortOrder"
+                            data-role="numerictextbox"
+                            data-format="n0"
+                            data-bind="value: htype.sort_order"
+                            required=""
+                            placeholder="Sort order"
+                            /></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <table>
+            <tr>
+                <td><button type="submit" class="k-button" data-bind="click: saveHType">Save</button></td>
+                <td><button type="submit" class="k-button" data-bind="click: cancelHType">Cancel</button></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var gridHTypes = $("#gridHTypes").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getHTypes"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    id: "htypes",
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        created: { type: "date", editable: false },
+                        name: { type: "string", editable: false },
+                        display_name: { type: "string" },
+                        short_name: { type: "string" },
+                        description: { type: "string" },
+                        keywords: { type: "string" },
+                        sort_order: { type: "number" }
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplHTypesToolbar").html()),
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "created",
+                title: "<center>Created</center>",
+                template: '<span style="float:left">#= kendo.toString(created, "yyyy-MM-dd HH:mm:ss") #</span>'
+            },
+            {
+                field: "name",
+                title: "<center>Name</center>",
+                template: '<span style="float:left">#= name #</span>'
+            },
+            {
+                field: "display_name",
+                title: "<center>Display name</center>",
+                template: '<span style="float:left">#= display_name #</span>'
+            },
+            {
+                field: "short_name",
+                title: "<center>Short name</center>",
+                template: '<span style="float:left">#= short_name #</span>'
+            },
+            {
+                field: "description",
+                title: "<center>Description</center>",
+                template: '<span style="float:left">#= description #</span>'
+            },
+            {
+                field: "keywords",
+                title: "<center>Keywords</center>",
+                template: '<span style="float:left">#= keywords #</span>'
+            },
+            {
+                field: "sort_order",
+                title: "<center>Sort order</center>",
+                template: '<span style="float:left">#= sort_order #</span>'
+            }
+
+        ]
+    }).data("kendoGrid");
+
+    var htypeWindow = $("#wndHType").kendoWindow({
+        title: "HType details",
+        modal: true,
+        visible: false,
+        resizable: false
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var htypeValidator = $("#wndHType").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var htypeViewModel = kendo.observable({
+        // хранилище для полей формы
+        htype: {
+            name: "",
+            display_name: "",
+            short_name: "",
+            description: "",
+            keywords: "",
+            sort_order: 0
+        },
+
+        // Обработчкики событий
+        saveHType: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер/
+            if (htypeValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/saveHType",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        name: this.get('htype.name'),
+                        display_name: this.get('htype.display_name'),
+                        short_name: this.get('htype.short_name'),
+                        description: this.get('htype.description'),
+                        keywords: this.get('htype.keywords'),
+                        sort_order: this.get('htype.sort_order')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(htypeWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridHTypes.dataSource.read();
+                        } else {
+                            alert(response.errors);
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(htypeWindow.element, false);
+                        htypeWindow.close();
+                    }
+
+                });
+            }
+
+        },
+
+        cancelHType: function (e) {
+
+            e.preventDefault();
+            htypeWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndHType"), htypeViewModel);
+
+    // Добавление нового HType
+    $('#btnAddHType').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        // присваеваем форме значения по умолчанию
+        htypeViewModel.set("htype", {
+            name: "",
+            display_name: "",
+            short_name: "",
+            description: "",
+            keywords: "",
+            sort_order: 0
+        });
+
+        htypeWindow.center().open();
+
+    });
+
+    // Редактирование HType
+    $('#btnEditHType').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridHTypes.dataItem(gridHTypes.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select HType from grid first.');
+            return ;
+        }
+
+
+        // присваеваем форме значения по умолчанию
+        htypeViewModel.set("htype", {
+            name: row.name,
+            display_name: row.display_name,
+            short_name: row.short_name,
+            description: row.description,
+            keywords: row.keywords,
+            sort_order: row.sort_order
+        });
+
+        htypeWindow.center().open();
+
+    });
+
+    // Удаление HType
+    $('#btnRemoveHType').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridHTypes.dataItem(gridHTypes.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select HType from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove HType " + row.name + "?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeHType",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                name: row.name
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridHTypes.dataSource.read();
+                } else {
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshHType').on("click", function(e) {
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridHTypes.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridHTypes").delegate("tbody>tr", "dblclick", function() {
+        $('#btnEditHType').click();
+    });
+
+    var dropdownlist = $("#titles").data("kendoDropDownList");
+
+</script>

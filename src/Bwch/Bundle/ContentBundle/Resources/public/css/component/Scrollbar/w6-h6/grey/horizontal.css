@@ -1,0 +1,87 @@
+	
+	.class_div___component-ScrollableContainer-horizontal_scrollbar_style__h6_grey 
+		.class_div___element-ScrollableContainer
+	{
+		margin-bottom:15px;
+	}
+	
+	.class_div___component-Scrollbar-position__horizontal
+	{
+		left:0;
+		bottom:0;
+		
+		height:6px;
+		width:100%;
+	}
+	.class_div___component-Scrollbar-position__horizontal 
+		div
+	{
+		height:100%;
+	}
+	
+	.class_div___component-Scrollbar-position__horizontal 
+		b,
+	.class_div___component-Scrollbar-position__horizontal 
+		i
+	{
+		width:3px;
+		height:100%;
+		
+		background-image:url(/images/component/Scrollbar/w6-h6/grey/borders.png);
+	}
+	.class_div___component-Scrollbar-position__horizontal 
+		b
+	{
+		left:0;
+	}
+	.class_div___component-Scrollbar-position__horizontal 
+		i
+	{
+		right:0;
+		
+		background-position:-3px 0;
+	}
+	
+	.class_div___component-Scrollbar-position__horizontal 
+		em
+	{
+		left:3px;
+		
+		height:100%;
+
+		background:url(/images/component/Scrollbar/w6-h6/grey/horizontal/background.png) repeat-x;
+	}
+	
+	.class_div___component-Scrollbar-position__horizontal 
+		div 
+			div 
+				b,
+	.class_div___component-Scrollbar-position__horizontal 
+		div 
+			div 
+				i
+	{
+		background-image:url(/images/component/Scrollbar/w6-h6/grey/slider_borders.png);
+	}
+	
+	.class_div___component-Scrollbar-position__horizontal 
+		div 
+			div 
+				em
+	{
+		background:#b8b8b8 none;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

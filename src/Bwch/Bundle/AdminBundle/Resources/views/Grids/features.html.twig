@@ -1,0 +1,641 @@
+{#Toolbar#}
+<script type="text/x-kendo-template" id="tplFeaturesToolbar">
+    <div class="toolbar">
+        <label class="category-label" for="htype">HType:</label>
+        <input type="search" id="htype" style="width: 150px"/>
+        <a id="btnAddFeature" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add feature
+        </a>
+        <a id="btnEditFeature" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit feature
+        </a>
+        <a id="btnRemoveFeature" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove feature
+        </a>
+        <a id="btnRefreshFeature" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+
+{#Окно с деталями Feature#}
+<div id="wndFeature" style="padding: 20px; display:none; width: 500px;">
+    <div id="featureForm" class="feature-popup-form">
+        <table>
+            <tr>
+                <td><label>HType</label></td>
+                <td><span data-bind="text: feature.htype"></span></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpFeatureName" class="required">Name</label></td>
+                <td><input
+                        type="text"
+                        name="inpFeatureName"
+                        id="inpFeatureName"
+                        class="k-textbox"
+                        data-bind="value: feature.name"
+                        maxlength="50"
+                        placeholder="Enter feature name"
+                        required=""
+                        pattern="[0-9a-zA-Z_-\s]{1,50}"
+                        data-required-msg="You can't leave this empty"
+                        data-pattern-msg="charset [0-9a-zA-Z_- ]"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="inpFeatureDisplayName">Display name</label>
+                </td>
+                <td><input
+                            type="text"
+                            name="inpFeatureDisplayName"
+                            id="inpFeatureDisplayName"
+                            class="k-textbox"
+                            data-bind="value: feature.displayname"
+                            maxlength="50"
+                            placeholder="Display name"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="inpFeatureDisplayName">Description</label>
+                </td>
+                <td><textarea
+                            class="k-textbox"
+                            name="inpFeatureDescription"
+                            id="inpFeatureDescription"
+                            data-bind="value: feature.description"
+                            style="width:100%;height:200px"
+                            ></textarea></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align: center">Feature type details</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <label><input type="radio" name="type" value="yesno" data-bind="checked: feature.type" />Yes/No feature</label>
+                            </td>
+                            <td>
+                                <span data-bind="text: feature.displayname"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><input type="radio" name="type" value="int" data-bind="checked: feature.type" />Quantifiable</label>
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td><label for="inpFeatureUnit">Unit</label></td>
+                                        <td><input
+                                                    type="text"
+                                                    name="inpFeatureUnit"
+                                                    id="inpFeatureUnit"
+                                                    class="k-textbox"
+                                                    data-bind="value: feature.unit"
+                                                    maxlength="255"
+                                                    placeholder="Gb, Mb, e.t.c."
+                                                    /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label for="inpFeatureMinValue">Min value</label></td>
+                                        <td><input
+                                                    name="inpFeatureMinValue"
+                                                    id="inpFeatureMinValue"
+                                                    data-role="numerictextbox"
+                                                    data-format="n0"
+                                                    data-bind="value: feature.minvalue"
+                                                    max="10000"
+                                                    step="10"
+                                                    min="0"
+                                                    /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label for="inpFeatureMaxValue">Max value</label></td>
+                                        <td><input
+                                                    name="inpFeatureMaxValue"
+                                                    id="inpFeatureMaxValue"
+                                                    data-role="numerictextbox"
+                                                    data-format="n0"
+                                                    data-bind="value: feature.maxvalue"
+                                                    max="10000"
+                                                    step="10"
+                                                    min="0"
+                                                    /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label for="inpFeatureDefaultValue">Default value</label></td>
+                                        <td><input
+                                                    name="inpFeatureDefaultValue"
+                                                    id="inpFeatureDefaultValue"
+                                                    data-role="numerictextbox"
+                                                    data-format="n0"
+                                                    data-bind="value: feature.defaultvalue"
+                                                    max="10000"
+                                                    step="10"
+                                                    min="0"
+                                                    /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><input type="radio" name="type" value="multiple" data-bind="checked: feature.type" />Multiple</label>
+                            </td>
+                            <td><textarea
+                                        class="k-textbox"
+                                        name="inpFeatureValues"
+                                        id="inpFeatureValues"
+                                        data-bind="value: feature.values"
+                                        placeholder="Separate by comma"
+                                        style="width:100%; height: 100px;"
+                                ></textarea><input
+                                        type="checkbox"
+                                        name="inpFeatureIsMultiple"
+                                        id="inpFeatureIsMultiple"
+                                        data-bind="checked: feature.ismultiple"
+                                /><label for="inpFeatureIsMultiple">is multiple choice?</label>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="inpFeatureHasAny">Has any</label></td>
+                <td><input
+                        type="checkbox"
+                        name="inpFeatureHasAny"
+                        id="inpFeatureHasAny"
+                        data-bind="checked: feature.hasany"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpFeatureHasUnlimited">Has unlimited</label></td>
+                <td><input
+                        type="checkbox"
+                        name="inpFeatureHasUnlimited"
+                        id="inpFeatureUnlimited"
+                        data-bind="checked: feature.hasunlimited"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpFeatureHasAll">Has all</label></td>
+                <td><input
+                        type="checkbox"
+                        name="inpFeatureHasAll"
+                        id="inpFeatureAll"
+                        data-bind="checked: feature.hasall"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpFeatureOperation">Operation</label></td>
+                <td><input
+                        type="text"
+                        name="inpFeatureOperation"
+                        id="inpFeatureOperation"
+                        class="k-textbox"
+                        data-bind="value: feature.operation"
+                        maxlength="15"
+                        placeholder="Enter operation"
+                        /></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="k-button" data-bind="click: saveFeature">Save</button>
+        <button type="submit" class="k-button" data-bind="click: cancelFeature">Cancel</button>
+    </div>
+
+</div>
+
+<script id="tplFeatureType" type="text/x-kendo-template">
+    Type: <b>#= type #</b><br/>
+    #if(type == 'int') { #
+    <ul style="margin: 0;">
+        <li>Unit: <b>#= unit #</b></li>
+        <li>Min.value: <b>#= minvalue #</b></li>
+        <li>Max.value: <b>#= maxvalue #</b></li>
+        <li>Default value: <b>#= defaultvalue #</b></li>
+    </ul>
+    # } else if (type == 'multiple') { #
+    <b>#= values #</b>
+    # } else { #
+    Display name: <b>#= displayname #</b>
+    # } #
+</script>
+
+<script type="text/javascript">
+
+    var gridFeatures = $("#gridFeatures").kendoGrid({
+        autoBind: false,
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        htype: ''
+                    },
+                    url: "/ajax/getFeatures"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        name: { type: "string" },
+                        displayname: { type: "string" },
+                        description: { type: "string" },
+                        htype: { type: "string" },
+                        type: { type: "string" },
+                        hasany: { type: "boolean" },
+                        hasunlimited: { type: "boolean" },
+                        ismultiple: { type: "boolean" },
+                        values: { type: "string" },
+                        hasall: { type: "boolean" },
+                        operation: { type: "string" }
+                    }
+                }
+            },
+            serverFiltering: true,
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplFeaturesToolbar").html()),
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "name",
+                title: "<center>Name</center>",
+                template: '<span style="float:left">#= name #</span>'
+            },
+            {
+                field: "displayname",
+                title: "<center>Display name</center>",
+                template: '<span style="float:left">#= displayname #</span>'
+            },
+            {
+                field: "description",
+                title: "<center>Description</center>",
+                template: '<span style="float:left">#= description #</span>'
+            },
+            {
+                field: "type",
+                title: "<center>Details</center>",
+                template: kendo.template($("#tplFeatureType").html())
+            },
+            {
+                field: "hasany",
+                title: "<center>Has any</center>",
+                template: '<span style="float:center">#= hasany #</span>'
+            },
+            {
+                field: "hasunlimited",
+                title: "<center>Has unlimited</center>",
+                template: '<span style="float:center">#= hasunlimited #</span>'
+            },
+            {
+                field: "hasall",
+                title: "<center>Has all</center>",
+                template: '<span style="float:center">#= hasall #</span>'
+            },
+            {
+                field: "ismultiple",
+                title: "<center>Multiple choice</center>",
+                template: '<span style="float:center">#= ismultiple #</span>'
+            },
+            {
+                field: "operation",
+                title: "<center>Operation</center>",
+                template: '<span style="float:center">#= operation #</span>'
+            }
+
+        ]
+    }).data("kendoGrid");
+
+    var listHTypes = $("#gridFeatures").find("#htype").kendoDropDownList({
+        dataTextField: "name",
+        dataValueField: "name",
+        autoBind: false,
+        optionLabel: "Select HType",
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getHTypes"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    id: "htypes",
+                    fields: {
+                        name: { type: "string" }
+                    }
+                }
+            }
+        },
+        change: function() {
+            var value = this.value();
+            gridFeatures.dataSource.transport.options.read.data = {
+                    htype: value
+            }
+            gridFeatures.dataSource.read();
+        }
+    });
+
+    var featureWindow = $("#wndFeature").kendoWindow({
+        title: "Feature details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        height: 700
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var featureValidator = $("#wndFeature").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var featureViewModel = kendo.observable({
+        // хранилище для полей формы
+        feature: {
+            name: "",
+            htype: "",
+            type: "",
+            displayname: "",
+            description: "",
+            unit: "",
+            minvalue: 0,
+            maxvalue: 0,
+            defaultvalue: 0,
+            ismultiple: 0,
+            hasany: 0,
+            hasall: 0,
+            hasunlimited: 0,
+            values: ""
+        },
+
+        // Обработчкики событий
+        saveFeature: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер
+            if (featureValidator.validate()) {
+
+                var values = this.get('feature.values');
+                // .split(',')
+                if (typeof(values) != 'undefined') {
+                    values = values.split(',');
+                }
+
+                $.ajax({
+                    url: "/ajax/saveFeature",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        name: this.get('feature.name'),
+                        displayname: this.get('feature.displayname'),
+                        description: this.get('feature.description'),
+                        htype: this.get('feature.htype'),
+                        type: this.get('feature.type'),
+                        unit: this.get('feature.unit'),
+                        minvalue: this.get('feature.minvalue'),
+                        maxvalue: this.get('feature.maxvalue'),
+                        defaultvalue: this.get('feature.defaultvalue'),
+                        ismultiple: this.get('feature.ismultiple'),
+                        hasany: this.get('feature.hasany'),
+                        hasunlimited: this.get('feature.hasunlimited'),
+                        hasall: this.get('feature.hasall'),
+                        operation: this.get('feature.operation'),
+                        values: values
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(featureWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridFeatures.dataSource.read();
+                        } else {
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(featureWindow.element, false);
+                        featureWindow.close();
+                    }
+
+                });
+            }
+        },
+
+        cancelFeature: function (e) {
+
+            e.preventDefault();
+            featureWindow.close();
+        }
+
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndFeature"), featureViewModel);
+
+    // Добавление нового Feature
+    $('#btnAddFeature').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        featureValidator.hideMessages();
+
+        var htype = gridFeatures.dataSource.transport.options.read.data['htype'];
+
+        if (htype == '') {
+            alert('You must select HType first.')
+        } else {
+            // присваеваем форме значения по умолчанию
+            featureViewModel.set("feature", {
+                name: "",
+                htype: htype,
+                type: "yesno",
+                displayname: "",
+                description: "",
+                unit: "",
+                minvalue: 0,
+                maxvalue: 0,
+                defaultvalue: 0,
+                hasany: false,
+                hasunlimited: false,
+                hasall: false,
+                ismultiple: false,
+                operation: "",
+                values: ""
+            });
+
+            featureWindow.center().open();
+
+        }
+
+    });
+
+    // Редактирование Feature
+    $('#btnEditFeature').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridFeatures.dataItem(gridFeatures.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Feature from grid first.');
+            return ;
+        }
+
+        featureValidator.hideMessages();
+
+        // присваеваем форме значения по умолчанию
+        featureViewModel.set("feature", {
+            name: row.name,
+            displayname: row.displayname,
+            description: row.description,
+            htype: row.htype,
+            type: row.type,
+            unit: row.unit,
+            minvalue: row.minvalue,
+            maxvalue: row.maxvalue,
+            defaultvalue: row.defaultvalue,
+            hasany: row.hasany,
+            hasunlimited: row.hasunlimited,
+            hasall: row.hasall,
+            ismultiple: row.ismultiple,
+            operation: row.operation,
+            values: row.values
+        });
+
+        featureWindow.center().open();
+
+    });
+
+    // Удаление Feature
+    $('#btnRemoveFeature').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridFeatures.dataItem(gridFeatures.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Feature from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove Feature '" + row.name + "' from HType '" + row.htype + "'?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeFeature",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                htype: row.htype,
+                name: row.name
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridFeatures.dataSource.read();
+                } else {
+                    alert(response.errors);
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshFeature').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridFeatures.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridFeatures").delegate("tbody>tr", "dblclick", function() {
+        $('#btnEditFeature').click();
+    });
+
+</script>

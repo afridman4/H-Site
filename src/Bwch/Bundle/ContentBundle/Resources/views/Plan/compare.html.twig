@@ -1,0 +1,142 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Plan Details{% if plan.planname is defined %}:{{ plan.provider }} {{ plan.planname }} {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/compare_plans.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class___float__right
+                            class_div___element-Main--main--columns--column
+                            class_div___element-Main--main--columns--column__right">
+                    {# ======== Banner section START ======== #}
+                    <div>
+                        {{ render(controller('BwchContentBundle:Banner:fiveBanners')) }}
+                    </div>
+                    {# ======== Banner section END ======== #}
+                </div>
+                <div class="class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__center">
+
+                    <div style="padding:0 10px 16px 0;">
+                        <h1 style="margin:0 0 12px 0;">Compare plans</h1>
+
+                        <table class="class___width__100">
+                            <tr>
+                                <th style="width:280px;">
+
+                                    <table class="class___width__100
+                                            class_table___element-style__2">
+                                        <tr>
+                                            <th>
+                                                <b>Details</b>
+                                            </th>
+                                        </tr>
+
+                                        {% for feature in features %}
+                                            <tr>
+                                                <td><i></i><span>{{ feature.displayname }}</span></td>
+                                            </tr>
+                                        {% endfor %}
+
+                                    </table>
+
+                                </th>
+                            <td>
+                                <div class="class_div___component-ScrollableContainer
+                                            class_div___component-ScrollableContainer__compare_plans"
+                                id="id_div___component-ScrollableContainer__compare_plans">
+
+                                    <div class="class_div___element-ScrollableContainer">
+                                        <div class="class_div___element">
+                                            <table>
+                                                <tr>
+                                                {% for plan in plans %}
+                                                        <td >
+                                                            <table class="class_table___element-style__2">
+                                                                <tr>
+                                                                    <th>
+                                                                        <b><a href="{{ path('bwch_plan_details', {'provider': plan.provider, 'planname': plan.planname }) }}">{{ plan.planname }}</a></b>
+                                                                    </th>
+                                                                </tr>
+
+                                                                {% for feature in features %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            {% if attribute(plan, feature.name) is defined %}
+                                                                                {% if feature.type == 'int' %}
+                                                                                    {{ attribute(plan, feature.name) }}{% if attribute(plan, feature.name) != 'UNLIMITED' %}{{ feature.unit }}{% endif %}
+                                                                                {% elseif feature.type == 'yesno' %}
+                                                                                    <div style="width:25px;height:24px;margin:0 auto;font-family:HelveticaNeue-Bold;font-size:15px;cursor:pointer;">
+                                                                                        <div class="class_div___component-Radiobox
+                                                                                                    class___element-status__selected"
+                                                                                                  id="id_div___component-Radiobox__test1_plan1"
+                                                                                                  style="width:25px;height:24px;margin:0;"></div>
+                                                                                    </div>
+                                                                                {% elseif feature.type == 'multiple' %}
+                                                                                    {{ attribute(plan, feature.name)|join(',') }}
+                                                                                {% endif %}
+                                                                            {% else %}
+                                                                            -
+                                                                            {% endif %}
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+
+                                                            </table>
+                                                        </td>
+                                                {% endfor %}
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    {% include 'BwchContentBundle:Common:scrollbar.html.twig' with {'orientation': 'horizontal'} %}
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div></div>
+
+                </div>
+            </div>
+
+                <div class="class_div___element-Separator-type__clear_both"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+
+    <div class="class___display__none
+                class_div___layer
+                class_div___layer-PlanDetailsItemDescription"
+         id="id_div___layer-PlanDetailsItemDescription">
+        <div class="class_div___element-PlanDetailsItemDescription--main">
+            {% for feature in features %}
+                <p>{{ feature.description|default("") }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

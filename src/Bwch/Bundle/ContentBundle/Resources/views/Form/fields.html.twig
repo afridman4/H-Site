@@ -1,0 +1,50 @@
+{% block form_errors %}
+{% spaceless %}
+        {% if errors|length > 0 %}
+                {% for error in errors %}
+                    {{ error.message }}
+                    {% if not loop.last %}<br />{% endif %}
+                {% endfor %}
+        {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block submit_widget %}
+    {% spaceless %}
+        <div {{ block('button_attributes') }}>
+            <table class="class___component
+                            class___component-Button
+                            class_table___component-Button
+                            class___width__100
+                            class___component-Button__h40_green1
+                            class___component-Button-dimensions__h40
+                            class___component-Button-style__green1"
+                   id="{{ id }}">
+                <tr>
+                    <td>
+                        <i><b><s><u>{% if label is defined %}{{ label }}{% else %}Submit{% endif %}</u></s></b></i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endspaceless %}
+{% endblock submit_widget %}
+
+{% block ewz_recaptcha_widget %}
+    {% spaceless %}
+        {% if form.vars.ewz_recaptcha_enabled %}
+            {% if attr.options is defined %}
+                <script type="text/javascript">
+                    var RecaptchaOptions = {{ attr.options|json_encode|raw }}
+                </script>
+            {% endif %}
+            <script src="{{ form.vars.url_challenge }}" type="text/javascript"></script>
+            <noscript>
+                <iframe src="{{ form.vars.url_noscript }}" height="300" width="500"></iframe><br/>
+                <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+            </noscript>
+        {% endif %}
+    {% endspaceless %}
+{% endblock ewz_recaptcha_widget %}
+

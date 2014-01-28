@@ -1,0 +1,19 @@
+bwch_core:
+    resource: "@BwchCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bwch_content:
+    resource: "@BwchContentBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bwch_ajax:
+    resource: "@BwchAjaxBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bwch_admin:
+    resource: "@BwchAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# JS Routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

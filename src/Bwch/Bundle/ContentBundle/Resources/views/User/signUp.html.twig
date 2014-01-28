@@ -1,0 +1,171 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - User Sign-Up
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/sign_up.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class_div___element-Main--main--columns--column
+                            class_div___element-Main--main--columns--column__center">
+
+                    <h1 style="text-align:center;">Sign Up</h1>
+
+                    <div class="class_div___component class_div___component-Form" id="id_div___component-Form__SignUp">
+
+                        <div class="class___position__relative class_div___element-Form">
+
+                            {% form_theme form 'BwchContentBundle:Form:fields.html.twig' %}
+                            {{ form_start(form, { 'attr': {'id': 'signup_form'} }) }}
+                            {{ form_errors(form) }}
+
+                                <div class="class___display__none class_div___element-Form--submission_status_description"></div>
+
+                                <div class="class_div___element-Form--visible_fields">
+                                    <table class="class___width__100 class___margin__0_auto">
+                                        <tr>
+                                            <td style="">
+                                                <h2 style="padding:0 0 5px 0;font-size:13px;">Login</h2>
+                                                <div class="class_div___component
+                                                            class_div___component-InputField
+                                                            class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__SignUp-name__user_login">
+                                                    <div>
+                                                        {{ form_widget(form.login) }}
+                                                        {#<input name="name_input___user_name" type="text"/>#}
+                                                        <i><b></b></i>
+                                                        <em></em>
+                                                    </div>
+                                                    <span><b></b></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">
+                                                <h2 style="padding:0 0 5px 0;font-size:13px;">Name</h2>
+                                                <div class="class_div___component
+                                                            class_div___component-InputField
+                                                            class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__SignUp-name__user_name">
+                                                    <div>
+                                                        {{ form_widget(form.username) }}
+                                                        {#<input name="name_input___user_name" type="text"/>#}
+                                                        <i><b></b></i>
+                                                        <em></em>
+                                                    </div>
+                                                    <span><b></b></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">
+                                                <h2 style="padding:0 0 5px 0;font-size:13px;">Email</h2>
+                                                <div class="class_div___component
+                                                            class_div___component-InputField
+                                                            class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__SignUp-name__user_email_address">
+                                                    <div>
+                                                        {{ form_widget(form.email) }}
+                                                        {#<input name="name_input___user_email_address" type="text"/>#}
+                                                        <i><b></b></i>
+                                                        <em></em>
+                                                    </div>
+                                                    <span><b></b></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">
+                                                <h2 style="padding:0 0 5px 0;font-size:13px;">Password</h2>
+                                                <div class="class_div___component
+                                                            class_div___component-InputField
+                                                            class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__SignUp-name__user_password">
+                                                    <div>
+                                                        {{ form_widget(form.password.first) }}
+{#                                                        <input name="name_input___user_password" type="password"/>#}
+                                                        <i><b></b></i>
+                                                        <em></em>
+                                                    </div>
+                                                    <span><b></b></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">
+                                                <h2 style="padding:0 0 5px 0;font-size:13px;">Confirm password</h2>
+                                                <div class="class_div___component
+                                                            class_div___component-InputField
+                                                            class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__SignUp-name__user_password_confirmation">
+                                                    <div>
+                                                        {{ form_widget(form.password.second) }}
+                                                        {#<input name="name_input___user_password_confirmation" type="password"/>#}
+                                                        <i><b></b></i>
+                                                        <em></em>
+                                                    </div>
+                                                    <span><b></b></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table class="class___width__100">
+                                                    <tr>
+                                                        <td style="width:30%">
+                                                            {{ form_widget(form.submit, {id: 'id_div___component-Button-form_id__SignUp-action__confirm'}) }}
+                                                        </td>
+                                                        <td style="text-align:right;">
+                                                            <a href="{{ path('bwch_index') }}" style="font-size:18px;line-height:38px;color:#222222;text-decoration:underline;">Cancel</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="margin:25px 0 0;padding:10px 0 0;border-top:1px solid #cdcece;font-family:HelveticaNeue-Bold;font-size:13px;">
+                                                    Have an account, please <a href="{{ path('bwch_user_sign_in') }}" style="text-decoration:underline;">Log in</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                                <div class="class___display__none class_div___element-Form--hidden_fields"></div>
+
+                            {{ form_end(form) }}
+
+                            <div class="class___display__none class_div___element-Form--submission_processing_indicator"><div></div></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="class_div___element-Separator-type__clear_both"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+</div>
+{% endblock %}

@@ -1,0 +1,176 @@
+
+	.class_div___component-SelectionField
+	{
+		
+	}
+	.class_div___component-SelectionField 
+		.class_div___component-InputField-input_type__uniline_text 
+			div
+	{
+		padding-right:20px;
+/*		border-color:#e5e5e5;
+		border-radius:0;
+*/		
+		background:#f7f7f7 url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png) no-repeat;
+	}
+	.class_div___component-SelectionField 
+		.class_div___component-InputField-input_type__uniline_text 
+			input
+	{
+		font-family:HelveticaNeue-Bold;
+		font-size:14px;
+		color:#222222;
+
+	}
+	.class_div___component-SelectionField 
+		.class_div___component-InputField-input_type__uniline_text 
+			div 
+				tt
+	{
+		_overflow:hidden; /* IE6 */
+		
+		position:absolute;
+		top:14px;
+		right:6px;
+		
+		width:7px;
+		height:4px;
+		
+		background:url(/images/shared/arrow/4x7-7x4/color__000000.png) 0 -14px;
+	}
+	
+	.class_div___component-SelectionField 
+		.class_div___component-InputField 
+			sup 
+				sub
+	{
+		font-family:HelveticaNeue-Light;
+		font-size:14px;
+		font-style:italic;
+	}
+	
+	.class_div___element-SelectionField--options 
+		ul
+	{
+		border:1px solid #e5e5e5;
+		
+		background:#f7f7f7;/* url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png);*/
+	}
+/*
+	.class_div___element-SelectionField--options 
+		table
+	{
+		margin:5px auto 5px;
+	}
+	
+	.class_div___element-SelectionField--options 
+		table 
+			td
+	{
+		width:auto;
+		height:auto;
+		padding:0 5px;
+		
+	}
+	.class_div___element-SelectionField--options 
+		table 
+			i
+	{
+		font-style:normal;
+		font-weight:bold;
+		
+	}
+	.class_div___element-SelectionField--options 
+		table 
+			b,
+	.class_div___element-SelectionField--options 
+		table 
+			i
+	{
+		cursor:pointer;
+	}
+*/
+	
+	.class_div___component-SelectionField 
+		ul 
+			li
+	{
+		padding:4px;
+		
+		font-family:HelveticaNeue-Bold;
+		font-size:14px;
+		
+		cursor:pointer;
+	}
+	.class_div___component-SelectionField 
+		ul 
+			li 
+				input
+	{
+		display:none;
+	}
+	.class_div___component-SelectionField 
+		ul 
+			li.class___element-status__mouseover
+	{
+		color:#666666;
+		
+		background-color:#dfdfdf;
+	}
+	.class_div___component-SelectionField 
+		ul 
+			li.class___element-status__mousedown
+	{
+		color:#ffffff;
+		
+		background-color:#b2b2b2;
+	}
+	.class_div___component-SelectionField 
+		ul 
+			li.class___element-status__selected
+	{
+		color:#ffffff;
+		
+		background-color:#b2b2b2;
+	}
+	
+	.class_div___element-SelectionField--validation_error_decription
+	{		
+		height:24px;
+		padding:2px 0 0;
+		
+		font-size:13px;
+		color:#eb4d2e;
+	}
+	
+/*	
+	.class_div___component-SelectionField 
+		.class___element-validation_status__success
+	{
+		border:1px solid #090;
+	}
+	.class_div___component-SelectionField 
+		.class___element-validation_status__error
+	{
+		border:1px solid #eb4d2e;
+	}
+	.class_div___component-SelectionField 
+		.class___element-validation_error_type__empty_field
+	{
+		
+	}
+	
+	.class_div___component-SelectionField 
+		.class___element-validation_error_type__incorrect_symbol
+	{
+		
+	}
+*/	
+	
+	
+	
+	
+	
+	
+	
+	

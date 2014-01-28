@@ -1,0 +1,54 @@
+{% if reviews|length > 0 %}
+
+    <div class="class_div___element-MyRecentReviews">
+
+        <h2>My recent reviews:</h2>
+
+        <table class="class___width__100
+                        class_table___element-MyRecentReviews">
+            {% for review in reviews %}
+                <tr>
+                    <th>
+                        <div>
+                            {% if review.generalratings is not defined %}
+                                {%  set generalRating = 0 %}
+                            {% else %}
+                                {% set generalRating = review.generalratings %}
+                            {% endif %}
+                            {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                        </div>
+                    </th>
+                    <td>
+                        <h4><a href="{{ path('bwch_plan_details', {'provider': review.provider, 'planname': review.plan}) }}" style="font-size:12px;">{{ review.provider }}</a></h4>
+                        <a href="{{ path('bwch_view_review', {'id': review._id}) }}">{{ review.text }}</a>
+                    </td>
+                    <th>
+                        <div>{{ review.time|date("d M Y") }}</div>
+                    </th>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div style="margin:20px 0 0;">
+            <table class="class___component
+                                class___component-Frame
+                                class_table___component-Frame
+                                class___display__table
+                                class___margin__0_auto
+                                class___component-Button">
+                <tr>
+                    <td>
+                        <div class="class___element-ordinal_position__first"><sup></sup><sub></sub><tt></tt></div>
+                        <div class="class_div___element">
+                            Load more
+                        </div>
+                        <div class="class___element-ordinal_position__last"><sup></sup><sub></sub><tt></tt></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endif %}
+
+

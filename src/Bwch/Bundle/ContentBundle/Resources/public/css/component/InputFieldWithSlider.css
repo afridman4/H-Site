@@ -1,0 +1,33 @@
+	
+	
+	.class_div___component-InputFieldWithSlider
+	{
+		position:relative;
+	}
+	
+	.class_div___component-InputFieldWithSlider 
+		i 
+			b
+	{
+		position:absolute;
+		bottom:-15px;
+		
+		width:13px;
+		height:16px;
+		padding:0;
+		
+		background:url(/images/component/InputFieldWithSlider/indicator.png);
+		
+		cursor:pointer;
+	}
+	
+	.class_div___component-InputFieldWithSlider 
+		.class_div___component-InputField-input_type__uniline_text 
+			input
+	{
+		font-family:HelveticaNeue-Bold;
+		
+		text-align:right;
+	}
+
+	

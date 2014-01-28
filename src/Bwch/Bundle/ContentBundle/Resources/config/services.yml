@@ -1,0 +1,7 @@
+parameters:
+    mongo_user_provider.class: Bwch\Bundle\ContentBundle\Entity\UserProvider
+
+services:
+    mongo_user_provider:
+        class: "%mongo_user_provider.class%"
+        arguments: ['@service_container']

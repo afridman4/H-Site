@@ -1,0 +1,12 @@
+parameters:
+    bwch_core.twig_extension.class: Bwch\Bundle\CoreBundle\Twig\BwchExtension
+
+services:
+#    bwch_core.example:
+#        class: %bwch_core.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    bwch_core.twig_extension:
+        class: %bwch_core.twig_extension.class%
+        arguments: []
+        tags:
+            - { name: twig.extension }

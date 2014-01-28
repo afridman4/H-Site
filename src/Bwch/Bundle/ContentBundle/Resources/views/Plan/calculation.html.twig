@@ -1,0 +1,210 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Submit review
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/plan_calculation.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main"
+         style="padding:0;">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class___float__right
+								class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__right">
+
+                    {# ======== Reviews section START ======== #}
+                    {{ render(controller('BwchContentBundle:Review:recentReviews', {
+                    'max': 5,
+                    'currentRoute': currentRoute
+                    })) }}
+                    {# ======== Reviews section END ======== #}
+
+                </div>
+
+                <div class="class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__center">
+                    <h1>Cost calculation</h1>
+
+                    <div style="width:430px;">
+
+                        <table class="class___width__100
+                                    class_table___element-style__1">
+                            <tr class="class_tr___element-height__50px">
+                                <td colspan="2">
+                                    <div class="class_div___component
+                                                class_div___component-SelectionField"
+                                        id="id_div___component-SelectionField__action">
+                                        <div>
+                                            <div class="class_div___component
+                                                        class_div___component-InputField
+                                                        class_div___component-InputField-input_type__uniline_text">
+                                                <div>
+                                                    <input type="text"{% if htype != '' %} value="{{ htype.display_name|default('') }}"{% endif %} />
+                                                    <tt></tt>
+                                                </div>
+                                                <sup><sub>Please select...</sub></sup>
+                                            </div>
+
+                                            <div class="class_div___element-SelectionField--options">
+                                                <ul class="class_ul___element-List-HTypes-Calculation">
+                                                    {% for item in htypes %}
+                                                        <li innerValue="{{ item.name }}"{% if item.name == htype.name|default('') %} class="class___element-status__mousedown"{% endif %}><span>{{ item.display_name }}</span><input disabled="disabled" value="{{ item.display_name }}" /></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="class_tr___element-height__50px">
+                                <th><i>Provider</i></th>
+                                <td>
+                                    <div class="class_div___component
+                                                class_div___component-SelectionField"
+                                        id="id_div___component-SelectionField__provider">
+                                        <div>
+                                            <div class="class_div___component
+                                                        class_div___component-InputField
+                                                        class_div___component-InputField-input_type__uniline_text">
+                                                <div>
+                                                    <input type="text"{% if provider != '' %} value="{{ provider }}"{% endif %} />
+                                                    <tt></tt>
+                                                </div>
+                                                <sup><sub>Please select...</sub></sup>
+                                            </div>
+                                            <div class="class_div___element-SelectionField--options">
+                                                <ul class="class_ul___element-List-Providers-Calculation">
+                                                    {% for item in providers %}
+                                                        <li><span>{{ item.provider }}</span><input disabled="disabled" value="{{ item.provider }}" /></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="class_tr___element-height__50px">
+                                <th><i>Plan</i></th>
+                                <td>
+                                    <div class="class_div___component
+                                                class_div___component-SelectionField"
+                                        id="id_div___component-SelectionField__plan">
+                                        <div>
+                                            <div class="class_div___component
+                                                        class_div___component-InputField
+                                                        class_div___component-InputField-input_type__uniline_text">
+                                                <div>
+                                                    <input type="text"{% if planname != '' %} value="{{ planname }}"{% endif %} />
+                                                    <tt></tt>
+                                                </div>
+                                                <sup><sub>Please select...</sub></sup>
+                                            </div>
+                                            <div class="class_div___element-SelectionField--options">
+                                                <ul class="class_ul___element-List-Plans-Calculation">
+                                                    {% for item in plans %}
+                                                        <li><span>{{ item.planname }}</span><input disabled="disabled" value="{{ item.planname }}" /></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="class_tr___element-height__50px">
+                                <th><i>Time period</i></th>
+                                <td>
+                                    <div class="class_div___component
+                                                class_div___component-SelectionField"
+                                        id="id_div___component-SelectionField__time_period">
+                                        <div>
+                                            <div class="class_div___component
+                                                        class_div___component-InputField
+                                                        class_div___component-InputField-input_type__uniline_text">
+                                                <div>
+                                                    <input type="text" />
+                                                    <tt></tt>
+                                                </div>
+                                                <sup><sub>Please select...</sub></sup>
+                                            </div>
+                                            <div class="class_div___element-SelectionField--options">
+                                                <ul class="class_ul___element-List-Periods-Calculation">
+                                                    <li innerValue="1"><span>1 month</span><input disabled="disabled" value="1 month" /></li>
+                                                    <li innerValue="6"><span>6 months</span><input disabled="disabled" value="6 months" /></li>
+                                                    <li innerValue="12"><span>1 year</span><input disabled="disabled" value="1 year" /></li>
+                                                    <li innerValue="36"><span>3 years</span><input disabled="disabled" value="3 years" /></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="margin:20px 0 0;padding:0 10px;border:1px solid #cc956e;font-family:HelveticaNeue-Bold;font-size:18px;line-height:38px;background:#fde7da;" id="calculatedPriceContainer">Please select time period</div>
+
+                        <table class="class___width__100
+                                    class_table___element-style__1" style="margin:30px 0 0;">
+                            <tr>
+                                <th><b>Plan details</b></th>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+
+                        <div class="class___element-Frame-style__1"
+                             style="margin:10px 0 0;padding:10px 0 10px;">
+                            <table class="class___width__100
+                                        class_table___element-style__1"
+                                   style="margin:0 -1px 0;"
+                                    id="id_table___Plan-Feature-Details">
+                                {% if features is iterable %}
+                                    {% for feature in features %}
+                                        <tr class="class_tr___element-height__25px" style="height:25px;">
+                                            <th><i>{{ feature.displayname }}</i></th>
+                                            <td><b>{% if feature.type == 'yesno' %}{{ feature.displayname }}
+                                                    {% elseif feature.type == 'int' %}
+                                                        {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
+                                                        {% else %}{{ feature.value }}{{ feature.unit }}
+                                                        {% endif %}
+                                                    {% elseif feature.type == 'multiple' %}
+                                                        {{ feature.value|join(',') }}
+                                                    {% endif %}
+                                                </b></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="class_div___element-Separator-type__clear_both"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+
+</div>
+{% endblock %}

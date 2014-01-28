@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - About Us
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main" id="id_div___element-Main">
+
+
+            <div class="class_div___element-Main--main">
+                <div class="class_div___element-Main--main--columns">
+
+                    <div class="class_div___element-Main--main--columns--column class_div___element-Main--main--columns--column__center">
+
+                        <div style="font-size:12px">
+                        <h1><strong>About Us</strong></h1>
+                        <p>
+                            The <b>bestwebcloudhosting.com</b> site was created in the beginning 2014 by two companies: Magitech <a href="http://www.magitech-us.com">(www.magitech-usa.com)</a>
+                            and Logic Lab <a href="http://www.logic-lab.com">(www.logic-lab.com)</a>.
+                            As software programmers, which often develop custom web applications, we see that our clients struggle to find hosting for their applications.
+                        </p>
+            			<br>
+                        <p>
+                            Our goal was to create a platform, which will simplify the process of choose host provider which is right for you.
+                        </p>
+            			<br>
+                        <p>
+                            We are scanning through lots of hosting offers by IPS providers around the globe and put them in our database.
+                            Then we give full control to our visitors to share their experience and create a community knowledge about different host plans and providers.
+                            If you ever dealt with hosting providers, please feel free to share your thoughts.
+                            You will help other people.
+                         </p>
+						<br>
+                        <p>
+                            We do not provide any hosting ourselves.
+                            Our mission is just collect information and make it available for everyone.                        </p>
+                        <br>
+                        <p>
+                            If you need any additional information or have questions or concerns, please send us email to
+                            <a href="mailto:info@bestwebcoloudhosting.com">info@bestwebcoloudhosting.com></a>.
+                        </p>
+            <br>
+                        <p>
+                            Thank you for visiting, come again!
+                        </p>
+                        </div>
+
+                    </div>
+
+                    <div class="class_div___element-Separator-type__clear_both"></div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'footer.html.twig' %}
+</div>
+{% endblock %}
+

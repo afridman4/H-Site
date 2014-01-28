@@ -1,0 +1,132 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - HomePage
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/index.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main" id="id_div___element-Main">
+
+        {% include 'slider.html.twig' %}
+
+            <div class="class_div___element-Main--main">
+                <div class="class_div___element-Main--main--columns">
+                    <div class="class___float__right
+								class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__right">
+
+                        {# ======== Reviews section START ======== #}
+                        {{ render(controller('BwchContentBundle:Review:recentReviews', {
+                        'max': 5
+                        })) }}
+                        {# ======== Reviews section END ======== #}
+
+                        {# ======== Banner section START ======== #}
+                        <div style="margin:10px 0 0;">
+                            {{ render(controller('BwchContentBundle:Banner:randomBanner')) }}
+                        </div>
+                        {# ======== Banner section END ======== #}
+                    </div>
+
+                    <div class="class_div___element-Main--main--columns--column class_div___element-Main--main--columns--column__center">
+
+                        <h1>What are you looking for?&nbsp;&nbsp;<span>Not sure? <b><a href="{{ path('bwch_letushelp') }}">Please let us help!</a></b></span></h1>
+
+                        <table class="class_table___element-PlanSelection">
+                            <tr>
+                                <th>
+                                    <ul id="id_ul___component-ListBlockSwitcher__temp1">
+                                        {% for htype in htypes %}
+                                            <li{% if loop.first %} class="class___element-status__selected"{% endif %}>
+                                                <table class="class___component
+                                                            class___component-Button
+                                                            class_table___component-Button
+                                                            class___width__100
+                                                            class___component-Button__h38_green_right_arrow
+                                                            class___component-Button-dimensions__h38
+                                                            class___component-Button-style__green_right_arrow"
+                                                        >
+                                                    <tr>
+                                                        <td>
+                                                            <i><b><s><u>{{ htype.display_name }}</u></s></b></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </th>
+                                <td>
+                                    <div style="padding:9px 15px 0 18px;">
+                                        <h2>HOSTING PLAN FEATURES</h2>
+
+                                        {# ======== Search Features section START ======== #}
+                                        <div class="class_div___component-ScrollableContainer
+                                                    class_div___component-ScrollableContainer-vertical_scrollbar_style__w6_grey
+                                                    class_div___component-ScrollableContainer__HostingPlanFeatures"
+                                             id="id_div___component-ScrollableContainer__HostingPlanFeatures">
+
+                                            <div class="class_div___element-ScrollableContainer">
+                                                {% for htype in htypes %}
+                                                    <div{% if not loop.first %} class="class___display__none"{% endif %}>
+                                                        {{ render(controller('BwchContentBundle:Feature:searchForm', {
+                                                        'currentRoute': currentRoute,
+                                                        'htype': htype.name
+                                                        })) }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            {{ include('BwchContentBundle:Common:scrollbar.html.twig') }}
+
+                                        </div>
+                                        {# ======== Search Features section END ======== #}
+
+                                        <div style="padding:10px 20px 18px 0;">
+                                            <table class="class___component
+                                                            class___component-Button
+                                                            class_table___component-Button
+                                                            class___width__100
+                                                            class___component-Button__h40_green1
+                                                            class___component-Button-dimensions__h40
+                                                            class___component-Button-style__green1"
+                                                   id="searchButton"
+                                                    >
+                                                <tr>
+                                                    <td>
+                                                        <i><b><s><u>Search</u></s></b></i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="class_div___element-Separator-type__clear_both"></div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'footer.html.twig' %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,241 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Submit review
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/submit_review.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main"
+         style="padding:0;">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class___float__right
+								class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__right">
+
+                    {# ======== Reviews section START ======== #}
+                    {{ render(controller('BwchContentBundle:Review:recentReviews', {
+                    'max': 5,
+                    'currentRoute': currentRoute
+                    })) }}
+                    {# ======== Reviews section END ======== #}
+
+                </div>
+
+                <div class="class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__center">
+                    <h1>Submit a review</h1>
+
+                    {% form_theme form 'BwchContentBundle:Form:fields.html.twig' %}
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div style="width:430px;">
+                        <table class="class___width__100 class_table___element-style__1">
+                        <tr class="class_tr___element-height__50px">
+                            <th><i>Author</i></th>
+                            <td>
+                                <p style="color: red;">{{ form_errors(form.author) }}</p>
+                                <div class="class_div___component class_div___component-SelectionField">
+                                    <div class="class_div___component
+                                                class_div___component-InputField
+                                                class_div___component-InputField-input_type__uniline_text">
+                                        <div>
+                                            {{ form_widget(form.author) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="class_tr___element-height__50px">
+                            <th><i>Provider</i></th>
+                            <td>
+                                <p style="color: red;">{{ form_errors(form.provider) }}</p>
+                                <div class="class_div___component
+                                            class_div___component-SelectionField"
+                                     id="id_div___component-SelectionField__provider">
+                                    <div>
+                                        <div class="class_div___component
+                                                class_div___component-InputField
+                                                class_div___component-InputField-input_type__uniline_text">
+                                            <div>
+                                                {{ form_widget(form.provider,
+                                                    {'attr': {'readonly': 'readonly' }
+                                                }
+                                                )}}
+
+                                            </div>
+                                            {% if provider is iterable %}
+                                            <sup><sub>Please select...</sub></sup>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="class_div___element-SelectionField--options">
+                                            <ul class="class_ul___element-List-Providers-Review">
+                                                {% if provider is iterable %}
+                                                    {% for item in provider %}
+                                                        <li><span>{{ item.provider }}</span><input disabled="disabled" value="{{ item.provider }}" /></li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="class_tr___element-height__50px">
+                            <th><i>Plan (optional)</i></th>
+                            <td>
+                                <div class="class_div___component
+                                            class_div___component-SelectionField"
+                                     id="id_div___component-SelectionField__plan">
+                                    <div>
+                                        <div class="class_div___component
+                                                class_div___component-InputField
+                                                class_div___component-InputField-input_type__uniline_text">
+                                            <div id="id_div___component-SelectionField-Planname">
+                                                {{ form_widget(form.plan,
+                                                    {'attr': {'readonly': 'readonly' }
+                                                }
+                                                )}}
+                                            </div>
+                                            <sup><sub>Please select...</sub></sup>
+                                        </div>
+
+                                        <div class="class_div___element-SelectionField--options">
+                                            <ul class="class_ul___element-List-Plans" id="id_ul___component-SelectionField-Planname-Values">
+                                                {% if planname is iterable %}
+                                                    {% for item in planname %}
+                                                        <li><span>{{ item.planname }}</span><input disabled="disabled" value="{{ item.planname }}" /></li>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <li>Select provider first <input disabled="disabled" value="0" /></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="class_tr___element-height__40px">
+                            <th><b>Overall Rating</b></th>
+                            <td>
+                                {% set generalRating = attribute(form.vars.value, 'ratingGeneralRatings') %}
+                                {% set ratingTitle = 'General Ratings' %}
+                                {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                            </td>
+                        </tr>
+                        {% for ratingTitle in review_ratings %}
+                        <tr class="class_tr___element-height__40px">
+                            <th><i>{{ ratingTitle }}</i></th>
+                            <td>
+                                {% set generalRating = attribute(form.vars.value, 'rating' ~ ratingTitle|title|replace({' ': ''})) %}
+                                {{ include('BwchContentBundle:Review:asterisks.html.twig') }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                    <table class="class_table___element-style__1">
+                        <tr>
+                            <th style="vertical-align:top;padding-top:10px;"><i>Write a review</i></th>
+                            <td style="padding-top:10px;">
+                                <p style="color: red;">{{ form_errors(form.text) }}</p>
+                                {{ form_widget(form.text,
+                                {'attr':
+                                    {'style': 'width:400px;height:120px;padding:5px;border:1px solid #e5e5e5;background:#f7f7f7 url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png) no-repeat;'}
+                                }
+                                )}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i>Used from</i></th>
+                            <td style="height:60px;">
+                                <div class="class___float__left class_div___component-SelectionField" style="width:110px;height:16px;padding:5px;border:1px solid #e5e5e5;background:#f7f7f7 url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png) no-repeat;">
+                                    {{ form_widget(form.usedDateFrom,
+                                    {'attr':
+                                        {'style': 'width:100%;background:#f7f7f7;font-family:HelveticaNeue-Bold;font-size:14px;font-style:normal;', 'class': 'class___element-Datepicker'}
+                                    }
+                                    )}}
+                                </div>
+                                <span class="class___float__left" style="padding:0 10px;line-height:26px;font-size:11px;">until</span>
+                                <div class="class___float__left class_div___component-SelectionField" style="width:110px;height:16px;padding:5px;border:1px solid #e5e5e5;background:#f7f7f7 url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png) no-repeat;">
+                                    {{ form_widget(form.usedDateTo,
+                                    {'attr':
+                                        {'style': 'width:100%;background:#f7f7f7;font-family:HelveticaNeue-Bold;font-size:14px;font-style:normal;', 'class': 'class___element-Datepicker'}
+                                    }
+                                    )}}
+                                </div>
+                                <div onclick="$.F_ProcessRadiobox(this, 'stillUseIt');" style="float:left;margin-left:10px;padding:0;font-size:11px;line-height:30px;cursor:pointer;">
+                                    <div style="float:left;margin-right:5px;padding:0;line-height:24px;" id="id_div___component-Radiobox__test1_stillUseIt" class="class_div___component-Radiobox"></div>
+                                    still use it
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td style="height:60px;">
+                                <label>
+                                    <input style="float:left;" type="checkbox"/>
+                                    <div style="padding:0 0 0 20px;">I certify that my rating is based on my own personal experience or I authorized write about my company experience</div>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <div id="recaptcha_widget" class="class___element-Frame-style__1" style="width:318px;padding:0;border-color:#c6d0e1;background-color:#e0e5ee;">
+                                    <div style="padding:10px;">
+                                        <h2>Security check</h2>
+                                        <p class="recaptcha_only_if_no_incorrect_sol" style="color:red">{{ form_errors(form.recaptcha) }}</p>
+                                        <p style="padding:10px 0 0;">Enter <b>both</b> words below, separeted by <b>space</b>.</p>
+                                        <p>Can't read this? Try <a href="javascript:Recaptcha.reload()">another</a>.</p>
+                                        <p class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Try an audio captcha</a></p>
+                                        <p class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></p>
+                                        <p style="padding:10px 0;" id="recaptcha_image"></p>
+                                        Text in the box: <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" style="border:1px solid #e5e5e5;padding:2px;" />
+                                    </div>
+                                </div>
+
+                                {{ form_widget(form.submit,
+                                {'attr':
+                                {'style': 'float:left;width:320px;margin:20px 0 0;'}
+                                }) }}
+
+                                <div style="float:left;margin:20px 0 0 30px;font-size:18px;line-height:40px;text-decoration:underline;"><a href="#">Cancel</a></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    {{ form_widget(form.recaptcha, { 'attr': { 'options': { 'theme': 'custom', 'custom_theme_widget' : 'recaptcha_widget' }, }} )}}
+                    {{ form_widget(form.stillUseIt, {'id':'id_div___component-Radiobox_stillUseIt'} )}}
+
+                    {{ form_end(form) }}
+
+                </div>
+                <div class="class_div___element-Separator-type__clear_both"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+
+</div>
+{% endblock %}

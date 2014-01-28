@@ -1,0 +1,119 @@
+
+	.class_div___element-MyRecentReviews 
+		h2
+	{
+		padding:0 0 10px;
+		
+		font-family:HelveticaNeue-Light;
+		font-size:24px;
+	}
+	
+	.class_table___element-MyRecentReviews
+	{
+		border:1px solid #e5e5e5;
+	}
+	
+	.class_table___element-MyRecentReviews 
+		th,
+	.class_table___element-MyRecentReviews 
+		td
+	{
+		border:1px solid #e5e5e5;
+	}
+/*
+	TEMP: remove after 'RatingSeletor' migrate to blocks construction
+*/
+	.class_table___element-MyRecentReviews 
+		th 
+			table 
+				td
+	{
+		border:0;
+	}
+	
+	.class_table___element-MyRecentReviews 
+		th
+	{
+		width:130px;
+	}
+	.class_table___element-MyRecentReviews 
+		.class_div___element-MyRecentReviews--rating,
+	.class_table___element-MyRecentReviews 
+		.class_div___element-MyRecentReviews--date,
+	.class_table___element-MyRecentReviews 
+		td 
+			p
+	{
+		padding:10px;
+		
+		color:#333333;
+	}
+	
+	.class_table___element-MyRecentReviews 
+		td 
+			p
+	{
+		line-height:18px;
+	}
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				span
+	{
+		display:none;
+	}
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				b
+	{
+		display:block;
+		
+		font-family:HelveticaNeue-Bold;
+		font-size:13px;
+	}
+	
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				a
+	{
+		border-bottom:1px dashed;
+		
+		font-family:HelveticaNeue-Bold;
+		color:#363f48;
+		
+		text-decoration:none;
+		
+		cursor:pointer;
+	}
+
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				a 
+					sub
+	{
+		display:none;
+	}
+	
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				b,
+	.class_table___element-MyRecentReviews 
+		td 
+			p 
+				a
+	{
+		color:#333333;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	

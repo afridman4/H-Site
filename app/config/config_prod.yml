@@ -1,0 +1,34 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+
+# Recaptcha
+ewz_recaptcha:
+# Keys for workspeed.bcs.zp.ua
+    public_key:   6Led7-gSAAAAAIfpcfqiYnRG0ZGSl14R8ZlXw8w2
+    private_key:  6Led7-gSAAAAAK1eBW_35R76NRb8MWtvSqXw6z1P
+# Keys for local
+#    public_key:   6LcE8OgSAAAAABgEO2JqaRfIBy6Yz_3FxZMeIEY-
+#    private_key:  6LcE8OgSAAAAANPK67-XPfJ0J_Jm2ZP16qnjySP5
+    secure:       false
+    locale_key:   kernel.default_locale

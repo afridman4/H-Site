@@ -1,0 +1,166 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Plan Details{% if plan.planname is defined %}:{{ plan.provider }} {{ plan.planname }} {% endif %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main">
+
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class___float__right
+                            class_div___element-Main--main--columns--column
+                            class_div___element-Main--main--columns--column__right">
+                    {# ======== Banner section START ======== #}
+                    <div>
+                        {{ render(controller('BwchContentBundle:Banner:fiveBanners')) }}
+                    </div>
+                    {# ======== Banner section END ======== #}
+                </div>
+                <div class="class_div___element-Main--main--columns--column
+								class_div___element-Main--main--columns--column__center">
+
+                {% if plan.planname is defined %}
+                    <div style="padding:0 10px 16px 0;">
+
+                        <h1 style="margin:0 0 12px 0;">{{ plan.provider }} Information</h1>
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <div style="padding:0 40px 0 0;font-family:HelveticaNeue;font-size:13px;line-height:19px;text-align:justify;">{{ plan.description }}</div>
+                                    {% if plan.website is defined %}<div style="margin-top:25px;font-family:HelveticaNeue-Bold;font-size:13px;">Contacts: <a href="{{ plan.website }}">{{ plan.website }}</a></div>{% endif %}
+                                </td>
+                                <td style="width:380px;">
+                                    {# ======== Provider rating details section START ======== #}
+                                    {% include 'BwchContentBundle:Review:rating.html.twig' with {'generalRating': provider.generalrating|default(0), 'ratings' : provider.ratings} %}
+                                    {# ======== Provider rating details section END ======== #}
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%;margin:30px 0 0;">
+                            <tr>
+                                <td>
+                                    <div style="border-top:1px solid #e5e5e5;">
+                                        <h2 style="font-family:HelveticaNeue-Bold;font-size:18px;line-height:38px;">
+                                            <b style="float:left;margin:0 10px 0 0;padding:0 10px;color:#ffffff;background-color:#363f48;">Plan</b>
+                                            <a href="#">{{ plan.planname }}</a>
+                                            {% if plan.htype is defined %}<i style="font-family:HelveticaNeue;font-style:normal;">({{ plan.htype }})</i>{% endif %}
+                                        </h2>
+
+                                        <ul class="class_ul___element-List-style__1">
+                                        {% if features is defined %}
+                                            {% for feature in features %}
+                                                {% if feature.type is defined %}
+                                                <li>{% if feature.type == 'yesno' %}{{ feature.displayname }}
+                                                    {% elseif feature.type == 'int' %}
+                                                            {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
+                                                            {% else %}{{ feature.value }}
+                                                            {% endif %} {{ feature.displayname }}
+                                                    {% elseif feature.type == 'multiple' %}
+                                                        {{ feature.value|join(',') }}
+                                                    {% endif %}
+                                                </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td style="width:380px;">
+                                    {# ======== Plan rating details section START ======== #}
+                                    {% include 'BwchContentBundle:Review:rating.html.twig' with {'generalRating': plan.generalrating|default(0), 'ratings' : plan.ratings} %}
+                                    {# ======== Plan rating details section END ======== #}
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div>
+                            <h3 style="margin:32px 0 10px;font-size:18px;font-family:HelveticaNeue-Bold;">Price</h3>
+                            {% if plan.prices is defined %}
+                            <ul class="class_ul___element-List-style__2">
+                                {% for price in plan.prices %}
+                                    <li>
+                                        {{ price.number_timeunit }} {{ price.timeunit }}
+                                        <br/>
+                                        <b>{% if price.currency == 'USD' %}${% elseif price.currency == 'GBP' %}&pound;{% elseif price.currency == 'EUR' %}&euro;{% else %}{{ price.currency }}{% endif %}{{ price.price }}</b>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {# Extimate cost and Subscribe#}
+                            <div class="class___float__right">
+
+                                <div class="class___float__left"
+                                     style="margin:0 10px 0 0;">
+                                    <table class="class___component
+                                                class___component-Frame
+                                                class_table___component-Frame
+                                                class___display__table
+                                                class___component-Frame-foreground__e5e5e5_d9e3e9-border__1_solid_e5e5e5_d0d0d0-corner__r5
+                                                class___component-Button">
+                                        <tr>
+                                            <td>
+                                                <a class="class_a___element" href="{{ path('bwch_plan_calculation', {'provider': plan.provider, 'planname': plan.planname}) }}">
+                                                    <span style="display:block;padding-left:25px;background:url(/images/shared/icon/calculator/18x20/color__7cc576.png) left center no-repeat;">Estimate cost</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="class___float__left">
+                                    <table class="class___component
+                                                class___component-Frame
+                                                class_table___component-Frame
+                                                class___display__table
+                                                class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5
+                                                class___component-Button">
+                                        <tr>
+                                            <td>
+                                                <a class="class_a___element" href="{{ path('bwch_subscribe_on_provider', {'provider': plan.provider}) }}">
+                                                    Subscribe
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="class_div___element-Separator-type__clear_both"></div>
+                        </div>
+
+                        <div class="class_div___element-Separator-style__1" style="margin:30px 0 20px"></div>
+                        {# ======== Reviews section START ======== #}
+                        {{ render(controller('BwchContentBundle:Review:recentReviews', {
+                            'max': 3,
+                            'planname': plan.planname,
+                            'provider': plan.provider
+                        })) }}
+                        {# ======== Reviews section END ======== #}
+
+                    </div>
+                </div>
+                {% else %}
+                    Plan not found
+                {% endif %}
+
+                <div class="class_div___element-Separator-type__clear_both"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+</div>
+{% endblock %}

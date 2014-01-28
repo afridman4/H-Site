@@ -1,0 +1,59 @@
+	
+	.class_div___component-InputField,
+	.class_div___component-InputField 
+		div
+	{
+		position:relative;
+	}
+/*
+	error description
+*/
+	.class_div___component-InputField 
+		span
+	{
+		display:block;
+	}
+	
+	
+	.class_div___component-InputField 
+		sup
+	{
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:10;
+		
+		width:100%;
+		height:100%;
+		
+		font-style:normal;
+		
+		background:url(/images/shared/background/1x1/opacity__0.png) repeat;
+	}
+	.class_div___component-InputField 
+		sup 
+			sub
+	{
+		display:block;
+	}
+	
+	
+	.class_div___component-InputField-input_type__uniline_text 
+		input,
+	.class_div___component-InputField-input_type__multiline_text 
+		textarea
+	{
+		width:100%;
+		height:100%;
+		padding:0;
+		border:0;
+	}
+	
+	.class_div___component-InputField-input_type__uniline_text 
+		input
+	{
+		*margin-top:-1px;
+		_margin-top:-1px;
+		
+		background-color:transparent;
+	}

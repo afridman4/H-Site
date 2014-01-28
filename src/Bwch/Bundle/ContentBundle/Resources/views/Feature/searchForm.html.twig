@@ -1,0 +1,118 @@
+<script type="text/javascript">
+{% for searchFeature in searchFeatures %}
+    {% if searchFeature.type == 'int' %}
+    array_object___configuration[array_object___configuration.length] =
+    {
+        varchar___id:'id_{{ searchFeature.htype }}_{{ searchFeature.name }}',
+        object_dom___component:null,
+        integer___minimal_value_limit:{{ searchFeature.minvalue }},
+        integer___maximal_value_limit:{{ searchFeature.maxvalue }},
+        integer___value_changing_step:{{ searchFeature.maxvalue/10 }}
+        {% if searchFeature.unit %},string___value_postfix:" {{ searchFeature.unit }}"{% endif %}
+        {% if searchFeature.hasunlimited == 'true' %},string___alternative_maximal_value:"UNLIMITED"{% endif %}
+    };
+    {% endif %}
+{% endfor %}
+</script>
+<form action="{{ path('bwch_search_plans') }}" method="post" id="searchForm">
+    <input type="hidden" name="htype" value="{{ htype }}"/>
+    <table class="class___width__100">
+    {% for searchFeature in searchFeatures if searchFeature.type != 'yesno' %}
+        {% set inputName = searchFeature.type ~ "_" ~ searchFeature.htype ~ "_" ~ searchFeature.name %}
+        <tr>
+            <th>{{ searchFeature.displayname }}</th>
+            <td>
+        {% if searchFeature.type == 'int' %}
+                <span class="class_span___element-custom_style__1">from</span>
+                <div id="id_div___ScrollableInputField__id_{{ searchFeature.htype }}_{{ searchFeature.name }}"
+                     class="class_div___component-InputFieldWithSlider">
+                    <div class="class_div___component
+                                class_div___component-InputField
+                                class_div___component-InputField-input_type__uniline_text"
+                         id="id_div___component-InputField__id_{{ searchFeature.htype }}_{{ searchFeature.name }}"
+                            >
+                        <div>
+                            <input type="text" name="{{ inputName }}" value="{% if parameters[inputName] is defined %}{{ parameters[inputName] }}{% endif %}" />
+                            <tt></tt>
+                        </div>
+                    </div>
+                    <i><b></b></i>
+                </div>
+        {% elseif searchFeature.type == 'multiple' %}
+                <div class="class_div___component
+                            class_div___component-SelectionField"
+                        id="id_div___component-SelectionField__{{ searchFeature.htype }}_{{ searchFeature.name }}">
+                    <div>
+                        <div class="class_div___component
+                                    class_div___component-InputField
+                                    class_div___component-InputField-input_type__uniline_text">
+                            <div>
+                                <input type="text"
+                                        {%- if parameters[inputName] is defined -%}
+                                        value="{%- if parameters[inputName]|length == 1 -%}{{ parameters[inputName][0] }}
+                                        {%- else -%}Multiple values selected{% endif %}
+                                        "
+                                    {% endif %}
+                                        />
+                                <tt></tt>
+                            </div>
+                            <sup><sub>Please select...</sub></sup>
+                        </div>
+
+                        <div class="class_div___element-SelectionField--options">
+                            <ul>
+                                {% for value in searchFeature.values %}
+                                    <li><span>{{ value }}</span><input name="{{ inputName }}[]" type="checkbox" value="{{ value }}"{% if parameters[inputName] is defined and value in parameters[inputName] %} checked="checked" {% else %} disabled="disabled" {% endif %} /></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    (new C_SelectionField).F_Initialize
+                    ({
+                        string___DOM_id							:"id_div___component-SelectionField__{{ searchFeature.htype }}_{{ searchFeature.name }}",
+                        bool___multiple_options_selection:{% if searchFeature.ismultiple %}true{% else %}false{% endif %}
+                    });
+                </script>
+        {% endif %}
+             </td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% for searchFeature in searchFeatures %}
+        {% if searchFeature.type == 'yesno' %}
+
+            {% set inputName = searchFeature.type ~ "_" ~ searchFeature.htype ~ "_" ~ searchFeature.name %}
+
+    <div style="height:40px;padding-right:15px;">
+        <input type="hidden"
+               name="{{ inputName }}"
+               id="id_div___component-Radiobox_{{ searchFeature.htype }}_{{ searchFeature.name }}"
+               value="{% if parameters[inputName] is defined %}{{ parameters[inputName] }}{% else %}1{% endif %}" />
+
+        <div style="float: left;t:left;width:135px;font-family:HelveticaNeue-Light;font-size:15px;line-height:30px;">
+            {{ searchFeature.displayname }}
+        </div>
+
+        <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
+             onclick="$.F_ProcessRadiobox(this, '{{ searchFeature.htype }}_{{ searchFeature.name }}');">
+            <div class="class_div___component-Radiobox{% if (parameters[inputName] is defined and parameters[inputName] == 1) or parameters[inputName] is not defined %} class___element-status__selected{% endif %}"
+                      id="id_div___component-Radiobox__test1_{{ searchFeature.htype }}_{{ searchFeature.name }}"
+                      style="float:left;margin-right:5px;line-height:24px;"></div>
+            Yes
+        </div>
+
+        <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
+             onclick="$.F_ProcessRadiobox(this, '{{ searchFeature.htype }}_{{ searchFeature.name }}');">
+            <div class="class_div___component-Radiobox{% if parameters[inputName] is defined and parameters[inputName] == 0 %} class___element-status__selected{% endif %}"
+                      id="id_div___component-Radiobox__test2_{{ searchFeature.htype }}_{{ searchFeature.name }}"
+                      style="float:left;margin-right:5px;line-height:24px;"
+                    ></div>
+            No
+        </div>
+    </div>
+        {% endif %}
+    {% endfor %}
+    {#<div style="height:300px;border:1px solid red;"><b>Test block</b></div>#}
+</form>

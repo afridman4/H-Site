@@ -1,0 +1,390 @@
+{#User Toolbar#}
+<script type="text/x-kendo-template" id="tplUsersToolbar">
+    <div class="toolbar">
+        <a id="btnAddUser" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add user
+        </a>
+        <a id="btnEditUser" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit user
+        </a>
+        <a id="btnRemoveUser" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove user
+        </a>
+        <a id="btnRefreshUser" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+{#Окно с деталями User#}
+<div id="wndUser" style="padding: 20px; display:none;">
+
+    <div id="userForm" class="user-popup-form">
+        <table>
+            <tr>
+                <td><label class="required" for="inpUserName">Name</label></td>
+                <td><input
+                        type="text"
+                        name="inpUserName"
+                        id="inpUserName"
+                        class="k-textbox"
+                        data-bind="value: user.name"
+                        maxlength="255"
+                        placeholder="Enter user name"
+                        /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpUserLogin">Login</label></td>
+                <td><input
+                            type="text"
+                            name="inpUserLogin"
+                            id="inpUserLogin"
+                            class="k-textbox"
+                            data-bind="value: user.login"
+                            maxlength="255"
+                            placeholder="Enter user login"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpUserPassword">Password</label></td>
+                <td><input
+                            type="text"
+                            name="inpUserPassword"
+                            id="inpUserPassword"
+                            class="k-textbox"
+                            data-bind="value: user.password"
+                            maxlength="255"
+                            placeholder="Enter user password"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpUserRole">Role</label></td>
+                <td><select name="inpUserRole" id="inpUserRole" data-bind="value: user.role">
+                        <option value="0">Regular user</option>
+                        <option value="1">Admin</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpUserEmail">Email</label></td>
+                <td><input
+                            type="email"
+                            name="inpUserEmail"
+                            id="inpUserEmail"
+                            class="k-textbox"
+                            data-email-msg="Не корректный email"
+                            data-bind="value: user.email"
+                            maxlength="255"
+                            placeholder="Enter user email"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpUserPhone">Phone</label></td>
+                <td><input
+                            type="text"
+                            name="inpUserPhone"
+                            id="inpUserPhone"
+                            class="k-textbox"
+                            data-bind="value: user.phone"
+                            maxlength="255"
+                            placeholder="Enter user phone"
+                            /></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="k-button" data-bind="click: saveUser">Save</button>
+        <button type="submit" class="k-button" data-bind="click: cancelUser">Cancel</button>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var gridUsers = $("#gridUsers").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getUsers"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        name: { type: "string" },
+                        login: { type: "string" },
+                        password: { type: "string" },
+                        role: { type: "number" },
+                        email: { type: "string" },
+                        phone: { type: "string" },
+                        registration: {type: "date"}
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplUsersToolbar").html()),
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "name",
+                title: "<center>Name</center>",
+                template: '<span style="float:left">#= name #</span>'
+            },
+            {
+                field: "login",
+                title: "<center>Login</center>",
+                template: '<span style="float:left">#= login #</span>'
+            },
+            {
+                field: "password",
+                title: "<center>Password</center>",
+                template: '<span style="float:left">#= password #</span>'
+            },
+            {
+                field: "role",
+                title: "<center>Role</center>",
+                template: '<span style="float:left">#= role #</span>'
+            },
+            {
+                field: "email",
+                title: "<center>Email</center>",
+                template: '<span style="float:left">#= email #</span>'
+            },
+            {
+                field: "phone",
+                title: "<center>Phone</center>",
+                template: '<span style="float:left">#= phone #</span>'
+            },
+            {
+                field: "registration",
+                title: "<center>Registration</center>",
+                template: '<span style="float:left">#=  kendo.toString(registration, "dd.MM.yyyy HH:mm:ss") #</span>'
+            }
+        ]
+    }).data("kendoGrid");
+
+    var userWindow = $("#wndUser").kendoWindow({
+        title: "User details",
+        modal: true,
+        visible: false,
+        resizable: false,
+        height: 450
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var userValidator = $("#wndUser").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var userViewModel = kendo.observable({
+        // хранилище для полей формы
+        user: {
+            name: "",
+            login: "",
+            password: "",
+            salt: "",
+            registration: "",
+            role: 0,
+            email: "",
+            phone: ""
+        },
+
+        // Обработчкики событий
+        saveUser: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер
+            if (userValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/saveUser",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        name: this.get('user.name'),
+                        login: this.get('user.login'),
+                        password: this.get('user.password'),
+                        salt: this.get('user.salt'),
+                        registration: this.get('user.registration'),
+                        role: this.get('user.role'),
+                        email: this.get('user.email'),
+                        phone: this.get('user.phone')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(userWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridUsers.dataSource.read();
+                        } else {
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(userWindow.element, false);
+                        userWindow.close();
+                    }
+
+                });
+            }
+        },
+
+        cancelUser: function (e) {
+
+            e.preventDefault();
+            userWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndUser"), userViewModel);
+
+    // Добавление нового User
+    $('#btnAddUser').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        userViewModel.set("user", {
+            name: "",
+            login: "",
+            password: "",
+            salt: "",
+            registration: "",
+            role: 0,
+            email: "",
+            phone: ""
+        });
+
+        userWindow.center().open();
+
+    });
+
+    // Редактирование User
+    $('#btnEditUser').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridUsers.dataItem(gridUsers.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select User from grid first.');
+            return ;
+        }
+
+        // присваеваем форме значения по умолчанию
+        userViewModel.set("user", {
+            name: row.name,
+            login: row.login,
+            password: row.password,
+            salt: row.salt,
+            registration: row.registration,
+            role: row.role,
+            email: row.email,
+            phone: row.phone
+        });
+
+        userWindow.center().open();
+
+    });
+
+    // Удаление User
+    $('#btnRemoveUser').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridUsers.dataItem(gridUsers.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select User from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove user with login: " + row.login + "?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeUser",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                login: row.login
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridUsers.dataSource.read();
+                } else {
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshUser').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridUsers.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridUsers").delegate("tbody>tr", "dblclick", function() {
+        $('#btnEditUser').click();
+    });
+
+</script>

@@ -1,0 +1,68 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: '@BwchCoreBundle/Resources/config/config.yml' }
+    - { resource: '@BwchContentBundle/Resources/config/services.yml' }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: en }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+      js_compressed_filename_extension: .min
+
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ BwchContentBundle, BwchAdminBundle ]
+    #java: /usr/share/java
+    filters:
+        cssrewrite: ~
+#        uglifyjs:
+#            bin: %kernel.root_dir%/Resources/node_modules/.bin/uglifyjs
+#        uglifycss:
+#            bin: %kernel.root_dir%/Resources/node_modules/.bin/uglifycss
+#        closure:
+#            jar: %kernel.root_dir%/Resources/java/compiler.jar
+#        yui_css:
+#            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:     { type: memory }
+
+# Recaptcha
+ewz_recaptcha:
+# Keys for workspeed.bcs.zp.ua
+#    public_key:   6Led7-gSAAAAAIfpcfqiYnRG0ZGSl14R8ZlXw8w2
+#    private_key:  6Led7-gSAAAAAK1eBW_35R76NRb8MWtvSqXw6z1P
+# Keys for local
+    public_key:   6LcE8OgSAAAAABgEO2JqaRfIBy6Yz_3FxZMeIEY-
+    private_key:  6LcE8OgSAAAAANPK67-XPfJ0J_Jm2ZP16qnjySP5
+    secure:       false
+    locale_key:   kernel.default_locale

@@ -1,0 +1,116 @@
+
+
+	.class___component-Button__h40_green1 
+		i,
+	.class___component-Button__h40_green1 
+		a
+	{
+		background-position:right -40px;
+	}
+	.class___component-Button__h40_green1 
+		b
+	{
+		height:40px;
+		margin:0 5px;
+		padding:0 10px;
+		
+		font-size:18px;
+		line-height:38px;
+		font-weight:normal;
+		
+		background-position:0 -80px;
+		background-repeat:repeat-x;
+	}
+
+
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ SPRITES --------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h40_green1 
+		td,
+	.class___component-Button__h40_green1 
+		i,
+	.class___component-Button__h40_green1 
+		a,
+	.class___component-Button__h40_green1 
+		b
+	{
+		color:#ffffff;
+		
+		background-image:url(/images/component/Button/dimensions__h40-style__green1.png);
+	}
+	
+	
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ LINKS ----------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h40_green1 
+		a:link,
+	.class___component-Button__h40_green1 
+		a:hover,
+	.class___component-Button__h40_green1 
+		a:visited
+	{
+		color:#ffffff;
+	}
+
+
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ EVENTS ---------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h40_green1 
+		.class___element-status__mouseover
+	{
+		background-position:0 -120px;
+	}
+	.class___component-Button__h40_green1 
+		.class___element-status__mouseover 
+			i,
+	.class___component-Button__h40_green1 
+		.class___element-status__mouseover 
+			a
+	{
+		background-position:right -160px;
+	}
+	.class___component-Button__h40_green1 
+		.class___element-status__mouseover 
+			b
+	{
+		background-position:0 -200px;
+	}
+/*------------------------------------------------*/
+	.class___component-Button__h40_green1 
+		.class___element-status__mousedown
+	{
+		background-position:0 -240px;
+	}
+	.class___component-Button__h40_green1 
+		.class___element-status__mousedown 
+			i,
+	.class___component-Button__h40_green1 
+		.class___element-status__mousedown 
+			a
+	{
+		background-position:right -280px;
+	}
+	.class___component-Button__h40_green1 
+		.class___element-status__mousedown 
+			b
+	{
+		background-position:0 -320px;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	

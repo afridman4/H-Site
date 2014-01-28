@@ -1,0 +1,14 @@
+{% set submitMode = app.request.attributes.get('_route') == 'bwch_submit_review' %}
+<table class="{% if submitMode %}class_table___component-RatingSelector_enabled {% endif %}class_table___component-RatingSelector class_table___component-RatingSelector__{% if submitMode %}20x19{% else %}12x12{% endif %}_orange{% if not submitMode %} class___element-status__disabled{% endif %}"
+{% if ratingTitle is defined %} id="rating{{ ratingTitle|title|replace({' ': ''}) }}"{% endif %}>
+    <tr>
+        <td>
+{% for idx in 1..5 %}
+    <div class="class_div___element-RatingSelector--item">
+        <sup{% if idx <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sup>
+        <sub{% if idx+1 <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sub>
+    </div>
+{% endfor %}
+        </td>
+    </tr>
+</table>

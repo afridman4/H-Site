@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Forgot Password
+{% endblock %}
+
+{% block body %}
+
+    <pre>{{ dump(user) }}</pre>
+<pre>{{ dump(app.security.getToken()) }}</pre>
+
+
+{% endblock %}

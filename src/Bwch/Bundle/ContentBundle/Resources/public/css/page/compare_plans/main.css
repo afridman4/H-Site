@@ -1,0 +1,53 @@
+	
+	.class_div___component-ScrollableContainer__compare_plans 
+	{		
+		width:549px;
+	}
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_div___element-ScrollableContainer
+	{
+		margin:0;
+	}
+	
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_div___component-Scrollbar-position__horizontal
+	{
+		bottom:-10px;
+	}
+	
+	
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_div___element-horizontal_scrollbar_status__visible
+	{
+		border-right:1px solid #e5e5e5;
+	}
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_div___element-horizontal_scrollbar_status__visible 
+			.class___element-ordinal_position__last 
+				.class_table___element-style__2 
+					th,
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_div___element-horizontal_scrollbar_status__visible 
+			.class___element-ordinal_position__last 
+				.class_table___element-style__2 
+					td
+	{
+		border-right:0;
+	}
+	
+	.class_div___component-ScrollableContainer__compare_plans 
+		.class_table___element-style__2 
+			th 
+				b
+	{
+		width:100px;
+		
+		text-align:center;
+	}
+	
+	
+	
+	
+	
+	
+	

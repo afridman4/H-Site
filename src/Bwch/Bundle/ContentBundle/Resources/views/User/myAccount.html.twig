@@ -1,0 +1,301 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - My account
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BwchContentBundle/Resources/public/js/page/my_account.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="class_div___layer
+            class_div___layer-Main"
+     id="id_div___layer-Main">
+
+    {% include 'header.html.twig' %}
+
+    <div class="class_div___element-Main"
+         id="id_div___element-Main">
+        <div class="class_div___element-Main--main">
+            <div class="class_div___element-Main--main--columns">
+                <div class="class_div___element-Main--main--columns--column
+							class_div___element-Main--main--columns--column__center">
+
+                    <h1>Account details:</h1>
+
+                    <div class="class_div___element-AccountDetails" style="margin:0 0 20px 0;">
+
+                    <div class="class_div___element-AccountDetails--item">
+
+                        <div class="class_div___element">
+                            <label style="display:block;font-size:11px;">Name:</label>
+                            <div style="display:inline;padding-right:20px;font-family:HelveticaNeue-Bold;font-size:16px;line-height:20px;">{{ app.user.username }}</div>
+                            <span class="class___element-action__show_form" style="padding-left:15px;border-bottom:1px dashed #363f48;font-family:HelveticaNeue-Bold;line-height:20px;font-style:normal;background:url(/images/shared/icon/editing/12x12/color__363f48.png) no-repeat;cursor:pointer;">Edit</span>
+                        </div>
+
+                        <div class="class_div___component
+                                    class_div___component-Form
+                                    class___display__none"
+                            id="id_div___component-Form__UserNameEditing">
+
+                            <div class="class___position__relative
+                                        class_div___element-Form">
+
+                                <form id="formUserNameEditing" method="post">
+
+                                    <div class="class___display__none class_div___element-Form--submission_status_description"></div>
+
+                                    <div class="class_div___element-Form--visible_fields">
+                                        <table class="class___width__100">
+                                            <tr>
+                                                <td style="">
+                                                    <label style="display:block;padding:0 0 5px 0;font-size:13px;">User name</label>
+                                                    <div class="class_div___component
+                                                                class_div___component-InputField
+                                                                class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__UserNameEditing-name__user_name">
+                                                        <div>
+                                                            <input name="name_input___user_name" type="text" value="{{ app.user.username }}" />
+                                                            <i><b style="visibility:hidden;"></b></i>
+                                                            <em></em>
+                                                        </div>
+                                                        <span><b></b></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table class="class___width__100">
+                                                        <tr>
+                                                            <td style="width:30%">
+                                                                <table class="class___component
+                                                                            class___component-Button
+                                                                            class_table___component-Button
+                                                                            class___width__100
+                                                                            class___component-Button__h40_green1
+                                                                            class___component-Button-dimensions__h40
+                                                                            class___component-Button-style__green1"
+                                                                    id="id_div___component-Button-form_id__UserNameEditing-action__confirm">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <i><b><s><u>Save</u></s></b></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                            <td style="text-align:right;">
+                                                                <a id="id_a___element-form_id__UserNameEditing-action__cancel" href="javascript:void(0);" style="font-size:18px;line-height:38px;color:#222222;text-decoration:underline;">Cancel</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="class___display__none class_div___element-Form--hidden_fields"></div>
+
+                                </form>
+                                <div class="class___display__none
+                                            class_div___element-Form--submission_processing_indicator">
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="class_div___element-AccountDetails--item">
+                        <div class="class_div___element">
+                            <label style="display:block;font-size:11px;">Email:</label>
+                            <div style="display:inline;padding-right:20px;font-family:HelveticaNeue-Bold;font-size:16px;line-height:20px;">{{ app.user.email }}</div>
+                            <span class="class___element-action__show_form" style="padding-left:15px;border-bottom:1px dashed #363f48;font-family:HelveticaNeue-Bold;line-height:20px;font-style:normal;background:url(/images/shared/icon/editing/12x12/color__363f48.png) no-repeat;cursor:pointer;">Edit</span>
+                        </div>
+
+                        <div class="class_div___component
+                                    class_div___component-Form
+                                    class___display__none"
+                            id="id_div___component-Form__UserEmailAddressEditing">
+
+                            <div class="class___position__relative
+                                        class_div___element-Form">
+
+                                <form id="formUserEmailAddressEditing" method="post">
+                                    <div class="class___display__none class_div___element-Form--submission_status_description"></div>
+
+                                    <div class="class_div___element-Form--visible_fields">
+                                        <table class="class___width__100">
+                                            <tr>
+                                                <td style="">
+                                                    <label style="display:block;padding:0 0 5px 0;font-size:13px;">User email</label>
+                                                    <div class="class_div___component
+                                                                class_div___component-InputField
+                                                                class_div___component-InputField-input_type__uniline_text"
+                                                     id="id_div___component-InputField-form_id__UserEmailAddressEditing-name__user_email_address">
+                                                        <div>
+                                                            <input name="name_input___user_email_address" type="text" value="{{ app.user.email }}" />
+                                                            <i><b style="visibility:hidden;"></b></i>
+                                                            <em></em>
+                                                        </div>
+                                                        <span><b></b></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table class="class___width__100">
+                                                        <tr>
+                                                            <td style="width:30%">
+                                                                <table
+                                                                    class="class___component
+                                                                        class___component-Button
+                                                                        class_table___component-Button
+                                                                        class___width__100
+                                                                        class___component-Button__h40_green1
+                                                                        class___component-Button-dimensions__h40
+                                                                        class___component-Button-style__green1"
+                                                                    id="id_div___component-Button-form_id__UserEmailAddressEditing-action__confirm">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <i><b><s><u>Save</u></s></b></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                            <td style="text-align:right;">
+                                                                <a id="id_a___element-form_id__UserEmailAddressEditing-action__cancel" href="javascript:void(0);" style="font-size:18px;line-height:38px;color:#222222;text-decoration:underline;">Cancel</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="class___display__none class_div___element-Form--hidden_fields"></div>
+                                </form>
+
+                                <div class="class___display__none class_div___element-Form--submission_processing_indicator">
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="class_div___element-AccountDetails--item">
+                        <div class="class_div___element" style="height:30px;">
+                            <label style="display:block;font-size:11px;">Password:</label>
+                            <div style="float:left;margin:0 20px 0 0;width:120px;line-height:20px;background:url(/images/component/Frame/foreground__222222-corner__r5.png) left center repeat-x">&nbsp;</div>
+                            <span class="class___element-action__show_form" style="padding-left:15px;border-bottom:1px dashed #363f48;font-family:HelveticaNeue-Bold;line-height:20px;font-style:normal;background:url(/images/shared/icon/editing/12x12/color__363f48.png) no-repeat;cursor:pointer;">Edit</span>
+                        </div>
+
+                        <div class="class_div___component
+                                    class_div___component-Form
+                                    class___display__none"
+                            id="id_div___component-Form__UserPasswordEditing">
+
+                                <div class="class___position__relative
+                                            class_div___element-Form">
+
+                                    <form id="formUserPasswordEditing" method="post">
+                                        <div class="class___display__none class_div___element-Form--submission_status_description"></div>
+
+                                        <div class="class_div___element-Form--visible_fields">
+                                            <table class="class___width__100">
+                                                <tr>
+                                                    <td style="">
+                                                        <label style="display:block;padding:0 0 5px 0;font-size:13px;">User old password</label>
+                                                        <div class="class_div___component
+                                                                    class_div___component-InputField
+                                                                    class_div___component-InputField-input_type__uniline_text"
+                                                             id="id_div___component-InputField-form_id__UserPasswordEditing-name__user_old_password">
+                                                            <div>
+                                                                <input name="name_input___user_old_password" type="password" />
+                                                                <i><b ></b></i>
+                                                                <em></em>
+                                                            </div>
+                                                            <span><b></b></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">
+                                                        <label style="display:block;padding:0 0 5px 0;font-size:13px;">User new password</label>
+                                                        <div class="class_div___component
+                                                                    class_div___component-InputField
+                                                                    class_div___component-InputField-input_type__uniline_text"
+                                                             id="id_div___component-InputField-form_id__UserPasswordEditing-name__user_new_password">
+                                                            <div>
+                                                                <input name="name_input___user_new_password" type="password" />
+                                                                <i><b ></b></i>
+                                                                <em></em>
+                                                            </div>
+                                                            <span><b></b></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table class="class___width__100">
+                                                            <tr>
+                                                                <td style="width:30%">
+                                                                    <table class="class___component
+                                                                                class___component-Button
+                                                                                class_table___component-Button
+                                                                                class___width__100
+                                                                                class___component-Button__h40_green1
+                                                                                class___component-Button-dimensions__h40
+                                                                                class___component-Button-style__green1"
+                                                                            id="id_div___component-Button-form_id__UserPasswordEditing-action__confirm">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <i><b><s><u>Save</u></s></b></i>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="text-align:right;">
+                                                                    <a id="id_a___element-form_id__UserPasswordEditing-action__cancel" href="javascript:void(0);" style="font-size:18px;line-height:38px;color:#222222;text-decoration:underline;">Cancel</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div class="class___display__none class_div___element-Form--hidden_fields"></div>
+                                    </form>
+
+                                    <div class="class___display__none
+                                                class_div___element-Form--submission_processing_indicator">
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ======== User reviews section START ======== #}
+                    {{ render(controller('BwchContentBundle:Review:recentUserReviews', {
+                    'max': 3, 'currentRoute': currentRoute
+                    })) }}
+                    {# ======== User reviews section END ======== #}
+
+
+                    </div>
+
+                <div class="class_div___element-Separator-type__clear_both"></div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html.twig' %}
+
+</div>
+{% endblock %}

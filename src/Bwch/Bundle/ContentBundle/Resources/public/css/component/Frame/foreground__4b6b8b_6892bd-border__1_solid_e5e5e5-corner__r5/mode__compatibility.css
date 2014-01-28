@@ -1,0 +1,221 @@
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5
+	{
+
+	}
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_div___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element
+	{
+		clear:both; /* ie6-7 fix */
+		
+		font-family:HelveticaNeue-Bold;
+		font-size:15px;
+		line-height:28px; /* -(5*2) corners height*/
+		
+		height:28px; /* -(5*2) corners height*/
+		padding:0 20px;
+		border-left:1px solid #e5e5e5;
+		border-right:1px solid #e5e5e5;
+		
+		background:#4b6b8b;
+	}
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_div___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element:link,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element:hover,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class_a___element:visited
+	{
+		color:#ffffff;
+	}
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__top 
+			tt,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			tt
+	{
+		_overflow:hidden;
+		
+		height:4px;
+		margin:0 5px;
+		_margin:0 2px;
+		
+		background:#4b6b8b;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__top 
+			tt
+	{
+		border-top:1px solid #e5e5e5;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			tt
+	{				
+		border-bottom:1px solid #e5e5e5;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__top 
+			sup,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__top 
+			sub,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			sup,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			sub
+	{
+		_overflow:hidden;
+		
+		width:5px;
+		height:5px;
+		_margin:0 -3px 0 0;
+		
+		background-image:url(/images/component/Frame/foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5.png);
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__top 
+			sub
+	{
+		_margin:0 0 0 -3px;
+		
+		background-position:-5px 0;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			sup
+	{
+		_margin:0 -3px 0 0;
+		
+		background-position:0 -5px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-position__bottom 
+			sub
+	{
+		_margin:0 0 0 -3px;
+		
+		background-position:-5px -5px;
+	}
+	
+/*
+	EVENTS: mouseover
+*/
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class_div___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class_a___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__top 
+				tt,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__bottom 
+				tt
+	{				
+		border-color:#e5e5e5;
+		
+		background:#6892bd;
+	}
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__top 
+				sup
+	{		
+		background-position:0 -12px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__top 
+				sub
+	{		
+		background-position:-5px -12px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__bottom 
+				sup
+	{
+		background-position:0 -17px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mouseover 
+			.class___element-position__bottom 
+				sub
+	{
+		background-position:-5px -17px;
+	}
+	
+	
+	
+	
+/*
+	EVENTS: mousedown
+*/
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class_div___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class_a___element,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__top 
+				tt,
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__bottom 
+				tt
+	{				
+		border-color:#e5e5e5;
+		
+		background:#6892bd;
+	}
+	
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__top 
+				sup
+	{		
+		background-position:0 -12px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__top 
+				sub
+	{		
+		background-position:-5px -12px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__bottom 
+				sup
+	{
+		background-position:0 -17px;
+	}
+	.class___component-Frame-foreground__4b6b8b_6892bd-border__1_solid_e5e5e5-corner__r5 
+		.class___element-status__mousedown 
+			.class___element-position__bottom 
+				sub
+	{
+		background-position:-5px -17px;
+	}
+	
+	
+	

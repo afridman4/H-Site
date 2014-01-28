@@ -1,0 +1,513 @@
+{#Toolbar#}
+<script type="text/x-kendo-template" id="tplProvidersToolbar">
+    <div class="toolbar">
+        <a id="btnAddProvider" href="##" class="k-button k-button-icontext k-grid-add">
+            <span class="k-icon k-add"></span>
+            Add provider
+        </a>
+        <a id="btnEditProvider" href="##" class="k-button k-button-icontext k-grid-edit-row">
+            <span class="k-icon k-edit"></span>
+            Edit provider
+        </a>
+        <a id="btnRemoveProvider" href="##" class="k-button k-button-icontext k-grid-delete">
+            <span class="k-icon k-delete"></span>
+            Remove provider
+        </a>
+        <a id="btnRefreshProvider" href="##" class="k-button k-button-icontext k-grid-update">
+            <span class="k-icon k-i-refresh"></span>
+            Refresh grid
+        </a>
+    </div>
+</script>
+
+{#Окно с деталями Provider#}
+<div id="wndProvider" style="padding: 20px; display:none;">
+
+    <div id="providerForm" class="provider-popup-form">
+        <table>
+            <tr>
+                <td><label class="required" for="inpProviderName">Provider</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderName"
+                            id="inpProviderName"
+                            class="k-textbox"
+                            data-bind="value: provider.provider"
+                            maxlength="255"
+                            required=""
+                            placeholder="Enter provider name"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAffiliation">Affiliation</label></td>
+                <td><input
+                            type="checkbox"
+                            name="inpProviderAffiliation"
+                            id="inpProviderAffiliation"
+                            data-bind="checked: provider.affiliation"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAffiliation">Affiliation link</label></td>
+                <td><input
+                            name="inpProviderAffiliation"
+                            id="inpProviderAffiliation"
+                            data-bind="value: provider.affiliationlink"
+                            class="k-textbox"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Address details</td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAddressStreet">Street</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderAddressStreet"
+                            id="inpProviderAddressStreet"
+                            class="k-textbox"
+                            data-bind="value: provider.street"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAddressCity">City</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderAddressCity"
+                            id="inpProviderAddressCity"
+                            class="k-textbox"
+                            data-bind="value: provider.city"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAddressState">State</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderAddressState"
+                            id="inpProviderAddressState"
+                            class="k-textbox"
+                            data-bind="value: provider.state"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAddressPostalCode">Postal code</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderAddressPostalCode"
+                            id="inpProviderAddressPostalCode"
+                            class="k-textbox"
+                            data-bind="value: provider.postalcode"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderAddressCountry">Country</label></td>
+                <td><input
+                            type="text"
+                            name="inpProviderAddressCountry"
+                            id="inpProviderAddressCountry"
+                            class="k-textbox"
+                            data-bind="value: provider.country"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderWebsite">Website</label></td>
+                <td><input
+                            name="inpProviderWebsite"
+                            id="inpProviderWebsite"
+                            class="k-textbox"
+                            data-bind="value: provider.website"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label for="inpProviderPhoneNumbers">Phone numbers</label></td>
+                <td><input
+                            name="inpProviderPhoneNumbers"
+                            id="inpProviderPhoneNumbers"
+                            class="k-textbox"
+                            data-bind="value: provider.phonenumbers"
+                            maxlength="255"
+                            /></td>
+            </tr>
+
+            <tr>
+                <td><label>Rating</label></td>
+                <td><span data-bind="text: provider.rating"></span></td>
+            </tr>
+
+            <tr>
+                <td><label class="required" for="inpProviderDescription">Description</label></td>
+                <td><textarea
+                            class="k-textbox"
+                            name="inpProviderDescription"
+                            id="inpProviderDescription"
+                            data-bind="value: provider.description"
+                            ></textarea></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <table>
+            <tr>
+                <td><button type="submit" class="k-button" data-bind="click: saveProvider">Save</button></td>
+                <td><button type="submit" class="k-button" data-bind="click: cancelProvider">Cancel</button></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var gridProviders = $("#gridProviders").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    type: "POST",
+                    dataType: "json",
+                    url: "/ajax/getProviders"
+                }
+            },
+            schema: {
+                type: "json",
+                errors: function(response) {
+                    if (response.status) {
+                        return false;
+                    } else {
+                        return response.errors;
+                    }
+                },
+                data: function(response) {
+                    return response.data.data;
+                },
+                total: function(response) {
+                    return response.data.total;
+                },
+                model: {
+                    fields: {
+                        _id: { type: "string", editable: false },
+                        provider: { type: "string" },
+                        affiliation: { type: "boolean" },
+                        affiliationlink: { type: "string" },
+                        street: { type: "string" },
+                        city: { type: "string" },
+                        state: { type: "string" },
+                        postalcode: { type: "string" },
+                        country: { type: "string" },
+                        website: { type: "string" },
+                        phonenumbers: { type: "string" },
+                        generalrating: { type: "number" },
+                        numberofreviews: { type: "number" },
+                        description: { type: "string" }
+                    }
+                }
+            },
+            pageSize: 20
+        },
+        scrollable: true,
+        sortable: true,
+        editable: false,
+        filterable: {
+            extra: false
+        },
+        pageable: true,
+        selectable: "row",
+        toolbar: kendo.template($("#tplProvidersToolbar").html()),
+        columns: [
+            {
+                field: "_id",
+                title: "<center>ObjectID</center>",
+                template: '<span style="float:left">#= _id #</span>'
+            },
+            {
+                field: "provider",
+                title: "<center>Provider</center>",
+                template: '<span style="float:left">#= provider #</span>'
+            },
+            {
+                field: "affiliation",
+                title: "<center>Affiliation</center>",
+                template: '<span style="float:left">#= affiliation #</span>'
+            },
+            {
+                field: "affiliationlink",
+                title: "<center>Affiliation link</center>",
+                template: '<span style="float:left">#= affiliationlink #</span>'
+            },
+            {
+                field: "street",
+                title: "<center>Street</center>",
+                template: '<span style="float:left">#= street #</span>'
+            },
+            {
+                field: "city",
+                title: "<center>City</center>",
+                template: '<span style="float:left">#= city #</span>'
+            },
+            {
+                field: "state",
+                title: "<center>State</center>",
+                template: '<span style="float:left">#= state #</span>'
+            },
+            {
+                field: "postalcode",
+                title: "<center>Postal Code</center>",
+                template: '<span style="float:left">#= postalcode #</span>'
+            },
+            {
+                field: "country",
+                title: "<center>Country</center>",
+                template: '<span style="float:left">#= country #</span>'
+            },
+            {
+                field: "website",
+                title: "<center>Website</center>",
+                template: '<span style="float:left">#= website #</span>'
+            },
+            {
+                field: "phonenumbers",
+                title: "<center>Phone numbers</center>",
+                template: '<span style="float:left">#= phonenumbers #</span>'
+            },
+            {
+                field: "generalrating",
+                title: "<center>Rating</center>",
+                template: '<span style="float:left">#= generalrating #</span>'
+            },
+            {
+                field: "numberofreviews",
+                title: "<center>Reviews</center>",
+                template: '<span style="float:left">#= numberofreviews #</span>'
+            },
+            {
+                field: "description",
+                title: "<center>Description</center>",
+                template: '<span style="float:left">#= description #</span>'
+            }
+
+        ]
+    }).data("kendoGrid");
+
+    var providerWindow = $("#wndProvider").kendoWindow({
+        title: "Provider details",
+        modal: true,
+        visible: false,
+        resizable: false
+    }).data("kendoWindow");
+
+    // ...Kendo валидатор для формы
+    var providerValidator = $("#wndProvider").kendoValidator().data("kendoValidator");
+
+    // ...Kendo MVVM для формы
+    var providerViewModel = kendo.observable({
+        // хранилище для полей формы
+        provider: {
+            provider: "",
+            affiliation: false,
+            affiliationlink: "",
+            street: "",
+            city: "",
+            state: "",
+            postalcode: "",
+            country: "",
+            website: "",
+            phonenumbers: "",
+            rating: 0,
+            description: ""
+        },
+
+        // Обработчкики событий
+        saveProvider: function (e) {
+
+            e.preventDefault();
+
+            // Валидация и отправка данных на сервер/
+            if (providerValidator.validate()) {
+
+                $.ajax({
+                    url: "/ajax/saveProvider",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        provider: this.get('provider.provider'),
+                        affiliation: this.get('provider.affiliation'),
+                        affiliationlink: this.get('provider.affiliationlink'),
+                        street: this.get('provider.street'),
+                        city: this.get('provider.city'),
+                        state: this.get('provider.state'),
+                        postalcode: this.get('provider.postalcode'),
+                        country: this.get('provider.country'),
+                        website: this.get('provider.website'),
+                        phonenumbers: this.get('provider.phonenumbers'),
+                        description: this.get('provider.description')
+                    }),
+                    beforeSend: function(){
+                        // показываем индикатор запроса
+                        kendo.ui.progress(providerWindow.element, true);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert(textStatus + ': ' + errorThrown);
+                    },
+                    success: function(response) {
+
+                        if (response.status) {
+                            gridProviders.dataSource.read();
+                        } else {
+                            alert(response.errors);
+                        }
+                    },
+                    complete: function () {
+                        // скрываем индикатор запроса
+                        kendo.ui.progress(providerWindow.element, false);
+                        providerWindow.close();
+                    }
+
+                });
+            }
+
+        },
+
+        cancelProvider: function (e) {
+
+            e.preventDefault();
+            providerWindow.close();
+        }
+
+    });
+
+    // Привязка MVVM к блоку
+    kendo.bind($("#wndProvider"), providerViewModel);
+
+    // Добавление нового Provider
+    $('#btnAddProvider').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        // присваеваем форме значения по умолчанию
+        providerViewModel.set("provider", {
+            provider: "",
+            affiliation: false,
+            affiliationlink: "",
+            street: "",
+            city: "",
+            state: "",
+            postalcode: "",
+            country: "",
+            website: "",
+            phonenumbers: "",
+            rating: 0,
+            description: ""
+        });
+
+        providerWindow.center().open();
+
+    });
+
+    // Редактирование Provider
+    $('#btnEditProvider').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridProviders.dataItem(gridProviders.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Provider from grid first.');
+            return ;
+        }
+
+
+        // присваеваем форме значения по умолчанию
+        providerViewModel.set("provider", {
+            provider: row.provider,
+            affiliation: row.affiliation,
+            affiliationlink: row.affiliationlink,
+            street: row.street,
+            city: row.city,
+            state: row.state,
+            postalcode: row.postalcode,
+            country: row.country,
+            website: row.website,
+            phonenumbers: row.phonenumbers,
+            rating: row.rating,
+            description: row.description
+        });
+
+        providerWindow.center().open();
+
+    });
+
+    // Удаление Provider
+    $('#btnRemoveProvider').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+
+        var row =  gridProviders.dataItem(gridProviders.select());
+
+        if (typeof(row) == 'undefined') {
+            alert('Please select Provider from grid first.');
+            return ;
+        }
+
+        if (!confirm("Are you sure you want to remove Provider " + row.provider + "?")) {
+            return ;
+        }
+
+        $.ajax({
+            url: "/ajax/removeProvider",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: {
+                provider: row.provider
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert(textStatus + ': ' + errorThrown);
+            },
+            success: function(response) {
+
+                if (response.status) {
+                    gridProviders.dataSource.read();
+                } else {
+                }
+            }
+
+        });
+
+    });
+
+    // Обновление грида
+    $('#btnRefreshProvider').on("click", function(e) {
+
+        e.preventDefault();  // отменяем событие элемента по умолчанию (<a></a> переход по ссылке!)
+        gridProviders.dataSource.read();
+    });
+
+    // Двойной клик на строке обрабатываем как редактирование
+    $("#gridProviders").delegate("tbody>tr", "dblclick", function() {
+        $('#btnEditProvider').click();
+    });
+
+
+</script>

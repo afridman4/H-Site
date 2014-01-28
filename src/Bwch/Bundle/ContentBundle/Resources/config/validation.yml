@@ -1,0 +1,13 @@
+namespaces:
+  RecaptchaBundle: EWZ\Bundle\RecaptchaBundle\Validator\Constraints\
+
+Bwch\ContentBundle\Entity\Review:
+  properties:
+      author:
+          - NotBlank: ~
+      provider:
+          - NotBlank: ~
+      plan:
+          - NotBlank: ~
+      text:
+          - NotBlank: ~

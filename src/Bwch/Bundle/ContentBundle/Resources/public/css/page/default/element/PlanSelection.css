@@ -1,0 +1,54 @@
+
+	.class_table___element-PlanSelection
+	{
+		table-layout:fixed;
+		
+		width:100%;
+	}
+	.class_table___element-PlanSelection 
+		th
+	{
+		width:50%;
+		
+		background:url(/images/shared/separator/3x1/grey_gradient.png) right top repeat-y;
+	}
+	.class_table___element-PlanSelection 
+		th 
+			ul
+	{
+		margin:0 -16px 0 0;
+	}
+	.class_table___element-PlanSelection 
+		th 
+			li
+	{
+		margin:0 0 10px;
+	}
+	
+	.class_table___element-PlanSelection 
+		td 
+			h2
+	{
+		font-family:HelveticaNeue-Bold;
+		font-size:15px;
+	}
+	.class_table___element-PlanSelection 
+		td 
+			.class_div___component-ScrollableContainer
+	{
+		margin:26px 0 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,117 @@
+
+
+	.class___component-Button__h32_green1 
+		i,
+	.class___component-Button__h32_green1 
+		a
+	{
+		background-position:right -33px;
+	}
+	.class___component-Button__h32_green1 
+		b
+	{
+		height:32px;
+		margin:0 5px;
+		padding:0 10px;
+		
+		font-family:HelveticaNeue-Bold;
+		font-size:15px;
+		line-height:31px;/*middle fix between FF and Chrome*/
+		font-weight:normal;
+		
+		background-position:0 -66px;
+		background-repeat:repeat-x;
+	}
+
+
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ SPRITES --------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h32_green1 
+		td,
+	.class___component-Button__h32_green1 
+		i,
+	.class___component-Button__h32_green1 
+		a,
+	.class___component-Button__h32_green1 
+		b
+	{
+		color:#ffffff;
+		
+		background-image:url(/images/component/Button/dimensions__h32-style__green1.png);
+	}
+	
+	
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ LINKS ----------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h32_green1 
+		a:link,
+	.class___component-Button__h32_green1 
+		a:hover,
+	.class___component-Button__h32_green1 
+		a:visited
+	{
+		color:#ffffff;
+	}
+
+
+/*
+-----------------------------------------------------------------------------------------------------------
+------------------------------------------------ EVENTS ---------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+*/
+	.class___component-Button__h32_green1 
+		.class___element-status__mouseover
+	{
+		background-position:0 -99px;
+	}
+	.class___component-Button__h32_green1 
+		.class___element-status__mouseover 
+			i,
+	.class___component-Button__h32_green1 
+		.class___element-status__mouseover 
+			a
+	{
+		background-position:right -132px;
+	}
+	.class___component-Button__h32_green1 
+		.class___element-status__mouseover 
+			b
+	{
+		background-position:0 -165px;
+	}
+/*------------------------------------------------*/
+	.class___component-Button__h32_green1 
+		.class___element-status__mousedown
+	{
+		background-position:0 -198px;
+	}
+	.class___component-Button__h32_green1 
+		.class___element-status__mousedown 
+			i,
+	.class___component-Button__h32_green1 
+		.class___element-status__mousedown 
+			a
+	{
+		background-position:right -231px;
+	}
+	.class___component-Button__h32_green1 
+		.class___element-status__mousedown 
+			b
+	{
+		background-position:0 -264px;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	

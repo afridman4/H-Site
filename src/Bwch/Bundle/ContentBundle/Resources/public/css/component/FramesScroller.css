@@ -1,0 +1,104 @@
+
+	.class_div___element-FramesScroller--control
+	{
+		width:42px;
+	}
+	.class_div___element-FramesScroller--control 
+		div
+	{
+		width:42px;
+		height:66px;
+		margin:45px 0 0;
+		
+		cursor:pointer;
+	}
+	.class_div___element-FramesScroller--control__scroll_to_left
+	{
+		float:left;
+	}
+	.class_div___element-FramesScroller--control__scroll_to_right
+	{
+		float:right;
+	}
+	.class_div___element-FramesScroller--control__scroll_to_left 
+		div
+	{
+		background:url(/images/component/FramesScroller/control/scroll_to_left2.png) no-repeat;
+	}
+	.class_div___element-FramesScroller--control__scroll_to_right 
+		div
+	{
+		background:url(/images/component/FramesScroller/control/scroll_to_right2.png) no-repeat;
+	}
+	.class_div___element-FramesScroller--control__scroll_to_left 
+		.class___element-status__mouseover,
+	.class_div___element-FramesScroller--control__scroll_to_right 
+		.class___element-status__mouseover
+	{
+		background-position:0 -66px;
+	}
+	
+	.class_div___element-FramesScroller--items
+	{
+		overflow:hidden;
+		
+		float:left;
+		
+		width:880px;
+/*		height:208px;*/ /*IE10*/
+		margin:0 18px;
+		_margin:0 31px;
+	}
+	
+
+	
+	.class_table___element-FramesScroller--items 
+		td
+	{
+		text-align:center;
+	}
+	.class_table___element-FramesScroller--items 
+		a
+	{
+		display:block;
+		
+		padding:10px 30px;
+	}
+	.class_table___element-FramesScroller--items 
+		.class___element-status__mouseover 
+			a
+	{
+		background-color:#5e656d;
+		
+		text-decoration:none;
+	}
+/*
+	Chrome: 32.0.1700.41 m Aura fix
+*/
+	.class_table___element-FramesScroller--items 
+		a:hover
+	{
+		text-decoration:none;
+	}
+	
+	
+	.class_table___element-FramesScroller--items 
+		img,
+	.class_table___element-FramesScroller--items 
+		span
+	{
+		display:block;
+	}
+	.class_table___element-FramesScroller--items 
+		span
+	{
+		padding-top:10px;
+		
+		font-family:HelveticaNeue-Light;
+		font-size:16px;
+		color:#ffffff;
+		
+		text-align:center;
+		text-transform:uppercase;
+	}
+	

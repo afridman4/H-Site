@@ -1,0 +1,5 @@
+twig:
+  globals:
+    version: 0.0.1
+    review_ratings: ["Service", "Reliability", "Performance", "Ease of use", "Feature set"]
+    review_ratings_ordered_for_plan_details: ["Service", "Ease of use", "Reliability", "Feature set", "Performance"]

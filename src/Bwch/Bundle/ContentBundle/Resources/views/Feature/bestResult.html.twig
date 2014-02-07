@@ -47,7 +47,7 @@
                                                 <tr>
                                                     <td style="font-family:HelveticaNeue;">
                                                         <div style="padding:0px 0 0;">
-                                                            <b style="font-family:HelveticaNeue-Bold;font-size:14px;">{{ plan.planname }}</b> {{ plan.description }}
+                                                            <b style="font-family:HelveticaNeue-Bold;font-size:14px;">{{ plan.planname }}</b> {% if plan.short_description is not defined %}  {{ plan.description[0:100]}} {% else %} {{ plan.short_description }}{% endif %}
                                                             {% if plan.generalrating is not defined %}
                                                                 {%  set generalRating = 0 %}
                                                             {% else %}

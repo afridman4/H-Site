@@ -82,7 +82,8 @@ var planPrices = [];
                         for(var i=0; i<data.length; i++) {
                             planPrices.push({
                                 months: (data[i].number_timeunit * (data[i].timeunit == 'month' ? 1 : 12) ),
-                                price: (data[i].price / (data[i].number_timeunit * (data[i].timeunit == 'month' ? 1 : 12))),
+//                                price: (data[i].price / (data[i].number_timeunit * (data[i].timeunit == 'month' ? 1 : 12))),
+                                price: (data[i].price / (data[i].timeunit == 'month' ? 1 : 12)),
                                 currency: data[i].currency
                             });
                         }

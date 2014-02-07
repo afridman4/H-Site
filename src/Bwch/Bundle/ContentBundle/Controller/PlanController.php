@@ -160,6 +160,25 @@ class PlanController extends Controller
         $criteria = array();
         $buzz = $this->container->get('buzz');
 
+// DEBUG
+// ('htype' => 'WEB',
+//          'int_WEB_bandwidth' => '2 Gb',
+//          'int_WEB_diskspace' => '6 Gb',
+//          'int_WEB_domainsallowed' => '0',
+//          'int_WEB_freedomains' => '0',
+//          'int_WEB_ipaddresses' => '0',
+//          'int_WEB_numberdatabases' => '0',
+//          'yesno_WEB_tollfreenumber' => '1'),
+//
+//        $str = implode('X', $parameters);
+//
+//            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plans/search/' . rawurlencode($str));
+//            $htypes = json_decode($response->getContent());
+//            $htype = (array) $htypes[0];
+//            $htype = $htype['name'];
+// END DEBUG
+
+
         // Подключим HType
         $htype = $criteria['htype'] = @$parameters['htype'];
 
@@ -183,7 +202,7 @@ class PlanController extends Controller
 
                 // Уберем из значения все лишнее
                 if ($type == 'int') {
-                    $v = preg_replace('/[^0-9]/', '', $value);
+                    $v = preg_replace('/[^0-9\.]/', '', $value);
                     $parameters[$name] = $v;
 
                     // Проверим на наличие UNLIMITED в исходном параметре
@@ -207,6 +226,9 @@ class PlanController extends Controller
                                     ),
                                     array(
                                         $name => "UNLIMITED",
+                                    ),
+                                    array(
+                                        $name => "UNSPECIFIED",
                                     ),
                                 );
                             else

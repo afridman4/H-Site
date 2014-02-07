@@ -7,7 +7,7 @@
         object_dom___component:null,
         integer___minimal_value_limit:{{ searchFeature.minvalue }},
         integer___maximal_value_limit:{{ searchFeature.maxvalue }},
-        integer___value_changing_step:{{ searchFeature.maxvalue/10 }}
+        integer___value_changing_step:{{ searchFeature.maxvalue/(searchFeature.maxvalue - searchFeature.minvalue) }}
         {% if searchFeature.unit %},string___value_postfix:" {{ searchFeature.unit }}"{% endif %}
         {% if searchFeature.hasunlimited == 'true' %},string___alternative_maximal_value:"UNLIMITED"{% endif %}
     };
@@ -89,7 +89,7 @@
         <input type="hidden"
                name="{{ inputName }}"
                id="id_div___component-Radiobox_{{ searchFeature.htype }}_{{ searchFeature.name }}"
-               value="{% if parameters[inputName] is defined %}{{ parameters[inputName] }}{% else %}1{% endif %}" />
+               value="{% if parameters[inputName] is defined %}{{ parameters[inputName] }}{% else %}0{% endif %}" />
 
         <div style="float: left;t:left;width:135px;font-family:HelveticaNeue-Light;font-size:15px;line-height:30px;">
             {{ searchFeature.displayname }}
@@ -97,7 +97,7 @@
 
         <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
              onclick="$.F_ProcessRadiobox(this, '{{ searchFeature.htype }}_{{ searchFeature.name }}');">
-            <div class="class_div___component-Radiobox{% if (parameters[inputName] is defined and parameters[inputName] == 1) or parameters[inputName] is not defined %} class___element-status__selected{% endif %}"
+            <div class="class_div___component-Radiobox{% if (parameters[inputName] is defined and parameters[inputName] == 1) %} class___element-status__selected{% endif %}"
                       id="id_div___component-Radiobox__test1_{{ searchFeature.htype }}_{{ searchFeature.name }}"
                       style="float:left;margin-right:5px;line-height:24px;"></div>
             Yes
@@ -105,7 +105,7 @@
 
         <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
              onclick="$.F_ProcessRadiobox(this, '{{ searchFeature.htype }}_{{ searchFeature.name }}');">
-            <div class="class_div___component-Radiobox{% if parameters[inputName] is defined and parameters[inputName] == 0 %} class___element-status__selected{% endif %}"
+            <div class="class_div___component-Radiobox{% if (parameters[inputName] is defined and parameters[inputName] == 0)  or parameters[inputName] is not defined %} class___element-status__selected{% endif %}"
                       id="id_div___component-Radiobox__test2_{{ searchFeature.htype }}_{{ searchFeature.name }}"
                       style="float:left;margin-right:5px;line-height:24px;"
                     ></div>

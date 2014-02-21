@@ -469,14 +469,19 @@ class DefaultController extends Controller
         if (empty($plans)) {
             return self::sendErrors('Plan not found.');
         }
+
+
         // Уберем из результата все свойства плана.
         $planfields = $this->container->getParameter('bwch.planfields');
         $planfields = array_fill_keys($planfields, 0);
         $plan = (array) $plans[0];
+        // попытаемся взять htype из плана
+        $htype = $plan ['htype'];
+
         $features = array_diff_key($plan, $planfields);
         $features = array_map(create_function('$name, $value', 'return array("name" => $name, "value" => $value);'), array_keys($features), array_values($features));
 
-        $htype = @$parameters['htype'];
+//        $htype = @$parameters['htype'];
 
         if (empty($htype)) {
             return self::sendErrors('HTypes not set');

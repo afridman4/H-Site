@@ -195,7 +195,7 @@
                                         id="id_table___component-Paginator__search_results">
                                     <tr>
                                         <th class="class_th___component-Paginator-control__show_previous_page">
-                                            <b><i></i></b>
+                                            <b><i>&lt;&lt;Prev&nbsp;&nbsp;</i></b>
                                         </th>
                                         <td>
                                             <div class="class_div___component-Paginator--navigation_items">
@@ -204,7 +204,7 @@
                                                         {% for page in 1..pagesCount %}
                                                             <td class="class_td___component-Paginator--navigation_items--item
 									                                class___element-pagination-index__{{ loop.index }}">
-                                                                <b{% if not loop.index0 %} class="class___element-status__selected"{% endif %}>{{ loop.index }}</b>
+                                                                <b{% if not loop.index0 %} class="class___element-status__selected"{% endif %}>{{ loop.index }}&nbsp;</b>
                                                             </td>
                                                         {% endfor %}
                                                     </tr>
@@ -212,7 +212,7 @@
                                             </div>
                                         </td>
                                         <th class="class_th___component-Paginator-control__show_next_page">
-                                            <b><i></i></b>
+                                            <b><i>&nbsp;Next&gt;&gt; </i></b>
                                         </th>
                                     </tr>
                                 </table>

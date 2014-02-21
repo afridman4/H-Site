@@ -130,7 +130,7 @@ var planPrices = [];
                         for(var i=0; i<data.length; i++) {
                             html += '<tr class="class_tr___element-height__25px" style="height:25px;">' +
                                     '<th><i>' + data[i].displayname + '</i></th>' +
-                                    '<td><b>' + (data[i].type == 'yesno' ? data[i].displayname : data[i].value) + (data[i].type == 'int' && data[i].value != 'UNLIMITED' ? data[i].unit : '') + '</b></td>' +
+                                    '<td><b>' + (data[i].type == 'yesno' ? 'YES' : data[i].value) + (data[i].type == 'int' && data[i].value != 'UNLIMITED' ? data[i].unit : '') + '</b></td>' +
                                     '</tr>';
                         }
                         jQuery("#id_table___Plan-Feature-Details").append(html);

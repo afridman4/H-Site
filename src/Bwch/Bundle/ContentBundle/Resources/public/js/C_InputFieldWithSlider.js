@@ -247,8 +247,8 @@
 						integer___o_Slider_left_offset=$.object_integer___o_Slider_left_offset_by_value['_'+integer___value];
 					}
 					
-					if (bool___field_value_updated!==false)
-						$.object_dom___input_field.value=$.F_AdjustValue(integer___value);
+//					if (bool___field_value_updated!==false)
+//						$.object_dom___input_field.value=$.F_AdjustValue(integer___value);
 					
 					$.object_dom___o_Slider.style.left=integer___o_Slider_left_offset+'px';
 				}

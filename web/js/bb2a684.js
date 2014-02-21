@@ -13093,8 +13093,10 @@ function BWCH_Paginator() {
 
             $.currentPage = pageIndex;
 
-            var to = $.currentPage * $.pageSize,
-                from = ($.currentPage - 1 ) * $.pageSize + 1;
+//            var to = $.currentPage * $.pageSize,
+//                from = ($.currentPage - 1 ) * $.pageSize + 1;
+            var to = $.currentPage * $.pageSize -1,
+                from = ($.currentPage - 1 ) * $.pageSize;
 
             jQuery($.paginationElements).each(function (i) {
                 var scheme = jQuery(this);

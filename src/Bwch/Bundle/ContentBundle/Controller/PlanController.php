@@ -191,6 +191,7 @@ class PlanController extends Controller
 
         // Пройдемся по всем параметрам, уберем все кроме цифр и создадим строку для поиска
         foreach($parameters as $name => $value) {
+            $inti = 0;
             if (preg_match('/^(.*?)_.*/i', $name, $type)) {
                 // Узнаем тип feature
                 $type = $type[1];
@@ -217,8 +218,10 @@ class PlanController extends Controller
                     switch ($type) {
                         case 'int':
                             // Если было указано значение, то возьмем и его и UNLIMITED
-                            if ($v > 0)
-                                $criteria['$or'] = array(
+                            if ($v > 0) {
+//                                $orindex = '$or'.$inti;
+//                                $inti = $inti+1;
+                                $criteria['ZZ'.$name.'YY'] = array(
                                     array(
                                         $name => array(
                                             '$gte' => floatval($v),
@@ -231,7 +234,7 @@ class PlanController extends Controller
                                         $name => "UNSPECIFIED",
                                     ),
                                 );
-                            else
+                            } else
                                 // В противном случае только UNLIMITED
                                 $criteria[$name] =  "UNLIMITED";
 
@@ -465,7 +468,7 @@ class PlanController extends Controller
             $features = array_diff_key($planDetails, $planfields);
             $features = array_map(create_function('$name, $value', 'return array("name" => $name, "value" => $value);'), array_keys($features), array_values($features));
 
-            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'features/' . rawurlencode($planDetails['htype']));
+            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'features/' . rawurlencode($htype['name']));
             $htypeFeatures = json_decode($response->getContent(), true);
 
             foreach($features as $idx => $feature) {

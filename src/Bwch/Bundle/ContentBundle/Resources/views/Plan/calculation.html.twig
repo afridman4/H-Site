@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} - Submit review
+    {{ parent() }} - Cost calsulation
 {% endblock %}
 
 {% block javascripts %}
@@ -56,7 +56,7 @@
                                                         class_div___component-InputField
                                                         class_div___component-InputField-input_type__uniline_text">
                                                 <div>
-                                                    <input type="text"{% if htype != '' %} value="{{ htype.display_name|default('') }}"{% endif %} />
+                                                    <input type="text"{% if htype != '' %} value="{{ htype.display_name|default('') }}" {% endif %} />
                                                     <tt></tt>
                                                 </div>
                                                 <sup><sub>Please select...</sub></sup>
@@ -181,7 +181,7 @@
                                     {% for feature in features %}
                                         <tr class="class_tr___element-height__25px" style="height:25px;">
                                             <th><i>{{ feature.displayname }}</i></th>
-                                            <td><b>{% if feature.type == 'yesno' %}{{ feature.displayname }}
+                                            <td><b>{% if feature.type == 'yesno' %}<b>YES</b>
                                                     {% elseif feature.type == 'int' %}
                                                         {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
                                                         {% else %}{{ feature.value }}{{ feature.unit }}

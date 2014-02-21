@@ -7,7 +7,7 @@
         object_dom___component:null,
         integer___minimal_value_limit:{{ searchFeature.minvalue }},
         integer___maximal_value_limit:{{ searchFeature.maxvalue }},
-        integer___value_changing_step:{{ searchFeature.maxvalue/(searchFeature.maxvalue - searchFeature.minvalue) }}
+        integer___value_changing_step:{{ searchFeature.maxvalue/10 }}              /// changing back to 10 after removing adjust value in the search form, so value entered manually stands
         {% if searchFeature.unit %},string___value_postfix:" {{ searchFeature.unit }}"{% endif %}
         {% if searchFeature.hasunlimited == 'true' %},string___alternative_maximal_value:"UNLIMITED"{% endif %}
     };

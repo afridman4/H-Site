@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} - Plan Details{% if plan.planname is defined %}:{{ plan.provider }} {{ plan.planname }} {% endif %}
+    {{ parent() }} - Hosting Plan Details{% if plan.planname is defined %}:{{ plan.provider }} {{ plan.planname }} {% endif %}
 {% endblock %}
 
 {% block body %}

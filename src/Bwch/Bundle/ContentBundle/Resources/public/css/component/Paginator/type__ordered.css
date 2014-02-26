@@ -1,18 +1,7 @@
-	
-/* set direction */
-	.class_table___component-Paginator-type__ordered-position__horizontal 
-		.class_div___element-Paginator--control,
-	.class_table___component-Paginator-type__ordered-position__horizontal 
-		.class_div___element-Paginator--navigation_items,
-	.class_table___component-Paginator-type__ordered-position__horizontal 
-		.class_div___element-Paginator--navigation_items--item
-	{
-		float:left;
-	}
-	
+
 	.class_table___component-Paginator-type__ordered  
-		sup 
-			sub
+		b 
+			i
 	{
 		display:block;
 		
@@ -23,32 +12,32 @@
 		width:7px;
 		height:11px;
 		margin:-6px 0 0 -4px;
+
+		cursor:pointer;
 	}
 	
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--control__show_previous_page 
-			sup 
-				sub
+		.class_th___component-Paginator-control__show_previous_page 
+			b 
+				i
 	{
 		background:url(/images/component/Paginator/control/previous/7x11/default.png);
 	}
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--control__show_next_page 
-			sup 
-				sub
+		.class_th___component-Paginator-control__show_next_page 
+			b 
+				i
 	{
 		background:url(/images/component/Paginator/control/next/7x11/default.png);
 	}
 	
+
+		
+	
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--control 
-			sup,
+		a,
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--navigation_items--item 
-			a,
-	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--navigation_items--item 
-			div
+		b
 	{
 		display:block;
 		
@@ -65,12 +54,12 @@
 		text-align:center;
 		
 		background-color:#eff2f4;
-		
+
 		cursor:pointer;
 	}
 	
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--control 
+		th 
 			.class___element-status__mouseover
 	{
 		border-color:#7cc576;
@@ -80,14 +69,14 @@
 		background-color:#7cc576;
 	}
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--control 
+		th 
 			.class___element-status__mouseover 
-				sub
+				i
 	{
 		background-position:0 -11px;
 	}
 	.class_table___component-Paginator-type__ordered 
-		.class_div___element-Paginator--navigation_items--item 
+		td 
 			.class___element-status__selected
 	{
 		border-color:#7cc576;

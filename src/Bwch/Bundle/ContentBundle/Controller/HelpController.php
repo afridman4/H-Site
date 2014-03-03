@@ -48,7 +48,7 @@ class HelpController extends Controller
             $email_message = \Swift_Message::newInstance()
                             ->setSubject($message->getSubject())
                             ->setFrom($message->getEmail())
-                            ->setTo('support@xxx.com')
+                            ->setTo($this->container->getParameter('bwch.contact_email'))
                             ->setBody(
                                 $this->renderView(
                                     'BwchContentBundle::contactEmail.html.twig',

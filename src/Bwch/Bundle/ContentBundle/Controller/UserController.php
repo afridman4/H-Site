@@ -138,8 +138,8 @@ class UserController extends Controller
                 $encoder = $factory->getEncoder($user);
 
                 $generator = new SecureRandom();
-                $password = $generator->nextBytes(10);
-//		        $password = substr(str_shuffle('AaBbCcDdEe0123456789'), 7, 10);
+//                $password = $generator->nextBytes(10);
+		        $password = substr(str_shuffle('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvXxYyZz0123456789'), 7, 10);
 
                 $mongoUser->password = $encoder->encodePassword($password, $mongoUser->salt);
 
@@ -147,9 +147,10 @@ class UserController extends Controller
                 $response = $buzz->post($this->container->getParameter('bwch.server_url') . 'saveuser', array("Content-Type: application/json"), json_encode($mongoUser));
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Hello Email')
-                    ->setFrom('send@example.com')
-                    ->setTo('hermit@fx-trend.com')
+                    ->setSubject('Password changed')
+                    ->setFrom($this->container->getParameter('bwch.admin_email'))
+                    ->setTo($mongoUser->email)
+                    ->setContentType("text/html")
                     ->setBody(
                         $this->renderView(
                             'BwchContentBundle:User:forgotPasswordEmail.html.twig',

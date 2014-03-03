@@ -8,3 +8,5 @@ parameters:
   bwch.review_ratings: ["Service", "Reliability", "Performance", "Ease of use", "Feature set"]
 
   bwch.paginator_page_size: 10
+  bwch.admin_email: 'bestwebcloudhosting@gmail.com'
+  bwch.contact_email: 'bestwebcloudhosting@gmail.com'

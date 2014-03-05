@@ -145,7 +145,7 @@
             /*HERMiT*/
             var tableId = jQuery($.object_dom___component).closest('table').attr('id');
             if (tableId)
-                jQuery('#review_' + tableId).val(integer___navigation_item_index);
+                jQuery('#review_' + tableId).val(integer___navigation_item_index+1);
 
 			for (var integer___index=0;integer___index<=integer___navigation_item_index;integer___index++)
 				jQuery($.array_object_dom___navigation_item[integer___index]).removeClass('class___element-status__mouseover').addClass("class___element-status__selected");

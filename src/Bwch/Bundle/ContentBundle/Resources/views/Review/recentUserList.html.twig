@@ -19,7 +19,13 @@
                         </div>
                     </th>
                     <td>
-                        <h4><a href="{{ path('bwch_plan_details', {'provider': review.provider, 'planname': review.plan}) }}" style="font-size:12px;">{{ review.provider }}</a></h4>
+                        <h4>
+                            {% if review.plan is defined and review.plan|length > 0 %}
+                            <a href="{{ path('bwch_plan_details', {'provider': review.provider, 'planname': review.plan}) }}" style="font-size:12px;">{{ review.plan }}</a>
+                            {% else %}
+                            Review on provider {{ review.provider }}
+                            {% endif %}
+                        </h4>
                         <a href="{{ path('bwch_view_review', {'id': review._id}) }}">{{ review.text }}</a>
                     </td>
                     <th>

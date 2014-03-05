@@ -88,7 +88,7 @@
                                 <div class="class___float__left class_div___component-SelectionField" style="width:130px;height:16px;padding:5px;border:1px solid #e5e5e5;background:#f7f7f7 url(/images/component/Frame/border__2_0_0_2_image_eaeaea.png) no-repeat;">
                                     {{ review.usedto }}
                                 </div>
-                                {% if review.stilluseit is defined %}
+                                {% if review.stilluseit is defined and review.stilluseit > 0 %}
                                 <span class="class___float__left" style="padding:0 10px;line-height:26px;font-size:11px;">Still use it</span>
                                 {% endif %}
                             </td>

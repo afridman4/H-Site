@@ -58,11 +58,14 @@ swiftmailer:
 
 # Recaptcha
 ewz_recaptcha:
+#global key for bestwebcloudhosting.ru (got from bestwebcloudhosting@gmail.com)
+  public_key: 6Le6j-8SAAAAAOrKtGkaP7V_VY6dVm0nL3YNxii0
+  private_key: 6Le6j-8SAAAAAJgMyVkUXz9OzutoHC1ejFxoLP6E
 # Keys for workspeed.bcs.zp.ua
 #    public_key:   6Led7-gSAAAAAIfpcfqiYnRG0ZGSl14R8ZlXw8w2
 #    private_key:  6Led7-gSAAAAAK1eBW_35R76NRb8MWtvSqXw6z1P
 # Keys for local
-    public_key:   6LcE8OgSAAAAABgEO2JqaRfIBy6Yz_3FxZMeIEY-
-    private_key:  6LcE8OgSAAAAANPK67-XPfJ0J_Jm2ZP16qnjySP5
+#    public_key:   6LcE8OgSAAAAABgEO2JqaRfIBy6Yz_3FxZMeIEY-
+#    private_key:  6LcE8OgSAAAAANPK67-XPfJ0J_Jm2ZP16qnjySP5
     secure:       false
     locale_key:   kernel.default_locale

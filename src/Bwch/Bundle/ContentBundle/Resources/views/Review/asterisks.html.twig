@@ -5,8 +5,8 @@
         <td>
 {% for idx in 1..5 %}
     <div class="class_div___element-RatingSelector--item">
-        <sup{% if idx <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sup>
-        <sub{% if idx+1 <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sub>
+        <sup{% if idx*2-1 <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sup>
+        <sub{% if idx*2 <= generalRating|default(0) %} class="class___element-status__selected"{% endif %}></sub>
     </div>
 {% endfor %}
         </td>

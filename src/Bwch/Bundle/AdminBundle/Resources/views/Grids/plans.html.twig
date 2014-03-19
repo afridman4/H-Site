@@ -807,7 +807,7 @@ $(document).ready(function(){
                     selectedFeature = this.get('feature.selectedFeature');
 
                 if (selectedFeature.type == "int") {
-                    value = isUnlimited.is(':checked') ? 'UNLIMITED' : intChoice.value();
+                    value = isUnlimited.is(':checked') ? 'UNLIMITED' :  parseFloat(intChoice.value());
                 } else if (selectedFeature.type == 'multiple') {
                     if (selectedFeature.ismultiple) {
                         value = multiChoice.value();

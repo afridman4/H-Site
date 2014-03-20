@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} - Best Hosting Offers
+    {{ parent() }} -  {% if provider is defined %} Hosting plans for Provider:{{ provider }} {% else %} Popular Hosting Offers {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -29,8 +29,13 @@
 								class_div___element-Main--main--columns--column__center">
 
                     <div style="padding:0 10px 16px 0;">
-
-                        <h1 style="margin:0 0 12px 0;">Popular offers</h1>
+                        <h1 style="margin:0 0 12px 0;">
+                            {% if provider is defined %}
+                            Hosting plans for Provider:  <a href="{{ path('bwch_provider_details', {'provider': provider}) }}">  {{ provider }}</a>
+                            {% else %}
+                            Popular Hosting Offers
+                            {% endif %}
+                        </h1>
 
                         <table style="width:100%;">
                             <tr>
@@ -47,7 +52,7 @@
                                                 <tr>
                                                     <td style="font-family:HelveticaNeue;">
                                                         <div style="padding:0px 0 0;">
-                                                            <b style="font-family:HelveticaNeue-Bold;font-size:14px;">{{ plan.planname }}</b> {% if plan.short_description is not defined %}  {{ plan.description[0:100]}} {% else %} {{ plan.short_description }}{% endif %}
+                                                            <b style="font-family:HelveticaNeue-Bold;font-size:14px;">{{ plan.planname }} ({{plan.htype}})</b> {% if plan.short_description is not defined %}  {{ plan.description[0:100]}} {% else %} {{ plan.short_description }}{% endif %}
                                                             {% if plan.generalrating is not defined %}
                                                                 {%  set generalRating = 0 %}
                                                             {% else %}

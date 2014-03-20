@@ -16,8 +16,11 @@ class ReviewController extends Controller
 
         if (empty($provider) && empty($planname))
             $url = 'short/recent/' . $max;
+        else if (empty($planname))
+            $url = rawurlencode($provider);
         else
             $url = rawurlencode($provider) . '/' . rawurlencode($planname) . '/';
+
 
         try {
             $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'reviews/' . $url);

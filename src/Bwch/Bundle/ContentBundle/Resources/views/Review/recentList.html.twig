@@ -36,7 +36,7 @@
             {% if loop.index == loop.length and currentRoute == 'bwch_submit_review' %} class___element-ordinal_position__last{% endif %}
             ">
                 <h3>{{ review.author }}</h3>
-                <h4>{{ review.provider }}</h4>
+                <h4> <a href="{{ path('bwch_provider_details', {'provider': review.provider}) }}">{{ review.provider }}</a></h4>
                 <table class="class_table___element-Rating-position__inline_block-stye__12x12">
                     <tr>
                         <th>

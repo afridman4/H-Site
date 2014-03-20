@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-class PlanController extends Controller
+class ProviderController extends Controller
 {
-    public function detailsAction($provider = '', $planname = '')
+    public function detailsAction($provider = '')
     {
         $plan = $features = array();
 
@@ -28,47 +28,12 @@ class PlanController extends Controller
                     $providerDetails['ratings'][$reviewRatings[$i]] = 0;
             }
 
-            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plan/' . rawurlencode($provider) . '/' . rawurlencode($planname));
-            $planDetails = json_decode($response->getContent());
-
-            if (!empty($planDetails)) {
-                $planDetails = (array) $planDetails[0];
-                if (isset($planDetails['ratings']) && is_array($planDetails['ratings']))
-                    foreach($planDetails['ratings'] as $planDetail) {
-                        $planDetails['ratings'][$planDetail->name] = $planDetail->rate;
-                    }
-                else {
-                    $reviewRatings = $this->container->getParameter('bwch.review_ratings');
-                    $planDetails['ratings'] = array();
-                    for($i=0; $i<count($reviewRatings); $i++)
-                        $planDetails['ratings'][$reviewRatings[$i]] = 0;
-                }
-
-                $planfields = $this->container->getParameter('bwch.planfields');
-                $planfields = array_fill_keys($planfields, 0);
-                $features = array_diff_key($planDetails, $planfields);
-                $features = array_map(create_function('$name, $value', 'return array("name" => $name, "value" => $value);'), array_keys($features), array_values($features));
-
-                $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'features/' . rawurlencode($planDetails['htype']));
-                $htypeFeatures = json_decode($response->getContent(), true);
-                foreach($features as $idx => $feature) {
-                    for($i=0; $i<count($htypeFeatures); $i++) {
-                        if ($htypeFeatures[$i]['name'] == $features[$idx]['name']) {
-                            $features[$idx]['displayname'] = $htypeFeatures[$i]['displayname'];
-                            $features[$idx]['type'] = $htypeFeatures[$i]['type'];
-                        }
-                    }
-                }
-
-            } else {
-
-            }
         } catch (Exception $e) {
         }
 
         return $this->render(
-            'BwchContentBundle:Plan:details.html.twig',
-            array('provider' => $providerDetails, 'plan' => $planDetails, 'features' => $features)
+            'BwchContentBundle:Provider:details.html.twig',
+            array('provider' => $providerDetails)
         );
     }
 
@@ -373,28 +338,6 @@ class PlanController extends Controller
         );
     }
 
-    public function providersPlansAction($provider = '')
-    {
-        $request = Request::createFromGlobals();
-        $parameters = $request->request->all();
-
-        $buzz = $this->container->get('buzz');
-        try {
-            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plans/' . rawurlencode($provider));
-            $plans = json_decode($response->getContent());
-        } catch (Exception $e) {
-            $plans = array();
-        }
-
-        return $this->render(
-            'BwchContentBundle:Feature:bestResult.html.twig',
-            array(
-                'parameters' => $parameters,
-                'plans' => $plans,
-                'provider' => $provider
-            )
-        );
-    }
 
     public function searchBestPlansAction()
     {

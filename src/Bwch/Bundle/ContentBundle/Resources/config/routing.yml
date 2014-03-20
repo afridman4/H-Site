@@ -26,6 +26,10 @@ bwch_best_plans:
     pattern:  /best-plans
     defaults: { _controller: BwchContentBundle:Plan:searchBestPlans }
 
+bwch_provider_details:
+    pattern:   /provider/{provider}
+    defaults: { _controller: BwchContentBundle:Provider:details }
+
 bwch_plan_details:
     pattern:  /plan/{provider}/{planname}
     defaults: { _controller: BwchContentBundle:Plan:details }
@@ -45,6 +49,10 @@ bwch_submit_review:
 bwch_view_review:
     pattern:  /review/{id}
     defaults: { _controller: BwchContentBundle:Review:viewReview, id:'' }
+
+bwch_plans_for_provider:
+    pattern:  /plans/{provider}
+    defaults: { _controller: BwchContentBundle:Plan:providersPlans, provider:'' }
 
 bwch_subscribe_on_provider:
     pattern:  /subscribe-on-provider/{provider}

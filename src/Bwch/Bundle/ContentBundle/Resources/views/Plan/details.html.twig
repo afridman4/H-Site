@@ -32,7 +32,7 @@
                 {% if plan.planname is defined %}
                     <div style="padding:0 10px 16px 0;">
 
-                        <h1 style="margin:0 0 12px 0;">{{ plan.provider }} Information</h1>
+                        <h1 style="margin:0 0 12px 0;"><a href="{{ path('bwch_provider_details', {'provider': plan.provider}) }}">{{ plan.provider }}</a> Information</h1>
 
                         <table style="width:100%;">
                             <tr>

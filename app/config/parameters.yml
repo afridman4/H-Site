@@ -7,8 +7,8 @@ parameters:
     database_user: root
     database_password: null
     mailer_transport: smtp
-    mailer_host: hadron.bcs.zp.ua
-    mailer_user: dfedorchenko
-    mailer_password: d_fedorchenko
+    mailer_host: smtp.gmail.com
+    mailer_user: bestwebcloudhosting.com
+    mailer_password: PWD
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt

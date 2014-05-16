@@ -184,7 +184,7 @@
                                             <td><b>{% if feature.type == 'yesno' %}<b>YES</b>
                                                     {% elseif feature.type == 'int' %}
                                                         {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
-                                                        {% else %}{{ feature.value }}{{ feature.unit }}
+                                                        {% else %}{{ feature.value }} &nbsp;&nbsp; {{ feature.unit }}
                                                         {% endif %}
                                                     {% elseif feature.type == 'multiple' %}
                                                         {{ feature.value|join(',') }}

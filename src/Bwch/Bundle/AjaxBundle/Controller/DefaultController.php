@@ -543,6 +543,38 @@ class DefaultController extends Controller
 
     }
 
+    public function getPlanFPricesAction()
+    {
+        $request = Request::createFromGlobals();
+        $parameters = $request->request->all();
+        $provider = @$parameters['provider'];
+        $planname = @$parameters['planname'];
+
+        if (empty($provider) || empty($planname)) {
+            return self::sendErrors('Provider or Planname not set');
+        }
+
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plan/' . rawurlencode($provider) . '/' . rawurlencode($planname));
+        $plans = json_decode($response->getContent());
+
+        if (empty($plans)) {
+            return self::sendErrors('Plan not found.');
+        }
+
+        // Возьмем только Prices
+        $plan = (array) $plans[0];
+        $fprices = @$plan['fprices'];
+
+        $result = array(
+            'data' => $fprices,
+            'total' => count($fprices),
+        );
+
+        return self::sendResponse($result);
+
+    }
+
     public function savePlanPricesAction(Request $request)
     {
         $parameters = json_decode($request->getContent(), true);
@@ -567,6 +599,45 @@ class DefaultController extends Controller
         // Подменим ему prices
         $plan = (array) $plans[0];
         $plan['prices'] = $prices;
+        unset($plan["_id"]);
+
+        // И сохраним
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->post($this->container->getParameter('bwch.server_url') . 'saveplan', array("Content-Type: application/json"), json_encode($plan));
+
+        $result = array(
+            'data' => array(),
+            'total' => 0,
+        );
+
+        return self::sendResponse($result);
+
+    }
+
+    public function savePlanFPricesAction(Request $request)
+    {
+        $parameters = json_decode($request->getContent(), true);
+
+        $provider = @$parameters['provider'];
+        $planname = @$parameters['planname'];
+        $fprices = @$parameters['fprices'];
+
+        if (empty($provider) || empty($planname)) {
+            return self::sendErrors('Provider or Planname not set');
+        }
+
+        // Найдем весь план и подменим ему prices
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plan/' . rawurlencode($provider) . '/' . rawurlencode($planname));
+        $plans = json_decode($response->getContent());
+
+        if (empty($plans)) {
+            return self::sendErrors('Plan not found.');
+        }
+
+        // Подменим ему prices
+        $plan = (array) $plans[0];
+        $plan['fprices'] = $fprices;
         unset($plan["_id"]);
 
         // И сохраним

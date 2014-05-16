@@ -113,9 +113,99 @@
 <script type="text/x-kendo-template" id="tplPlanDetail">
     <div class="tabstrip">
     <ul>
-        <li class="k-state-active">Prices</li>
-        <li>Features</li>
+        <li>feature Prices</li>
+        <li>Prices</li>
+        <li class="k-state-active">Features</li>
+
     </ul>
+
+    {#New tab for fprices#}
+    <div class="fpriceTab">
+        <div id="wndFprice#= _id #" class="fpriceWindow" style="padding: 20px; display:none;">
+            <div id="fpriceForm" class="fprice-popup-form">
+                <table>
+                    <tr>
+                        <td><label class="required" for="inpFpriceName">Feature</label></td>
+                        <td><input
+                            type="text"
+                            name="inpFpriceName"
+                            id="inpFpriceName"
+                            class="k-textbox"
+                            data-bind="value:fprice.feature"
+                            maxlength="255"
+                            required=""
+                            placeholder="Enter feature name"
+                        /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" for="inpFpriceFreevalue">Free value</label></td>
+                        <td><input
+                                type="text"
+                                name="inpFpriceFreevalue"
+                                id="inpFpriceFreevalue"
+                                class="k-textbox"
+                                data-bind="value:fprice.freevalue"
+                                maxlength="255"
+                                required=""
+                                placeholder="Enter value"
+                                /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" for="inpFpriceNumberunit">NumberUNit</label></td>
+                        <td><input
+                                type="text"
+                                name="inpFpriceNumberunit"
+                                id="inpFpriceNumberunit"
+                                class="k-textbox"
+                                data-bind="value:fprice.numberunit"
+                                maxlength="255"
+                                required=""
+                                placeholder="Enter numberunit"
+                                /></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required" for="inpFpricePrice">Price</label></td>
+                        <td><input
+                                type="text"
+                                name="inpFpricePrice"
+                                id="inpFpricePrice"
+                                class="k-textbox"
+                                data-bind="value:fprice.price"
+                                maxlength="255"
+                                required=""
+                                placeholder="Enter feature name"
+                                /></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div style="margin-top: 20px;">
+                <button type="submit" class="k-button" data-bind="click: saveFPrice">Save</button>
+                <button type="submit" class="k-button" data-bind="click: cancelFPrice">Cancel</button>
+            </div>
+        </div>
+        <div class="k-toolbar k-grid-toolbar">
+            <a id="btnAddFPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-add" data-bind="click: addFPrice">
+                <span class="k-icon k-add"></span>
+                Add Fprice
+            </a>
+            <a id="btnRemoveFPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-delete" data-bind="click: removeFPrice">
+                <span class="k-icon k-delete"></span>
+                Remove Fprice
+            </a>
+            <a id="btnSaveFPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-save" data-bind="click: saveFPrices">
+                <span class="k-icon k-update"></span>
+                Save Fprices to plan
+            </a>
+
+            <a id="btnRefreshFPrice#= _id #" href="##" class="k-button k-button-icontext k-grid-update" data-bind="click: refreshFPrice">
+                <span class="k-icon k-i-refresh"></span>
+                Refresh grid
+            </a>
+        </div>
+        <div class="classFPrices"></div>
+    </div>
+
     <div class="priceTab">
         {#Окно с деталями Price#}
         <div id="wndPrice#= _id #" class="priceWindow" style="padding: 20px; display:none;">
@@ -333,7 +423,7 @@ $(document).ready(function(){
         }
     });
 
-    var gridPrices, gridFeatures;
+    var gridPrices, gridFeatures, gridFPrices;
 
     var gridPlans = $("#gridPlans").kendoGrid({
         autoBind: false,
@@ -474,12 +564,113 @@ $(document).ready(function(){
             priceWindow = detailRow.find(".priceWindow"),
             featureTab = detailRow.find(".featureTab"),
             featureWindow = detailRow.find(".featureWindow"),
+            fpriceTab = detailRow.find(".fpriceTab"),
+            fpriceWindow = detailRow.find(".fpriceWindow"),
             windowFeature = null,
             windowPrice = null,
+            windowFPrice = null,
             multiChoice = null,
             singleChoice = null,
             intChoice = null,
             isUnlimited = null;
+
+        var fpriceViewModel = kendo.observable({
+                fprice: {   feature: "",
+                            freevalue: 0,
+                            numberunit: 0,
+                            price: 0,
+                            idx: 0},
+
+        addFPrice: function (e) {
+
+                    e.preventDefault();
+                    this.set("fprice", {feature:"", freevalue:0, numberunit:1, price:0, idx:''});
+
+                    windowFPrice = fpriceWindow.kendoWindow({
+                        title: "FPrice details",
+                        modal: true,
+                        visible: false,
+                        resizable: false,
+                        height: 450
+                    }).data("kendoWindow").center().open();
+                },
+
+        refreshFPrice: function (e) {
+            e.preventDefault();
+            gridPrices.dataSource.read();
+        },
+
+        removeFPrice: function (e) {
+            e.preventDefault();
+
+            var row =  gridFPrices.dataItem(gridFPrices.select());
+
+            if (typeof(row) == 'undefined') {
+                alert('Please select FPrice from grid first.');
+                return ;
+            }
+
+            gridFPrices.dataSource.remove(gridFPrices.dataSource.getByUid(row.uid));
+
+        },
+
+        saveFPrices: function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                        url: "/ajax/savePlanFPrices",
+                        cache: false,
+                        async: true,
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify({
+                            provider: detailRowData.provider,
+                            planname: detailRowData.planname,
+                            fprices: gridFPrices.dataSource.data().toJSON()
+                        }),
+                        beforeSend: function(){
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            alert(textStatus + ': ' + errorThrown);
+                        },
+                        success: function(response) {
+                        },
+                        complete: function () {
+                        }
+            });
+
+        },
+
+        saveFPrice: function (e) {
+            alert ("SaveFPrice");
+            e.preventDefault();
+
+            var idx = this.get('fprice.idx');
+
+            // Если idx не пустой - значит было редактирование.
+            if (idx != '') {
+                gridFPrices.dataSource.remove(gridFPrices.dataSource.getByUid(idx));
+            }
+
+            gridFPrices.dataSource.add({
+                feature: this.get('fprice.feature'),
+                freevalue: this.get('fprice.freevalue'),
+                numberunit: this.get('fprice.numberunit'),
+                price: this.get('fprice.price')
+            });
+
+            windowFPrice.close();
+        },
+
+        cancelFPrice: function (e) {
+            e.preventDefault();
+                windowFPrice.close();
+        }
+
+        });
+
+        kendo.bind(fpriceTab, fpriceViewModel);
 
         var priceViewModel = kendo.observable({
             // хранилище для полей формы
@@ -494,7 +685,6 @@ $(document).ready(function(){
             },
 
             addPrice: function (e) {
-
                 e.preventDefault();
 
                 // присваеваем форме значения по умолчанию
@@ -632,6 +822,7 @@ $(document).ready(function(){
 
 
         });
+
         kendo.bind(priceTab, priceViewModel);
 
         var featureViewModel = kendo.observable({
@@ -944,6 +1135,85 @@ $(document).ready(function(){
         detailRow.find(".classPrices").delegate("tbody>tr", "dblclick", function() {
             $('#btnEditPrice').click();
         });
+
+        gridFPrices = detailRow.find(".classFPrices").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            provider: detailRowData.provider,
+                            planname: detailRowData.planname
+                        },
+                        url: "/ajax/getPlanFPrices"
+                    }
+                },
+                schema: {
+                    type: "json", // тип схемы
+                    errors: function(response) {
+                        if (response.status) {
+                            return false;
+                        } else {
+                            return response.errors;
+                        }
+                    },
+                    data: function(response) {
+                        return response.data.data;
+                    },
+                    total: function(response) {
+                        return response.data.total;
+                    },
+                    model: {
+                        id: 'fprices',
+                        fields: {
+                            feature: { type: "string" },
+                            freevalue: { type: "number"},
+                            numberunit: { type : "string"},
+                            price: {type : "number"}
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            scrollable: true,
+            sortable: true,
+            pageable: true,
+            filterable: true,
+            pageSize: 20,
+            selectable: "row",
+            editable: "popup",
+            columns: [
+                {
+                    field: "feature",
+                    title: "<center>Feature</center>",
+                    template: '<span style="float:left;">#= feature #</span>'
+                },
+                {
+                    field: "freevalue",
+                    title: "<center>Free Value</center>",
+                    template: '<span style="float:left;">#= freevalue #</span>'
+                },
+                {
+                    field: "numberunit",
+                    title: "<center>Number Units</center>",
+                    template: '<span style="float:left;">#= numberunit #</span>'
+                },
+                {
+                    field: "price",
+                    title: "<center>Price</center>",
+                    template: '<span style="float:left;">#= price #</span>'
+                }
+
+            ]
+        }).data("kendoGrid");
+
+        // TODO. Пересмотреть логику
+        // Двойной клик на строке обрабатываем как редактирование
+        detailRow.find(".classFPrices").delegate("tbody>tr", "dblclick", function() {
+            $('#btnEditFPrice').click();
+        });
+
 
         gridFeatures = detailRow.find(".classFeatures").kendoGrid({
             dataSource: {

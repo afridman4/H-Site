@@ -1,0 +1,25 @@
+<tr class="class_tr___element-height__25px" style="height:25px;">
+    <th><i>{{ feature.displayname }}</i></th>
+    <td><b>{% if feature.type == 'yesno' %}
+                {% if feature.price is defined %}
+                    {{ include('BwchContentBundle:Feature:yesnoFeatureType.html.twig') }}
+                {% else %}
+                    <b>YES</b>
+                {% endif %}
+            {% elseif feature.type == 'int' %}
+                {% if feature.price is defined %}
+                    {{ include('BwchContentBundle:Feature:intFeatureType.html.twig') }}
+                {% else %}
+                    {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
+                        {% else %}{{ feature.value }}{{ feature.unit }}
+                    {% endif %}
+                {% endif %}
+            {% elseif feature.type == 'multiple' %}
+                {% if feature.price is defined %}
+                    {{ include('BwchContentBundle:Feature:multipleFeatureType.html.twig') }}
+                {% else %}
+                    {{ feature.value|join(',') }}
+                {% endif %}
+            {% endif %}
+        </b></td>
+</tr>

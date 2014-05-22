@@ -1,0 +1,24 @@
+<div style="padding-right:15px;">
+    <input type="hidden"
+           name="{{ feature.id }}"
+           id="id_div___component-Radiobox_{{ feature.id }}"
+           value="1"
+    />
+
+    <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
+         onclick="$.F_ProcessRadiobox(this, '{{ feature.id }}');">
+        <div class="class_div___component-Radiobox class___element-status__selected"
+             id="id_div___component-Radiobox__test1_{{ feature.id }}"
+             style="float:left;margin-right:5px;line-height:24px;"></div>
+        Yes
+    </div>
+
+    <div style="float:left;margin-left:10px;font-family:HelveticaNeue-Bold;font-size:15px;line-height:30px;cursor:pointer;"
+         onclick="$.F_ProcessRadiobox(this, '{{ feature.id }}');">
+        <div class="class_div___component-Radiobox"
+             id="id_div___component-Radiobox__test2_{{ feature.id }}"
+             style="float:left;margin-right:5px;line-height:24px;"
+                ></div>
+        No
+    </div>
+</div>

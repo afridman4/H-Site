@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    array_object___configuration[array_object___configuration.length] =
+    {
+        varchar___id:'id_{{ feature.id }}',
+        object_dom___component:null,
+        integer___minimal_value_limit:{{ feature.minvalue|default(0) }},
+        integer___maximal_value_limit:{{ feature.maxvalue|default(100) }},
+        integer___value_changing_step:{{ feature.maxvalue|default(100)/10 }}
+        {% if feature.unit is defined %},string___value_postfix:" {{ feature.unit }}"{% endif %}
+    };
+</script>
+<div id="id_div___ScrollableInputField__id_{{ feature.id }} "
+     class="class_div___component-InputFieldWithSlider">
+    <div class="class_div___component
+                                class_div___component-InputField
+                                class_div___component-InputField-input_type__uniline_text"
+         id="id_div___component-InputField__id_{{ feature.id }}"
+            >
+        <div>
+            <input type="text" id="id_div___component-InputField__{{ feature.id }}" name="{{ feature.id }}" value="{{ feature.minvalue|default(0) }}{% if feature.unit is defined %} {{ feature.unit }}{% endif %}" />
+            <tt></tt>
+        </div>
+    </div>
+    <i><b style="bottom: -4px;"></b></i>
+</div>

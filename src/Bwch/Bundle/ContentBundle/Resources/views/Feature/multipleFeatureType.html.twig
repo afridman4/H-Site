@@ -1,0 +1,30 @@
+<div class="class_div___component
+            class_div___component-SelectionField"
+     id="id_div___component-SelectionField__{{ feature.id }}">
+    <div>
+        <div class="class_div___component
+                                    class_div___component-InputField
+                                    class_div___component-InputField-input_type__uniline_text">
+            <div>
+                <input type="text" />
+                <tt></tt>
+            </div>
+            <sup><sub>Please select...</sub></sup>
+        </div>
+
+        <div class="class_div___element-SelectionField--options">
+            <ul>
+                {% for value in feature.value %}
+                    <li><span>{{ value }}</span><input id="class_div___element-SelectionField_{{ feature.id }}" name="{{ feature.id }}" type="checkbox" value="{{ value }}" disabled="disabled" /></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (new C_SelectionField).F_Initialize
+    ({
+        string___DOM_id							:"id_div___component-SelectionField__{{ feature.id }}",
+        bool___multiple_options_selection:{% if feature.ismultiple is defined and feature.ismultiple %}true{% else %}false{% endif %}
+    });
+</script>

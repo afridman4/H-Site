@@ -161,6 +161,8 @@
                             </tr>
                         </table>
 
+                        <div style="margin:20px 0 0;padding:0 10px;border:1px solid #cc956e;font-family:HelveticaNeue-Bold;font-size:18px;line-height:38px;background:#fde7da;" id="calculatedPriceContainer">Please select time period</div>
+
                         <table class="class___width__100
                                     class_table___element-style__1" style="margin:30px 0 0;">
                             <tr>
@@ -175,25 +177,24 @@
                                         class_table___element-style__1"
                                    style="margin:0 -1px 0;"
                                     id="id_table___Plan-Feature-Details">
+                                {% if features is iterable %}
+                                    {% for feature in features %}
+                                        <tr class="class_tr___element-height__25px" style="height:25px;">
+                                            <th><i>{{ feature.displayname }}</i></th>
+                                            <td><b>{% if feature.type == 'yesno' %}<b>YES</b>
+                                                    {% elseif feature.type == 'int' %}
+                                                        {% if feature.value == 'UNLIMITED' %}<b>UNLIMITED</b>
+                                                        {% else %}{{ feature.value }} &nbsp;&nbsp; {{ feature.unit }}
+                                                        {% endif %}
+                                                    {% elseif feature.type == 'multiple' %}
+                                                        {{ feature.value|join(',') }}
+                                                    {% endif %}
+                                                </b></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </table>
                         </div>
-
-                        <table class="class___component-Button
-                                        class_table___component-Button
-                                        class___component-Button__h40_green1
-                                        class___component-Button-dimensions__h40
-                                        class___component-Button-style__green1
-                                        class___margin__0_0_0_auto"
-                                id="caclucateButton">
-                            <tr>
-                                <td>
-                                    <i><b><s><u>Calculate</u></s></b></i>
-                                </td>
-                            </tr>
-                        </table>
-
-
-                        <div style="margin:20px 0 0;padding:0 10px;border:1px solid #cc956e;font-family:HelveticaNeue-Bold;font-size:18px;line-height:38px;background:#fde7da;" id="calculatedPriceContainer">Please select time period and press Calculate</div>
 
                     </div>
                 </div>

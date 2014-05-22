@@ -270,7 +270,7 @@
                         data: jQuery('#'+ $.varchar___form_id).find('input').serializeArray(),
                         dataType: "json",
                         success: function(object___response){
-                            console.log('object___response', object___response);
+                            //console.log('object___response', object___response);
                             $.F_ProcessSubmissionResponse(object___response);
                         },
                         error:function(object___XMLHTTPRequest,string___status) {

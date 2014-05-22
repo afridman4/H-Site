@@ -88,6 +88,11 @@ bwch_ajax_getplandetailfeatures:
     defaults: { _controller: BwchAjaxBundle:Default:getPlanDetailFeatures }
     methods:  [POST]
 
+bwch_ajax_getplandetailfeatures_as_html:
+    pattern:  /ajax/getPlanDetailFeaturesHTML
+    defaults: { _controller: BwchAjaxBundle:Default:getPlanDetailFeaturesHTML }
+    methods:  [GET, POST]
+
 bwch_ajax_saveplanfeatures:
     pattern:  /ajax/savePlanFeatures
     defaults: { _controller: BwchAjaxBundle:Default:savePlanFeatures }
@@ -106,12 +111,17 @@ bwch_ajax_saveplanprices:
 bwch_ajax_getplanfprices:
     pattern:  /ajax/getPlanFPrices
     defaults: { _controller: BwchAjaxBundle:Default:getPlanFPrices }
-    methods:  [POST]
+    methods:  [GET, POST]
 
 bwch_ajax_saveplanfprices:
     pattern:  /ajax/savePlanFPrices
     defaults: { _controller: BwchAjaxBundle:Default:savePlanFPrices }
     methods:  [POST]
+
+bwch_ajax_calculateplancost:
+    pattern:  /ajax/calculatePlanCost
+    defaults: { _controller: BwchAjaxBundle:Default:calculatePlanCost }
+    methods:  [POST, GET]
 
 bwch_ajax_getreviews:
     pattern:  /ajax/getReviews

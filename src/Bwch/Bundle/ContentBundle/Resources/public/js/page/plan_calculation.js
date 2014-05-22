@@ -2,6 +2,92 @@ jQuery(document).ready(function(){
 
 var planPrices = [];
 
+    $("#caclucateButton").on('click', function(e) {
+        e.preventDefault();
+
+        var planname = planSelectionField.F_GetSelectedOption(),
+            provider = providerSelectionField.F_GetSelectedOption(),
+            timeperiod = periodSelectionField.F_GetSelectedOption(),
+	    featuresValues = [],
+	    featuresNames = [];
+
+        if (provider == 'Please select...') {
+            alert('Please select Provider.');
+            return ;
+        }
+        if (planname == 'Please select...') {
+            alert('Please select Plan.');
+            return ;
+        }
+        if (isNaN(parseInt(timeperiod))) {
+            alert('Please select time period.');
+            return ;
+        }
+
+        $("#id_table___Plan-Feature-Details").find("input").each(function( index ) {
+            if (typeof $( this ).attr('id') !== "undefined") {
+                // YesNo Feature
+                if ($( this ).attr('id').indexOf('id_div___component-Radiobox_') >= 0) {
+		    featuresNames.push($( this ).attr('name'));
+                    featuresValues.push($( this ).val());
+                }
+                // Int Feature
+                if ($( this ).attr('id').indexOf('id_div___component-InputField_') >= 0) {
+		    featuresNames.push($( this ).attr('name'));
+                    featuresValues.push(parseInt($( this ).val()));
+                }
+            }
+
+        });
+
+        // Select Feature
+        $("#id_table___Plan-Feature-Details").find("li.class___element-status__selected").each(function( index ) {
+            var elInput = $($( this ).find("input:first"));
+    	    featuresNames.push(elInput.attr('name'));
+	    featuresValues.push((typeof features[elInput.attr('name')] !== 'undefined' ? features[elInput.attr('name')] + ',' : '') + elInput.val());
+        });
+
+        jQuery.ajax({
+            url: "/ajax/calculatePlanCost",
+            cache: false,
+            async: true,
+            type: "POST",
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({
+	        provider: provider,
+                planname: planname,
+                timeperiod: timeperiod,
+                featuresNames: featuresNames,
+                featuresValues: featuresValues
+            }),
+            beforeSend: function(){
+                jQuery('#calculatedPriceContainer').html('Please wait for calculation...');
+                jQuery("body").css("cursor", "progress");
+            },
+            success: function(response) {
+                if (response.status) {
+                    var data = response.data.data;
+
+                    jQuery('#calculatedPriceContainer').html('Price - ' + data.toFixed(2) + ' per ' + timeperiod + " months" );
+
+                } else {
+                    jQuery('#calculatedPriceContainer').html('Error occurred. Status is not set.');
+                }
+            },
+            error: function(xhr, status, error) {
+                jQuery('#calculatedPriceContainer').html('Error occurred ' + xhr.responseText + "status"+status + "err"+ error);
+            },
+
+            complete: function () {
+                jQuery("body").css("cursor", "default");
+            }
+        });
+
+
+
+    });
+
     function C_SelectionFieldReviewCollection() {
 
         var $=this,
@@ -9,13 +95,12 @@ var planPrices = [];
 
             hTypeSelectionField = new C_SelectionField(),
             providerSelectionField = new C_SelectionField(),
-            planSelectionField = new C_SelectionField();
+            planSelectionField = new C_SelectionField(),
             periodSelectionField = new C_SelectionField(),
 
             newOptions = [];
 
         hTypeSelectionField.F_OnChange = function(li){
-            console.log(hTypeSelectionField.F_GetSelectedOption())
             planSelectionField.F_DeleteOptions();
             providerSelectionField.F_OnChange();
         }
@@ -108,7 +193,7 @@ var planPrices = [];
             // Детали плана для таблички
             jQuery("#id_table___Plan-Feature-Details").empty();
             jQuery.ajax({
-                url: "/ajax/getPlanDetailFeatures",
+                url: "/ajax/getPlanDetailFeaturesHTML",
                 cache: false,
                 async: true,
                 type: "POST",
@@ -123,17 +208,16 @@ var planPrices = [];
                 },
                 success: function(response) {
                     if (response.status) {
-                        var data = response.data.data;
+                        jQuery("#id_table___Plan-Feature-Details").append(response.data.data);
 
-                        // Заполним табличку
-                        var html = '';
-                        for(var i=0; i<data.length; i++) {
-                            html += '<tr class="class_tr___element-height__25px" style="height:25px;">' +
-                                    '<th><i>' + data[i].displayname + '</i></th>' +
-                                    '<td><b>' + (data[i].type == 'yesno' ? 'YES' : data[i].value) + (data[i].type == 'int' && data[i].value != 'UNLIMITED' ? data[i].unit : '') + '</b></td>' +
-                                    '</tr>';
-                        }
-                        jQuery("#id_table___Plan-Feature-Details").append(html);
+                        jQuery(".class_div___component-InputFieldWithSlider").each(function(integer___index,object_dom___element)
+                        {
+                            var object___configuration=array_object___configuration[integer___index]||array_object___configuration[0];
+                            object___configuration.object_dom___component=object_dom___element;
+
+                            __object_object___C_InputFieldWithSlider[object___configuration.varchar___id]=new C_InputFieldWithSlider;
+                            __object_object___C_InputFieldWithSlider[object___configuration.varchar___id].F_Initialize(object___configuration);
+                        });
 
                     }
                 },
@@ -145,7 +229,7 @@ var planPrices = [];
 
         }
 
-        periodSelectionField.F_OnChange = function(li){
+/*        periodSelectionField.F_OnChange = function(li){
             var selectedMonths = this.F_GetSelectedOption(),
                 costPerMonth = 0,
                 costPerYear = 0,
@@ -168,7 +252,7 @@ var planPrices = [];
 
             jQuery('#calculatedPriceContainer').html('Price - ' + costPerMonth.toFixed(2) + ' ' + costCurrency + ' per month or ' + costPerYear.toFixed(2) + ' ' + costCurrency + ' per year');
 
-        }
+        }*/
 
         $.F_Initialize = function() {
             hTypeSelectionField.F_Initialize({

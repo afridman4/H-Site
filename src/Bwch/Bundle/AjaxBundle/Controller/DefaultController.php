@@ -511,6 +511,87 @@ class DefaultController extends Controller
 
     }
 
+    public function getPlanDetailFeaturesHTMLAction()
+    {
+        $request = Request::createFromGlobals();
+        $parameters = $request->request->all();
+        $provider = @$parameters['provider'];
+        $planname = @$parameters['planname'];
+
+        if (empty($provider) || empty($planname)) {
+            return self::sendErrors('Provider or Planname not set');
+        }
+
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'plan/' . rawurlencode($provider) . '/' . rawurlencode($planname));
+        $plans = json_decode($response->getContent());
+
+        if (empty($plans)) {
+            return self::sendErrors('Plan not found.');
+        }
+
+
+        // Уберем из результата все свойства плана.
+        $planfields = $this->container->getParameter('bwch.planfields');
+        $planfields = array_fill_keys($planfields, 0);
+        $plan = (array) @$plans[0];
+        $fprices = (array) @$plan['fprices'];
+
+        // попытаемся взять htype из плана
+        $htype = $plan['htype'];
+
+        $features = array_diff_key($plan, $planfields);
+        $features = array_map(create_function('$name, $value', 'return array("name" => $name, "value" => $value);'), array_keys($features), array_values($features));
+
+//        $htype = @$parameters['htype'];
+
+        if (empty($htype)) {
+            return self::sendErrors('HTypes not set');
+        }
+
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'features/' . rawurlencode($htype));
+        $htypeFeatures = json_decode($response->getContent(), true);
+
+        $html = '';
+        for($idx=0; $idx<count($features); $idx++) {
+            for($h=0; $h<count($htypeFeatures); $h++) {
+                if ($features[$idx]['name'] == $htypeFeatures[$h]['name']) {
+                    $features[$idx]['displayname'] = isset($htypeFeatures[$h]['displayname']) ? $htypeFeatures[$h]['displayname'] : $htypeFeatures[$h]['name'];
+                    $features[$idx]['description'] = isset($htypeFeatures[$h]['description']) ? $htypeFeatures[$h]['description'] : '';
+                    $features[$idx]['type'] = $htypeFeatures[$h]['type'];
+                    $features[$idx]['unit'] = $htypeFeatures[$h]['unit'];
+                    $features[$idx]['ismultiple'] = $htypeFeatures[$h]['ismultiple'];
+                }
+            }
+
+            // Additional FPrice information
+            for($i=0; $i<count($fprices); $i++) {
+                $fprice = (array) $fprices[$i];
+                if ($features[$idx]['name'] == $fprice['feature']) {
+                    $features[$idx]['id'] = $features[$idx]['name'];
+                    $features[$idx]['price'] = $fprice['price'];
+                    $features[$idx]['minvalue'] = $fprice['freevalue'];
+                    $features[$idx]['maxvalue'] = $features[$idx]['value'];
+                }
+            }
+
+
+            $html .= $this->renderView(
+                'BwchContentBundle:Plan:calculationPlanDetailsRow.html.twig',
+                array('feature' => $features[$idx])
+            );
+        }
+
+        $result = array(
+            'data' => $html,
+            'total' => 1,
+        );
+
+        return self::sendResponse($result);
+
+    }
+
     public function getPlanPricesAction()
     {
         $request = Request::createFromGlobals();
@@ -853,6 +934,51 @@ class DefaultController extends Controller
         return self::send($result);
 
     }
+
+    public function calculatePlanCostAction(Request $request)
+    {
+        $parameters = json_decode($request->getContent(), true);
+
+
+        $provider = @$parameters['provider'];
+        $planname = @$parameters['planname'];
+        $timeperiod = @$parameters['timeperiod'];
+        $featuresNames = @$parameters['featuresNames'];
+        $featuresValues = @$parameters['featuresValues'];
+
+        /*if (empty($provider) || empty($planname)) {
+            return self::sendErrors('Provider or Planname not set');
+        } */
+
+	$features = [];
+	for($idx=0; $idx<count($featuresNames); $idx++) {
+	    $features[$idx] = ['fname' => $featuresNames[$idx], 'fvalue' => $featuresValues[$idx]];
+	};
+
+        $postData = array(
+            'provider' => $provider,
+            'planname' => $planname,
+            'timeperiod' => $timeperiod,
+            'features' => $features,
+        );
+
+        $buzz = $this->container->get('buzz');
+        $response = $buzz->post($this->container->getParameter('bwch.server_url') . 'price/calculate', array("Content-Type: application/json"), json_encode($postData));
+
+        $planCost = json_decode($response->getContent());
+
+        if (is_float($planCost)) {
+        $result = array(
+                'data' => $planCost,
+                'total' => count($planCost),
+        );
+
+        return self::sendResponse($result);
+        } else {
+            return self::sendErrors();
+        }
+    }
+
 
 
 }

@@ -34,6 +34,10 @@ bwch_plan_details:
     pattern:  /plan/{provider}/{planname}
     defaults: { _controller: BwchContentBundle:Plan:details }
 
+bwch_plan_calculation-old:
+    pattern:  /calculation-old/{provider}/{planname}
+    defaults: { _controller: BwchContentBundle:Plan:calculation_old, provider:'' , planname:'' }
+
 bwch_plan_calculation:
     pattern:  /calculation/{provider}/{planname}
     defaults: { _controller: BwchContentBundle:Plan:calculation, provider:'' , planname:'' }

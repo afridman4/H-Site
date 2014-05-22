@@ -451,7 +451,7 @@ class PlanController extends Controller
         );
     }
 
-    public function calculationAction($provider = '', $planname = '')
+    public function calculation_oldAction($provider = '', $planname = '')
     {
         $buzz = $this->container->get('buzz');
         $serverURL = $this->container->getParameter('bwch.server_url');
@@ -525,5 +525,90 @@ class PlanController extends Controller
         );
     }
 
+    public function calculationAction($provider = '', $planname = '')
+    {
+        $buzz = $this->container->get('buzz');
+        $serverURL = $this->container->getParameter('bwch.server_url');
+
+        // Выбираем все HTypes
+        $response = $buzz->get($serverURL . 'htypes');
+        $htypes = json_decode($response->getContent(), true);
+
+        // Выбираем всех Providers
+        $response = $buzz->get($serverURL . 'providers');
+        $providers = json_decode($response->getContent());
+
+        // Если пришел Provider, выбираем все его Plans
+        if (!empty($provider)) {
+            $response = $buzz->get($serverURL . 'plans/' . rawurlencode($provider));
+            $plans = json_decode($response->getContent());
+        } else
+            $plans = array();
+
+        // Если пришел Planname, выбираем сразу все его детали
+        if (!empty($planname)) {
+            $response = $buzz->get($serverURL . 'plan/' . rawurlencode($provider) . '/' . rawurlencode($planname));
+            $planDetails = json_decode($response->getContent());
+            $planDetails = (array) $planDetails[0];
+
+            for($i=0; $i<count($htypes); $i++) {
+                if ($htypes[$i]['name'] == $planDetails['htype']) {
+                    $htype = $htypes[$i];
+                    break;
+                }
+            }
+            $prices = (array) @$planDetails['prices'];
+            $fprices = (array) @$planDetails['fprices'];
+
+            $planfields = $this->container->getParameter('bwch.planfields');
+            $planfields = array_fill_keys($planfields, 0);
+            $features = array_diff_key($planDetails, $planfields);
+            $features = array_map(create_function('$name, $value', 'return array("name" => $name, "value" => $value);'), array_keys($features), array_values($features));
+
+            $response = $buzz->get($this->container->getParameter('bwch.server_url') . 'features/' . rawurlencode($htype['name']));
+            $htypeFeatures = json_decode($response->getContent(), true);
+
+            foreach($features as $idx => $feature) {
+                for($i=0; $i<count($htypeFeatures); $i++) {
+                    if ($htypeFeatures[$i]['name'] == $features[$idx]['name']) {
+                        $features[$idx]['displayname'] = $htypeFeatures[$i]['displayname'];
+                        $features[$idx]['type'] = $htypeFeatures[$i]['type'];
+                        $features[$idx]['unit'] = $htypeFeatures[$i]['unit'];
+                    }
+                }
+
+                // Additional FPrice information
+                for($i=0; $i<count($fprices); $i++) {
+                    $fprice = (array) $fprices[$i];
+                    if ($features[$idx]['name'] == $fprice['feature']) {
+                        $features[$idx]['fprice'] = $fprice['price'];
+                        $features[$idx]['minvalue'] = $fprice['freevalue'];
+                        $features[$idx]['maxvalue'] = $fprice['numberunit'];
+                    }
+                }
+            }
+
+
+        } else {
+            $prices = array();
+            $features = array();
+            $htype = array();
+        }
+
+        return $this->render(
+            'BwchContentBundle:Plan:calculation.html.twig',
+            array(
+                'htypes' => $htypes,
+                'htype' => $htype,
+                'providers' => $providers,
+                'provider' => $provider,
+                'plans' => $plans,
+                'planname' => $planname,
+                'prices' => $prices,
+                'fprices' => $fprices,
+                'features' => $features,
+            )
+        );
+    }
 
 }
